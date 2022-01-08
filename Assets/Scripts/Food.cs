@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Food : MonoBehaviour
 {
-    float objects_initial_range = 60.0f;
-    float objects_initial_height = 1.0f;
+    float objInitialHeight = 1.0f;
+    float objInitialRange = 60.0f;
     Rigidbody rb;
 
     // Start is called before the first frame update
@@ -26,8 +26,8 @@ public class Food : MonoBehaviour
 
     public Vector3 GetPos()
     {
-        return new Vector3(Random.Range(-this.objects_initial_range, this.objects_initial_range),
-                        this.objects_initial_height,
-                        Random.Range(-this.objects_initial_range, this.objects_initial_range));
+        return new Vector3(Random.Range(-this.objInitialRange, this.objInitialRange),
+                        this.objInitialHeight,
+                        Random.Range(-this.objInitialRange, this.objInitialRange));
     }
 }

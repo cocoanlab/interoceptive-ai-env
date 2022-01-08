@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5421022598847480944}
   m_Layer: 0
   m_Name: FoodBlue
-  m_TagString: food_blue
+  m_TagString: food_bule
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57,6 +57,8 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -81,6 +83,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &3319548877482913524
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -122,4 +125,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f817addf42b67e94a98c1c0d4002472e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 0}
