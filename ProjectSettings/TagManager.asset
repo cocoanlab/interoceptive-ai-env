@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - agent
+  - food_red
+  - food_blue
   layers:
   - Default
   - TransparentFX
