@@ -4,14 +4,15 @@ using Unity.MLAgents.Sensors;
 
 public class FoodCollectorAgent : Agent
 {
-    FoodCollectorSettings m_FoodCollecterSettings;
     public GameObject area;
     FoodCollectorArea m_MyArea;
+    FoodCollectorSettings m_FoodCollecterSettings;
     Rigidbody m_AgentRb;
     float m_LaserLength;
+    EnvironmentParameters m_ResetParams;
 
     [Header("Movement")]
-    public float moveSpeed = 2.0f;
+    public float moveSpeed = 6.0f;
     public float turnSpeed = 200.0f;
 
     [Header("Merterials")]
@@ -19,7 +20,6 @@ public class FoodCollectorAgent : Agent
     public Material redMaterial;
     public Material blueMaterial;
 
-    EnvironmentParameters m_ResetParams;
 
     [Header("Resourses")]
     private int numResources = 2;
@@ -87,85 +87,11 @@ public class FoodCollectorAgent : Agent
         ResetObject(GameObject.FindGameObjectsWithTag("food_red"));
     }
 
-    void ResetObject(GameObject[] objects)
-    {
-        foreach (var food in objects)
-        {
-            // Area must be square!!
-            float food_x = food.transform.position.x;
-            float food_y = food.transform.position.y;
-            float food_z = food.transform.position.z;
-
-            float area_x = m_MyArea.transform.position.x;
-            float area_y = m_MyArea.transform.position.y;
-            float area_z = m_MyArea.transform.position.z;
-
-            if (food_x > (-m_MyArea.range + area_x) && food_x < (m_MyArea.range + area_x)
-                && food_y > area_y && food_y < m_MyArea.height + area_y
-                && food_z > (-m_MyArea.range + area_z) && food_z < (m_MyArea.range + area_z))
-            {
-                food.transform.position = new Vector3(Random.Range(-m_MyArea.range, m_MyArea.range),
-                    m_MyArea.height, Random.Range(-m_MyArea.range, m_MyArea.range)) + m_MyArea.transform.position;
-            }
-        }
-    }
-
-
-    //환경 정보를 관측 및 수집해 정책 결정을 위해 브레인에 전달하는 메소드
     public override void CollectObservations(VectorSensor sensor)
     {
         sensor.AddObservation(resourceLevels);
     }
 
-    public void MoveAgent(float[] act)
-    {
-        var dirToGo = Vector3.zero;
-        var rotateDir = Vector3.zero;
-
-        // Get the action index for movement
-        int action = Mathf.FloorToInt(act[0]);
-        /*** Action Category
-         * 0 : None 
-         * 1 : Forward  
-         * 2 : Left
-         * 3 : Right
-         * 4 : Eat
-         * ***/
-
-        this.isEat = false;
-        switch (action)
-        {
-            case 0:
-                break;
-            case 1:
-                dirToGo = transform.forward;
-                Debug.Log("Forward!");
-                break;
-            case 2:
-                rotateDir = -transform.up;
-                Debug.Log("Left!");
-                break;
-            case 3:
-                rotateDir = transform.up;
-                Debug.Log("Right!");
-                break;
-            case 4:
-                this.isEat = true;
-                Debug.Log("Eat!");
-                break;
-        }
-
-        m_AgentRb.AddForce(dirToGo * moveSpeed, ForceMode.VelocityChange);
-        transform.Rotate(rotateDir, Time.fixedDeltaTime * turnSpeed);
-
-        if (m_AgentRb.velocity.sqrMagnitude > 25f) // slow it down
-        {
-            m_AgentRb.velocity *= 0.95f;
-        }
-
-    }
-
-    //브레인(정책)으로 부터 전달 받은 행동을 실행하는 메소드
     public override void OnActionReceived(float[] vectorAction)
     {
         this.resourceLevels[0] -= this.lossRateRed * Time.fixedDeltaTime;
@@ -205,6 +131,70 @@ public class FoodCollectorAgent : Agent
         }
     }
 
+    //
+    public void ResetObject(GameObject[] objects)
+    {
+        foreach (var food in objects)
+        {
+            // Area must be square!!
+            float food_x = food.transform.position.x;
+            float food_y = food.transform.position.y;
+            float food_z = food.transform.position.z;
+
+            float area_x = m_MyArea.transform.position.x;
+            float area_y = m_MyArea.transform.position.y;
+            float area_z = m_MyArea.transform.position.z;
+
+            if (food_x > (-m_MyArea.range + area_x) && food_x < (m_MyArea.range + area_x)
+                && food_y > area_y && food_y < m_MyArea.height + area_y
+                && food_z > (-m_MyArea.range + area_z) && food_z < (m_MyArea.range + area_z))
+            {
+                food.transform.position = new Vector3(Random.Range(-m_MyArea.range, m_MyArea.range),
+                    m_MyArea.height, Random.Range(-m_MyArea.range, m_MyArea.range)) + m_MyArea.transform.position;
+            }
+        }
+    }
+
+    public void MoveAgent(float[] act)
+    {
+        var dirToGo = Vector3.zero;
+        var rotateDir = Vector3.zero;
+
+        // Get the action index for movement
+        int action = Mathf.FloorToInt(act[0]);
+        /*** Action Category
+         * 0 : None 
+         * 1 : Forward  
+         * 2 : Left
+         * 3 : Right
+         * 4 : Eat
+         * ***/
+
+        this.isEat = false;
+        switch (action)
+        {
+            case 0:
+                break;
+            case 1:
+                dirToGo = transform.forward;
+                m_AgentRb.velocity = dirToGo * moveSpeed;
+                Debug.Log("Forward!");
+                break;
+            case 2:
+                transform.Rotate(-transform.up, Time.fixedDeltaTime * turnSpeed);
+                Debug.Log("Left!");
+                break;
+            case 3:
+                transform.Rotate(transform.up, Time.fixedDeltaTime * turnSpeed);
+                Debug.Log("Right!");
+                break;
+            case 4:
+                this.isEat = true;
+                Debug.Log("Eat!");
+                break;
+        }
+    }
+
     public void SetResetParameters()
     {
         moveSpeed = m_ResetParams.GetWithDefault("move_speed", moveSpeed);
@@ -221,10 +211,6 @@ public class FoodCollectorAgent : Agent
         resourceEnergyBlue = m_ResetParams.GetWithDefault("resource_energy_blue", resourceEnergyBlue);
         lossRateBlue = m_ResetParams.GetWithDefault("loss_rate_blue", lossRateBlue);
 
-        numResourceRed = (int)m_ResetParams.GetWithDefault("num_resource_red", numResourceRed);
-        numResourceBlue = (int)m_ResetParams.GetWithDefault("num_resource_blue", numResourceBlue);
-        m_MyArea.numRed = numResourceRed;
-        m_MyArea.numBlue = numResourceBlue;
 
         m_LaserLength = m_ResetParams.GetWithDefault("laser_length", 1.0f);
     }

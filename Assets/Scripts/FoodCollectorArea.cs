@@ -1,14 +1,31 @@
 using UnityEngine;
+using Unity.MLAgents;
 using Unity.MLAgentsExamples;
 
-public class FoodCollectorArea : Area
+
+[System.Serializable]
+public class Food
 {
-    public GameObject PrefabBlue;
-    public GameObject PrefabRed;
-    public int numBlue;
-    public int numRed;
+    public GameObject prefab;
+    public int num;
+}
+public class FoodCollectorArea : MonoBehaviour
+{
+    EnvironmentParameters m_ResetParams;
+    public Food[] foods;
     public float range;
     public float height;
+    public void Awake()
+    {
+        m_ResetParams = Academy.Instance.EnvironmentParameters;
+    }
+    void SetFoodSize()
+    {
+        float numResourceRed = m_ResetParams.GetWithDefault("num_resource_red", 50.0f);
+        float numResourceBlue = m_ResetParams.GetWithDefault("num_resource_red", 50.0f);
+        foods[0].num = (int)numResourceBlue;
+        foods[1].num = (int)numResourceRed;
+    }
 
     void CreateFood(int num, GameObject type)
     {
@@ -32,12 +49,10 @@ public class FoodCollectorArea : Area
                 agent.transform.rotation = Quaternion.Euler(new Vector3(0f, Random.Range(0, 360)));
             }
         }
-
-        CreateFood(numBlue, PrefabBlue);
-        CreateFood(numRed, PrefabRed);
-    }
-
-    public override void ResetArea()
-    {
+        SetFoodSize();
+        foreach (Food food in foods)
+        {
+            CreateFood(food.num, food.prefab);
+        }
     }
 }
