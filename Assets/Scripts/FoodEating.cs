@@ -6,30 +6,24 @@ public class FoodEating : MonoBehaviour
 {
     public ForagerAgent agent;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     public void OnTriggerStay(Collider other)
     {
-        bool is_eaten = false;
-        if (agent.IsAgentTakingEatBehavior())
+        bool isEaten = false;
+        if (agent.IsAutoEat || agent.IsEat)
         {
             if (other.CompareTag("food_red"))
             {
-                agent.IncreaseResource("food_red");
-                is_eaten = true;
+                agent.IncreaseLevel("food_red");
+                isEaten = true;
             }
             else if (other.CompareTag("food_blue"))
             {
-                agent.IncreaseResource("food_blue");
-                is_eaten = true;
+                agent.IncreaseLevel("food_blue");
+                isEaten = true;
             }
         }
 
-        if (is_eaten)
+        if (isEaten)
         {
             other.transform.position = agent.GetPos();
         }
