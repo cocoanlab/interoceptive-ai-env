@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - agent
+  - wall
+  - ground
+  - food_red
+  - food_blue
   layers:
   - Default
   - TransparentFX
