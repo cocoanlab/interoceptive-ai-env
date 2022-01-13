@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Unity.MLAgents;
 
-public class FoodCollectorSettings : MonoBehaviour
+public class SceneInitialization : MonoBehaviour
 {
     [HideInInspector]
     public GameObject[] agents;

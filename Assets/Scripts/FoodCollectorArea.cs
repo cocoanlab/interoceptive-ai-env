@@ -1,24 +1,25 @@
 using UnityEngine;
 using Unity.MLAgents;
-using Unity.MLAgentsExamples;
-
 
 [System.Serializable]
 public class Food
 {
-    public GameObject prefab;
+    public FoodProperty prefab;
     public int num;
 }
+
 public class FoodCollectorArea : MonoBehaviour
 {
     EnvironmentParameters m_ResetParams;
     public Food[] foods;
     public float range;
     public float height;
+
     public void Awake()
     {
         m_ResetParams = Academy.Instance.EnvironmentParameters;
     }
+
     void SetFoodSize()
     {
         float numResourceRed = m_ResetParams.GetWithDefault("num_resource_red", 50.0f);
@@ -27,13 +28,22 @@ public class FoodCollectorArea : MonoBehaviour
         foods[1].num = (int)numResourceRed;
     }
 
-    void CreateFood(int num, GameObject type)
+    void CreateFood(int num, FoodProperty type)
     {
         for (int i = 0; i < num; i++)
         {
-            GameObject f = Instantiate(type, new Vector3(Random.Range(-range, range), 1f,
+            FoodProperty f = Instantiate(type, new Vector3(Random.Range(-range, range), 1f,
                 Random.Range(-range, range)) + transform.position,
                 Quaternion.Euler(new Vector3(0f, Random.Range(0f, 360f), 90f)));
+            f.InitializeProperties();
+            if (f.CompareTag("food_blue"))
+            {
+                f.name = "FoodBlue" + (i + 1).ToString();
+            }
+            else if (f.CompareTag("food_red"))
+            {
+                f.name = "FoodRed" + (i + 1).ToString();
+            }
         }
     }
 

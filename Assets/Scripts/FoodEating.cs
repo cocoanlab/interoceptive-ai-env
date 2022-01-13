@@ -28,6 +28,8 @@ public class FoodEating : MonoBehaviour
         {
             other.transform.position = new Vector3(Random.Range(-myArea.range, myArea.range),
             3f, Random.Range(-myArea.range, myArea.range)) + myArea.transform.position;
+            FoodProperty f = other.gameObject.GetComponent<FoodProperty>();
+            f.InitializeProperties();
         }
     }
 }

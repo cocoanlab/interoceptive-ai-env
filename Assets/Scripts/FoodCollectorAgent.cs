@@ -6,7 +6,7 @@ public class FoodCollectorAgent : Agent
 {
     public GameObject area;
     FoodCollectorArea m_MyArea;
-    FoodCollectorSettings m_FoodCollecterSettings;
+    SceneInitialization m_SceneInitialization;
     Rigidbody m_AgentRb;
     float m_LaserLength;
     EnvironmentParameters m_ResetParams;
@@ -19,6 +19,8 @@ public class FoodCollectorAgent : Agent
     public Material agentMerterial;
     public Material redMaterial;
     public Material blueMaterial;
+    public bool useOlfactoryObs;
+    public float SensorLength = 0.1f;
 
 
     [Header("Resourses")]
@@ -32,33 +34,35 @@ public class FoodCollectorAgent : Agent
 
     // red
     [Header("Red")]
-    private GameObject[] reds;
     public float maxEnergyLevelRed = 15.0f;
     public float minEnergyLevelRed = -15.0f;
     public float lossRateRed = 0.002f;
     public float resourceEnergyRed = 3.0f;
-    public int numResourceRed = 30;
 
     // blue
     [Header("Blue")]
-    private GameObject[] blues;
     public float maxEnergyLevelBlue = 15.0f;
     public float minEnergyLevelBlue = -15.0f;
     public float lossRateBlue = 0.002f;
     public float resourceEnergyBlue = 3.0f;
-    public int numResourceBlue = 30;
 
+    // olfactory
+    int olfactorySize = 10;
+    float[] olfactory;
+
+    FoodProperty[] FoodObjects;
 
     //초기화 작업을 위해 한번 호출되는 메소드
     public override void Initialize()
     {
         // For two resource
         this.resourceLevels = new float[this.numResources];
+        olfactory = new float[olfactorySize];
         this.autoEat = false;
 
         m_AgentRb = GetComponent<Rigidbody>();
         m_MyArea = area.GetComponent<FoodCollectorArea>();
-        m_FoodCollecterSettings = FindObjectOfType<FoodCollectorSettings>();
+        m_SceneInitialization = FindObjectOfType<SceneInitialization>();
         m_ResetParams = Academy.Instance.EnvironmentParameters;
         SetResetParameters();
     }
@@ -74,6 +78,12 @@ public class FoodCollectorAgent : Agent
             this.resourceLevels[i] = 0;
         }
 
+        // Reset olfactory
+        for (int i = 0; i < olfactorySize; i++)
+        {
+            olfactory[i] = 0;
+        }
+
         // Reset agent
         m_AgentRb.velocity = Vector3.zero;
         transform.position = new Vector3(Random.Range(-m_MyArea.range, m_MyArea.range),
@@ -83,25 +93,38 @@ public class FoodCollectorAgent : Agent
         SetResetParameters();
 
         // Reset cubes
-        ResetObject(GameObject.FindGameObjectsWithTag("food_blue"));
-        ResetObject(GameObject.FindGameObjectsWithTag("food_red"));
+        FoodObjects = FindObjectsOfType(typeof(FoodProperty)) as FoodProperty[];
+        ResetObject(FoodObjects);
     }
 
+    //환경 정보를 관측 및 수집해 정책 결정을 위해 브레인에 전달하는 메소드
     public override void CollectObservations(VectorSensor sensor)
     {
         sensor.AddObservation(resourceLevels);
+        if (useOlfactoryObs)
+        {
+            sensor.AddObservation(olfactory);
+        }
     }
 
+    //브레인(정책)으로 부터 전달 받은 행동을 실행하는 메소드
     public override void OnActionReceived(float[] vectorAction)
     {
         this.resourceLevels[0] -= this.lossRateRed * Time.fixedDeltaTime;
         this.resourceLevels[1] -= this.lossRateBlue * Time.fixedDeltaTime;
 
-        Debug.Log("0: " + resourceLevels[0] + ", 1: " + resourceLevels[1]);
-
         if ((this.maxEnergyLevelRed < this.resourceLevels[0] || this.resourceLevels[0] < this.minEnergyLevelRed)
         || (this.maxEnergyLevelBlue < this.resourceLevels[1] || this.resourceLevels[1] < this.minEnergyLevelBlue))
             EndEpisode();
+
+        PropertyObserving();
+        string olf = "Olfactory: ";
+        for (int i = 0; i < olfactorySize; i++)
+        {
+            olf += olfactory[i];
+            olf += ", ";
+        }
+        if (useOlfactoryObs) { Debug.Log(olf); }
         MoveAgent(vectorAction);
     }
 
@@ -132,7 +155,7 @@ public class FoodCollectorAgent : Agent
     }
 
     //
-    public void ResetObject(GameObject[] objects)
+    public void ResetObject(FoodProperty[] objects)
     {
         foreach (var food in objects)
         {
@@ -151,6 +174,7 @@ public class FoodCollectorAgent : Agent
             {
                 food.transform.position = new Vector3(Random.Range(-m_MyArea.range, m_MyArea.range),
                     m_MyArea.height, Random.Range(-m_MyArea.range, m_MyArea.range)) + m_MyArea.transform.position;
+                food.InitializeProperties();
             }
         }
     }
@@ -225,5 +249,35 @@ public class FoodCollectorAgent : Agent
         {
             this.resourceLevels[1] += this.resourceEnergyBlue;
         }
+    }
+
+    private void PropertyObserving()
+    {
+        for (int i = 0; i < olfactorySize; i++)
+        {
+            olfactory[i] = 0;
+        }
+
+        // agent 크기 바뀌면 z값 확인하기
+        Vector3 SpherePos = new Vector3(gameObject.transform.position.x,
+            gameObject.transform.position.y, gameObject.transform.position.z + 0.5f);
+        // Food layer
+        Collider[] foods = Physics.OverlapSphere(SpherePos, SensorLength, 1 << 8);
+
+        int j = 0;
+        foreach (Collider other in foods)
+        {
+            FoodProperty food = other.gameObject.GetComponent<FoodProperty>();
+            if (food.CompareTag("food_blue") || food.CompareTag("food_red"))
+            {
+                j += 1;
+                float foodDistance = Vector3.Distance(SpherePos, food.transform.position);
+                for (int i = 0; i < olfactorySize; i++)
+                {
+                    olfactory[i] += food.FoodP[i] * (1 / foodDistance);
+                }
+            }
+        }
+        //return olfactory;
     }
 }

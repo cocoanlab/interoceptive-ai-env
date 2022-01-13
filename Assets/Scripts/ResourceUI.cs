@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ResourceLevel : MonoBehaviour
+public class ResourceUI : MonoBehaviour
 {
     public Slider BlueLevel;
     public Slider RedLevel;
@@ -28,22 +28,8 @@ public class ResourceLevel : MonoBehaviour
         BlueLevel.value = blueLevel;
         RedLevel.value = redLevel;
 
-        if (blueLevel >= 0)
-        {
-            Bluehandle.color = Color.green;
-        }
-        else
-        {
-            Bluehandle.color = Color.red;
-        }
+        if (blueLevel >= 0) { Bluehandle.color = Color.green; } else { Bluehandle.color = Color.red; }
 
-        if (redLevel >= 0)
-        {
-            Redhandle.color = Color.green;
-        }
-        else
-        {
-            Redhandle.color = Color.red;
-        }
+        if (redLevel >= 0) { Redhandle.color = Color.green; } else { Redhandle.color = Color.red; }
     }
 }
