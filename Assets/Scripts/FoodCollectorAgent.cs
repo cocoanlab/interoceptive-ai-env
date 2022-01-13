@@ -1,15 +1,20 @@
 using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
+using System;
+
 
 public class FoodCollectorAgent : Agent
 {
     public GameObject area;
+    public GameObject sun;
+    public GameObject hotzone;
     FoodCollectorArea m_MyArea;
     SceneInitialization m_SceneInitialization;
     Rigidbody m_AgentRb;
     float m_LaserLength;
     EnvironmentParameters m_ResetParams;
+    DayAndNight m_sun;
 
     [Header("Movement")]
     public float moveSpeed = 6.0f;
@@ -24,7 +29,7 @@ public class FoodCollectorAgent : Agent
 
 
     [Header("Resourses")]
-    private int numResources = 2;
+    private int numResources = 6;
     private float[] resourceLevels;
     public float[] ResourceLevels { get { return resourceLevels; } set { resourceLevels = value; } }
     private bool autoEat = false;
@@ -50,6 +55,26 @@ public class FoodCollectorAgent : Agent
     int olfactorySize = 10;
     float[] olfactory;
 
+    bool isOnHotzone;
+    public float lossRate = 0.002f;
+
+    float rTt;
+
+    //energe increase rate per action
+    float raE = 0.1f;
+    float raT = 0.1f;
+    float raB = 0.1f;
+
+    //energy decrease rate per action
+    float rEa = -0.002f;
+    float rBa = 0.002f;
+    float rGE = -0.005f;
+    float rOE = -0.005f;
+    float rET = -0.005f;
+    float rOT = -0.005f;
+    float rEB = -0.005f;
+    float rOB = -0.005f;
+
     FoodProperty[] FoodObjects;
 
     //초기화 작업을 위해 한번 호출되는 메소드
@@ -59,11 +84,13 @@ public class FoodCollectorAgent : Agent
         this.resourceLevels = new float[this.numResources];
         olfactory = new float[olfactorySize];
         this.autoEat = false;
+        isOnHotzone = false;
 
         m_AgentRb = GetComponent<Rigidbody>();
         m_MyArea = area.GetComponent<FoodCollectorArea>();
         m_SceneInitialization = FindObjectOfType<SceneInitialization>();
         m_ResetParams = Academy.Instance.EnvironmentParameters;
+        m_sun = sun.GetComponent<DayAndNight>();
         SetResetParameters();
     }
 
@@ -72,6 +99,7 @@ public class FoodCollectorAgent : Agent
     {
         print("New episode begin");
 
+        isOnHotzone = false;
         // Reset energy
         for (int i = 0; i < this.numResources; i++)
         {
@@ -86,10 +114,10 @@ public class FoodCollectorAgent : Agent
 
         // Reset agent
         m_AgentRb.velocity = Vector3.zero;
-        transform.position = new Vector3(Random.Range(-m_MyArea.range, m_MyArea.range),
-            2f, Random.Range(-m_MyArea.range, m_MyArea.range))
+        transform.position = new Vector3(UnityEngine.Random.Range(-m_MyArea.range, m_MyArea.range),
+            2f, UnityEngine.Random.Range(-m_MyArea.range, m_MyArea.range))
             + area.transform.position;
-        transform.rotation = Quaternion.Euler(new Vector3(0f, Random.Range(0, 360)));
+        transform.rotation = Quaternion.Euler(new Vector3(0f, UnityEngine.Random.Range(0, 360)));
         SetResetParameters();
 
         // Reset cubes
@@ -106,15 +134,45 @@ public class FoodCollectorAgent : Agent
             sensor.AddObservation(olfactory);
         }
     }
+    void EnergyFallingPerStep()
+    {
+        // calculate rate of temperature loss with sun angle
+        float sunAngle = m_sun.GetSunAngle();
+        if (sunAngle >= 0 && sunAngle <= 90)
+        {
+            rTt = sunAngle + 92;
+        }
+        else if (sunAngle >= 270 && sunAngle <= 360)
+        {
+            rTt = sunAngle - 269;
+        }
+        rTt = 183 - rTt;
 
+        // isOnHotzone = m_hotzone.IsAgentOnHotzone();
+        this.resourceLevels[0] -= lossRateBlue; // O
+        this.resourceLevels[1] -= lossRateRed; // G
+        this.resourceLevels[2] -= lossRate; // B
+        this.resourceLevels[3] -= lossRate * (1 + rTt / 182); // T
+        this.resourceLevels[4] -= lossRate; // E
+        this.resourceLevels[5] = 0;
+
+        for (int i = 0; i < numResources - 1; i++)
+        {
+            this.resourceLevels[5] += this.resourceLevels[i];
+        }
+        this.resourceLevels[5] = this.resourceLevels[5] / (numResources - 1);
+    }
     //브레인(정책)으로 부터 전달 받은 행동을 실행하는 메소드
     public override void OnActionReceived(float[] vectorAction)
     {
-        this.resourceLevels[0] -= this.lossRateRed * Time.fixedDeltaTime;
-        this.resourceLevels[1] -= this.lossRateBlue * Time.fixedDeltaTime;
+        EnergyFallingPerStep();
+        // this.resourceLevels[0] -= this.lossRateRed * Time.fixedDeltaTime;
+        // this.resourceLevels[1] -= this.lossRateBlue * Time.fixedDeltaTime;
 
-        if ((this.maxEnergyLevelRed < this.resourceLevels[0] || this.resourceLevels[0] < this.minEnergyLevelRed)
-        || (this.maxEnergyLevelBlue < this.resourceLevels[1] || this.resourceLevels[1] < this.minEnergyLevelBlue))
+        float maxDeviation = Mathf.Max(Mathf.Abs(resourceLevels[2]), Mathf.Abs(resourceLevels[3]), Mathf.Abs(resourceLevels[4]), Mathf.Abs(resourceLevels[5]));
+        if ((this.maxEnergyLevelBlue < this.resourceLevels[0] || this.resourceLevels[0] < this.minEnergyLevelBlue)
+        || (this.maxEnergyLevelRed < this.resourceLevels[1] || this.resourceLevels[1] < this.minEnergyLevelRed)
+        || (maxDeviation > 15.0f))
             EndEpisode();
 
         PropertyObserving();
@@ -124,7 +182,7 @@ public class FoodCollectorAgent : Agent
             olf += olfactory[i];
             olf += ", ";
         }
-        if (useOlfactoryObs) { Debug.Log(olf); }
+        // if (useOlfactoryObs) { Debug.Log(olf); }
         MoveAgent(vectorAction);
     }
 
@@ -152,9 +210,24 @@ public class FoodCollectorAgent : Agent
             actionsOut[0] = 4f;
             Debug.Log("Eat!");
         }
+        if (Input.GetKey(KeyCode.A))
+        {
+            actionsOut[0] = 5f;
+            Debug.Log("Increase E!");
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            actionsOut[0] = 6f;
+            Debug.Log("Increase T!");
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            actionsOut[0] = 7f;
+            Debug.Log("Increase B!");
+        }
+
     }
 
-    //
     public void ResetObject(FoodProperty[] objects)
     {
         foreach (var food in objects)
@@ -172,8 +245,8 @@ public class FoodCollectorAgent : Agent
                 && food_y > area_y && food_y < m_MyArea.height + area_y
                 && food_z > (-m_MyArea.range + area_z) && food_z < (m_MyArea.range + area_z))
             {
-                food.transform.position = new Vector3(Random.Range(-m_MyArea.range, m_MyArea.range),
-                    m_MyArea.height, Random.Range(-m_MyArea.range, m_MyArea.range)) + m_MyArea.transform.position;
+                food.transform.position = new Vector3(UnityEngine.Random.Range(-m_MyArea.range, m_MyArea.range),
+                    m_MyArea.height, UnityEngine.Random.Range(-m_MyArea.range, m_MyArea.range)) + m_MyArea.transform.position;
                 food.InitializeProperties();
             }
         }
@@ -192,6 +265,9 @@ public class FoodCollectorAgent : Agent
          * 2 : Left
          * 3 : Right
          * 4 : Eat
+         * 5 : Increase energy(green) & decrease gluco(red) & decrease osmo(blue)
+         * 6 : Increase Thermo(yellow) & decrease energy(green) & decrease osmo(blue)
+         * 7 : Increase Baro(orange) & decrease energy(green) & decrease osmo(blue)
          * ***/
 
         this.isEat = false;
@@ -202,20 +278,46 @@ public class FoodCollectorAgent : Agent
             case 1:
                 dirToGo = transform.forward;
                 m_AgentRb.velocity = dirToGo * moveSpeed;
+                this.resourceLevels[4] += rEa;
                 Debug.Log("Forward!");
                 break;
             case 2:
                 transform.Rotate(-transform.up, Time.fixedDeltaTime * turnSpeed);
+                this.resourceLevels[4] += rEa;
+                this.resourceLevels[2] += rBa;
                 Debug.Log("Left!");
                 break;
             case 3:
                 transform.Rotate(transform.up, Time.fixedDeltaTime * turnSpeed);
+                this.resourceLevels[4] += rEa;
+                this.resourceLevels[2] += rBa;
                 Debug.Log("Right!");
                 break;
             case 4:
                 this.isEat = true;
+                this.resourceLevels[4] += rEa;
+                this.resourceLevels[2] += rBa;
                 Debug.Log("Eat!");
                 break;
+            case 5:
+                this.resourceLevels[4] += raE; // increse E
+                this.resourceLevels[1] += rGE; // decrease G
+                this.resourceLevels[0] += rOE; // decrease O
+                Debug.Log("Increase E!");
+                break;
+            case 6:
+                this.resourceLevels[3] += raT; // increase T
+                this.resourceLevels[4] += rET; // decrease E
+                this.resourceLevels[0] += rOT; // decrease O
+                Debug.Log("Increase T!");
+                break;
+            case 7:
+                this.resourceLevels[2] += raB; // increase B
+                this.resourceLevels[4] += rEB; // decrease E
+                this.resourceLevels[0] += rOB; // decrease O
+                Debug.Log("Increase B!");
+                break;
+
         }
     }
 
@@ -241,13 +343,13 @@ public class FoodCollectorAgent : Agent
 
     public void IncreaseLevel(string tag)
     {
-        if (tag == "food_red")
-        {
-            this.resourceLevels[0] += this.resourceEnergyRed;
-        }
         if (tag == "food_blue")
         {
-            this.resourceLevels[1] += this.resourceEnergyBlue;
+            this.resourceLevels[0] += this.resourceEnergyBlue;
+        }
+        if (tag == "food_red")
+        {
+            this.resourceLevels[1] += this.resourceEnergyRed;
         }
     }
 

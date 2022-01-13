@@ -55,4 +55,5 @@ public class DayAndNight : MonoBehaviour
             }
         }
     }
+    public float GetSunAngle() => transform.rotation.eulerAngles.x;
 }
