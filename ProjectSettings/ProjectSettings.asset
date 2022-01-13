@@ -134,7 +134,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.2.3
+  bundleVersion: 0.3.0
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -667,6 +667,8 @@ PlayerSettings:
   cloudServicesEnabled:
     Build: 0
     Collab: 1
+    ErrorHub: 0
+    Hub: 0
     UNet: 1
   luminIcon:
     m_Name: 
@@ -681,10 +683,10 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
-  cloudProjectId: 65a9fee0-10ff-41a7-9dae-2d2251c8ae23
+  cloudProjectId: c6d56055-cf88-4d80-baf9-373657761010
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: TwoResource2+
+  projectName: TwoResource3+
   organizationId: unity_1fdreseshx8vsa
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
