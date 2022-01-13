@@ -15,6 +15,7 @@ public class FoodCollectorAgent : Agent
     float m_LaserLength;
     EnvironmentParameters m_ResetParams;
     DayAndNight m_sun;
+    Hotzone m_hotzone;
 
     [Header("Movement")]
     public float moveSpeed = 6.0f;
@@ -91,6 +92,7 @@ public class FoodCollectorAgent : Agent
         m_SceneInitialization = FindObjectOfType<SceneInitialization>();
         m_ResetParams = Academy.Instance.EnvironmentParameters;
         m_sun = sun.GetComponent<DayAndNight>();
+        m_hotzone = hotzone.GetComponent<Hotzone>();
         SetResetParameters();
     }
 
@@ -148,11 +150,11 @@ public class FoodCollectorAgent : Agent
         }
         rTt = 183 - rTt;
 
-        // isOnHotzone = m_hotzone.IsAgentOnHotzone();
+        isOnHotzone = m_hotzone.OnHotzone;
         this.resourceLevels[0] -= lossRateBlue; // O
         this.resourceLevels[1] -= lossRateRed; // G
         this.resourceLevels[2] -= lossRate; // B
-        this.resourceLevels[3] -= lossRate * (1 + rTt / 182); // T
+        this.resourceLevels[3] -= lossRate * (1 + rTt / 182) - (isOnHotzone ? 0.003f : 0f); // T
         this.resourceLevels[4] -= lossRate; // E
         this.resourceLevels[5] = 0;
 
