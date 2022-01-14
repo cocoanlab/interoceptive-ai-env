@@ -645,6 +645,16 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 7486890785137107579, guid: 38400a68c4ea54b52998e34ee238d1a7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9020153274155565943, guid: 38400a68c4ea54b52998e34ee238d1a7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38400a68c4ea54b52998e34ee238d1a7, type: 3}
 --- !u!1 &276332467
@@ -1162,9 +1172,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa42205c8b8f747ff8e7a6d58e76ae6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  secondPerRealTimeSecound: 80
-  fogDensityCalc: 0.15
-  nightFogDensity: 0.35
+  secondPerRealTimeSecound: 0
+  fogDensityCalc: 0
+  nightFogDensity: 0
 --- !u!1 &739219502
 GameObject:
   m_ObjectHideFlags: 0
