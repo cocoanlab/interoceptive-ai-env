@@ -26,10 +26,20 @@ public class FoodEating : MonoBehaviour
 
         if (isEaten)
         {
-            other.transform.position = new Vector3(Random.Range(-myArea.range, myArea.range),
-            3f, Random.Range(-myArea.range, myArea.range)) + myArea.transform.position;
-            FoodProperty f = other.gameObject.GetComponent<FoodProperty>();
-            f.InitializeProperties();
+            if (other.CompareTag("food_blue"))
+            {
+                other.transform.position = new Vector3(Random.Range(-myArea.range, -5),
+                3f, Random.Range(20, myArea.range)) + myArea.transform.position;
+                FoodProperty f = other.gameObject.GetComponent<FoodProperty>();
+                f.InitializeProperties();
+            }
+            else if (other.CompareTag("food_red"))
+            {
+                other.transform.position = new Vector3(Random.Range(5, myArea.range),
+                3f, Random.Range(20, myArea.range)) + myArea.transform.position;
+                FoodProperty f = other.gameObject.GetComponent<FoodProperty>();
+                f.InitializeProperties();
+            }
         }
     }
 }

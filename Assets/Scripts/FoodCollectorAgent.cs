@@ -86,9 +86,7 @@ public class FoodCollectorAgent : Agent
 
         // Reset agent
         m_AgentRb.velocity = Vector3.zero;
-        transform.position = new Vector3(Random.Range(-m_MyArea.range, m_MyArea.range),
-            2f, Random.Range(-m_MyArea.range, m_MyArea.range))
-            + area.transform.position;
+        transform.position = new Vector3(0, 2f, 0f) + area.transform.position;
         transform.rotation = Quaternion.Euler(new Vector3(0f, Random.Range(0, 360)));
         SetResetParameters();
 
@@ -154,7 +152,6 @@ public class FoodCollectorAgent : Agent
         }
     }
 
-    //
     public void ResetObject(FoodProperty[] objects)
     {
         foreach (var food in objects)
@@ -168,14 +165,25 @@ public class FoodCollectorAgent : Agent
             float area_y = m_MyArea.transform.position.y;
             float area_z = m_MyArea.transform.position.z;
 
+            // 특정 지역에 큐브 뿌리ㄱ
             if (food_x > (-m_MyArea.range + area_x) && food_x < (m_MyArea.range + area_x)
                 && food_y > area_y && food_y < m_MyArea.height + area_y
-                && food_z > (-m_MyArea.range + area_z) && food_z < (m_MyArea.range + area_z))
+                && food_z > (-m_MyArea.range + area_z) && food_z < (m_MyArea.range + area_z) && food.CompareTag("food_blue"))
             {
-                food.transform.position = new Vector3(Random.Range(-m_MyArea.range, m_MyArea.range),
-                    m_MyArea.height, Random.Range(-m_MyArea.range, m_MyArea.range)) + m_MyArea.transform.position;
+                food.transform.position = new Vector3(Random.Range(-m_MyArea.range, -5),
+                    m_MyArea.height, Random.Range(20, m_MyArea.range)) + m_MyArea.transform.position;
                 food.InitializeProperties();
             }
+
+            else if (food_x > (-m_MyArea.range + area_x) && food_x < (m_MyArea.range + area_x)
+                && food_y > area_y && food_y < m_MyArea.height + area_y
+                && food_z > (-m_MyArea.range + area_z) && food_z < (m_MyArea.range + area_z) && food.CompareTag("food_red"))
+            {
+                food.transform.position = new Vector3(Random.Range(5, m_MyArea.range),
+                    m_MyArea.height, Random.Range(20, m_MyArea.range)) + m_MyArea.transform.position;
+                food.InitializeProperties();
+            }
+
         }
     }
 
@@ -241,13 +249,13 @@ public class FoodCollectorAgent : Agent
 
     public void IncreaseLevel(string tag)
     {
-        if (tag == "food_red")
-        {
-            this.resourceLevels[0] += this.resourceEnergyRed;
-        }
         if (tag == "food_blue")
         {
-            this.resourceLevels[1] += this.resourceEnergyBlue;
+            this.resourceLevels[0] += this.resourceEnergyBlue;
+        }
+        if (tag == "food_red")
+        {
+            this.resourceLevels[1] += this.resourceEnergyRed;
         }
     }
 
