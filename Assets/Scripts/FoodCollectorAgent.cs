@@ -16,6 +16,9 @@ public class FoodCollectorAgent : Agent
     EnvironmentParameters m_ResetParams;
     DayAndNight m_sun;
 
+    // animator
+    public Animator animator;
+    
     [Header("Movement")]
     public float moveSpeed = 6.0f;
     public float turnSpeed = 200.0f;
@@ -271,23 +274,27 @@ public class FoodCollectorAgent : Agent
          * ***/
 
         this.isEat = false;
+        animator.SetBool("Walk", false);
         switch (action)
         {
             case 0:
                 break;
             case 1:
+                animator.SetBool("Walk", true);
                 dirToGo = transform.forward;
                 m_AgentRb.velocity = dirToGo * moveSpeed;
                 this.resourceLevels[4] += rEa;
                 Debug.Log("Forward!");
                 break;
             case 2:
+                animator.SetBool("Walk", true);
                 transform.Rotate(-transform.up, Time.fixedDeltaTime * turnSpeed);
                 this.resourceLevels[4] += rEa;
                 this.resourceLevels[2] += rBa;
                 Debug.Log("Left!");
                 break;
             case 3:
+                animator.SetBool("Walk", true);
                 transform.Rotate(transform.up, Time.fixedDeltaTime * turnSpeed);
                 this.resourceLevels[4] += rEa;
                 this.resourceLevels[2] += rBa;
