@@ -9,7 +9,7 @@ public class FoodCollectorAgent : Agent
 {
     public GameObject area;
     public GameObject sun;
-    public GameObject hotzone;
+    // public GameObject hotzone;
     FoodCollectorArea m_MyArea;
     SceneInitialization m_SceneInitialization;
     Rigidbody m_AgentRb;
@@ -24,10 +24,6 @@ public class FoodCollectorAgent : Agent
     public float moveSpeed = 6.0f;
     public float turnSpeed = 200.0f;
 
-    [Header("Merterials")]
-    public Material agentMerterial;
-    public Material redMaterial;
-    public Material blueMaterial;
     public bool useOlfactoryObs;
     public float SensorLength = 0.1f;
 
