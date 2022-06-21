@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-using MathNet.Numerics;
+// using MathNet.Numerics;
 
 public class FoodProperty : MonoBehaviour
 {

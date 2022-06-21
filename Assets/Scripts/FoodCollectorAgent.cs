@@ -1,6 +1,7 @@
 using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
+using Unity.MLAgents.Actuators;
 using System;
 
 
@@ -18,7 +19,7 @@ public class FoodCollectorAgent : Agent
 
     // animator
     public Animator animator;
-    
+
     [Header("Movement")]
     public float moveSpeed = 6.0f;
     public float turnSpeed = 200.0f;
@@ -166,7 +167,7 @@ public class FoodCollectorAgent : Agent
         this.resourceLevels[5] = this.resourceLevels[5] / (numResources - 1);
     }
     //브레인(정책)으로 부터 전달 받은 행동을 실행하는 메소드
-    public override void OnActionReceived(float[] vectorAction)
+    public override void OnActionReceived(ActionBuffers actions)
     {
         EnergyFallingPerStep();
         // this.resourceLevels[0] -= this.lossRateRed * Time.fixedDeltaTime;
@@ -186,46 +187,47 @@ public class FoodCollectorAgent : Agent
             olf += ", ";
         }
         // if (useOlfactoryObs) { Debug.Log(olf); }
-        MoveAgent(vectorAction);
+        MoveAgent(actions);
     }
 
     //개발자(사용자)가 직접 명령을 내릴때 호출하는 메소드(주로 테스트용도 또는 모방학습에 사용)
-    public override void Heuristic(float[] actionsOut)
+    public override void Heuristic(in ActionBuffers actionsOut)
     {
-        actionsOut[0] = 0f;
+        var discreteActionsOut = actionsOut.DiscreteActions;
+        discreteActionsOut[0] = 0;
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            actionsOut[0] = 1f;
+            discreteActionsOut[0] = 1;
             Debug.Log("Forward!");
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            actionsOut[0] = 2f;
+            discreteActionsOut[0] = 2;
             Debug.Log("Left!");
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            actionsOut[0] = 3f;
+            discreteActionsOut[0] = 3;
             Debug.Log("Right!");
         }
         if (Input.GetKey(KeyCode.Space))
         {
-            actionsOut[0] = 4f;
+            discreteActionsOut[0] = 4;
             Debug.Log("Eat!");
         }
         if (Input.GetKey(KeyCode.A))
         {
-            actionsOut[0] = 5f;
+            discreteActionsOut[0] = 5;
             Debug.Log("Increase E!");
         }
         if (Input.GetKey(KeyCode.S))
         {
-            actionsOut[0] = 6f;
+            discreteActionsOut[0] = 6;
             Debug.Log("Increase T!");
         }
         if (Input.GetKey(KeyCode.D))
         {
-            actionsOut[0] = 7f;
+            discreteActionsOut[0] = 7;
             Debug.Log("Increase B!");
         }
 
@@ -255,13 +257,13 @@ public class FoodCollectorAgent : Agent
         }
     }
 
-    public void MoveAgent(float[] act)
+    public void MoveAgent(ActionBuffers actions)
     {
         var dirToGo = Vector3.zero;
         var rotateDir = Vector3.zero;
 
         // Get the action index for movement
-        int action = Mathf.FloorToInt(act[0]);
+        int action = Mathf.FloorToInt(actions.DiscreteActions[0]);
         /*** Action Category
          * 0 : None 
          * 1 : Forward  
