@@ -1,12 +1,11 @@
 {
   "dependencies": {
-    "com.unity.collab-proxy": "1.15.7",
-    "com.unity.ide.vscode": "1.2.4",
-    "com.unity.ml-agents": "1.0.8",
-    "com.unity.quicksearch": "2.0.2",
-    "com.unity.test-framework": "1.1.30",
+    "com.unity.collab-proxy": "1.15.15",
+    "com.unity.ide.vscode": "1.2.5",
+    "com.unity.ml-agents": "2.0.0",
+    "com.unity.test-framework": "1.1.31",
     "com.unity.textmeshpro": "3.0.6",
-    "com.unity.timeline": "1.4.8",
+    "com.unity.timeline": "1.6.4",
     "com.unity.ugui": "1.0.0",
     "com.vladfaust.unitywakatime": "https://github.com/vladfaust/unity-wakatime.git#package",
     "com.unity.modules.ai": "1.0.0",
