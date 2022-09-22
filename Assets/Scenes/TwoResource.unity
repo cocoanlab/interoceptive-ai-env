@@ -452,6 +452,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114176228333253036, guid: 38400a68c4ea54b52998e34ee238d1a7,
         type: 3}
+      propertyPath: lossRateRed
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114176228333253036, guid: 38400a68c4ea54b52998e34ee238d1a7,
+        type: 3}
+      propertyPath: lossRateBlue
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114176228333253036, guid: 38400a68c4ea54b52998e34ee238d1a7,
+        type: 3}
       propertyPath: agentMerterial
       value: 
       objectReference: {fileID: 2100000, guid: b0da1813c36914e678ba57f2790424e1, type: 2}
