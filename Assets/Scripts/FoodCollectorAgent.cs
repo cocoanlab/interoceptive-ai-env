@@ -25,7 +25,7 @@ public class FoodCollectorAgent : Agent
 
 
         [Header("Resourses")]
-        private int numResources = 2;
+        public int numResources = 2;
         private float[] resourceLevels;
         public float[] ResourceLevels { get { return resourceLevels; } set { resourceLevels = value; } }
         private bool autoEat = false;
@@ -243,8 +243,7 @@ public class FoodCollectorAgent : Agent
                 minEnergyLevelBlue = m_ResetParams.GetWithDefault("min_energy_level_blue", minEnergyLevelBlue);
                 resourceEnergyBlue = m_ResetParams.GetWithDefault("resource_energy_blue", resourceEnergyBlue);
                 lossRateBlue = m_ResetParams.GetWithDefault("loss_rate_blue", lossRateBlue);
-
-
+                
                 m_LaserLength = m_ResetParams.GetWithDefault("laser_length", 1.0f);
         }
 

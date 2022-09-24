@@ -23,7 +23,7 @@ public class FoodCollectorArea : MonoBehaviour
     void SetFoodSize()
     {
         float numResourceRed = m_ResetParams.GetWithDefault("num_resource_red", 50.0f);
-        float numResourceBlue = m_ResetParams.GetWithDefault("num_resource_red", 50.0f);
+        float numResourceBlue = m_ResetParams.GetWithDefault("num_resource_blue", 50.0f);
         foods[0].num = (int)numResourceBlue;
         foods[1].num = (int)numResourceRed;
     }
