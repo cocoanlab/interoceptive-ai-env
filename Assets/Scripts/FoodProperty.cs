@@ -2,6 +2,7 @@
 using UnityEngine;
 using MathNet.Numerics;
 
+// Food 클래스의 멤버 변수 prefab을 선언할 때 사용됨
 public class FoodProperty : MonoBehaviour
 {
     int VectorSize = 10;
@@ -20,6 +21,7 @@ public class FoodProperty : MonoBehaviour
 
     public float[] FoodP { get; private set; }
 
+    // 음식이 가진 property 초기화 함수 (벡터 성분 초기화)
     public void InitializeProperties()
     {
         if (gameObject.CompareTag("food_blue"))
@@ -32,6 +34,7 @@ public class FoodProperty : MonoBehaviour
         }
     }
 
+    // Sniffing을 할 때 음식에 대한 noise 설정 함수
     private float[] AddNoise(float[] property)
     {
         for (int i = 0; i < VectorSize; i++)

@@ -8,10 +8,16 @@ public class Food
     public int num;
 }
 
+// GameObject인 FoodCollectorArea에 부착함
 public class FoodCollectorArea : MonoBehaviour
 {
+    // MLAgent 내장 클래스
     EnvironmentParameters m_ResetParams;
+
+    // Food 클래스의 리스트 foods
     public Food[] foods;
+
+    // range는 음식이 생성되는 범위의 가로와 세로 (정사각형), height은 음식이 떨어지는 높이
     public float range;
     public float height;
 
@@ -20,14 +26,17 @@ public class FoodCollectorArea : MonoBehaviour
         m_ResetParams = Academy.Instance.EnvironmentParameters;
     }
 
+    // 음식의 생성 개수 조절
     void SetFoodSize()
     {
+        // 하이퍼파라미터 설정 (아마 Python에 존재)에서 num_resource_red가 있으면 그 값을 가져오고 없으면 50으로 설정
         float numResourceRed = m_ResetParams.GetWithDefault("num_resource_red", 50.0f);
         float numResourceBlue = m_ResetParams.GetWithDefault("num_resource_blue", 50.0f);
         foods[0].num = (int)numResourceBlue;
         foods[1].num = (int)numResourceRed;
     }
 
+    // 음식 생성 함수
     void CreateFood(int num, FoodProperty type)
     {
         for (int i = 0; i < num; i++)
@@ -47,6 +56,7 @@ public class FoodCollectorArea : MonoBehaviour
         }
     }
 
+    // 영역 초기화 함수
     public void ResetFoodArea(GameObject[] agents)
     {
         foreach (GameObject agent in agents)

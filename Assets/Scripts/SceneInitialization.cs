@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Unity.MLAgents;
 
+// GameObject인 FoodCollectorSettings에 부착됨
 public class SceneInitialization : MonoBehaviour
 {
     [HideInInspector]
