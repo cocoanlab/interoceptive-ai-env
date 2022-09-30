@@ -51,15 +51,16 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ml-agents": {
-      "version": "2.0.0",
+      "version": "file:/Users/sungwoo320/Documents/InteroceptiveAI/ml-agents/com.unity.ml-agents",
       "depth": 0,
-      "source": "registry",
+      "source": "local",
       "dependencies": {
-        "com.unity.barracuda": "2.0.0",
+        "com.unity.barracuda": "1.1.2-preview",
         "com.unity.modules.imageconversion": "1.0.0",
-        "com.unity.modules.jsonserialize": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
+        "com.unity.modules.jsonserialize": "1.0.0",
+        "com.unity.modules.physics": "1.0.0",
+        "com.unity.modules.physics2d": "1.0.0"
+      }
     },
     "com.unity.services.core": {
       "version": "1.0.1",
