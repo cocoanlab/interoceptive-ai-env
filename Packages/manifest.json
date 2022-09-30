@@ -2,7 +2,7 @@
   "dependencies": {
     "com.unity.collab-proxy": "1.15.15",
     "com.unity.ide.vscode": "1.2.5",
-    "com.unity.ml-agents": "file:/Users/sungwoo320/Documents/InteroceptiveAI/ml-agents/com.unity.ml-agents",
+    "com.unity.ml-agents": "file:C:/Users/ubermensch/Desktop/Folder/Programming/Language/Unity/Source/ml-agents-release_10/ml-agents-release_10/com.unity.ml-agents",
     "com.unity.test-framework": "1.1.31",
     "com.unity.textmeshpro": "3.0.6",
     "com.unity.timeline": "1.6.4",
