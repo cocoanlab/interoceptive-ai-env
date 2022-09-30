@@ -9,6 +9,7 @@ TagManager:
   - ground
   - food_red
   - food_blue
+  - cube
   layers:
   - Default
   - TransparentFX
