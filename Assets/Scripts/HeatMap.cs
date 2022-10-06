@@ -20,7 +20,7 @@ public class HeatMap : MonoBehaviour
             for (int x = 0; x < mapTexture.width; x++)
             {
                 Color color = gradient.Evaluate(1 - area.GetComponent<AreaTempSmoothing>().GetNormalizedAreaTemp(x, z));
-                mapTexture.SetPixel(-z, -x, color);
+                mapTexture.SetPixel(z, -x, color);
             }
         }
         mapTexture.Apply();
