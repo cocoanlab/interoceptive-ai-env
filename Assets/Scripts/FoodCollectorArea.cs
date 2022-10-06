@@ -13,6 +13,7 @@ public class FoodCollectorArea : MonoBehaviour
 {
     // MLAgent 내장 클래스
     EnvironmentParameters m_ResetParams;
+    public GameObject foodWater;
 
     // Food 클래스의 리스트 foods
     public Food[] foods;
@@ -44,6 +45,7 @@ public class FoodCollectorArea : MonoBehaviour
             FoodProperty f = Instantiate(type, new Vector3(Random.Range(-range, range), 1f,
                 Random.Range(-range, range)) + transform.position,
                 Quaternion.Euler(new Vector3(0f, Random.Range(0f, 360f), 90f)));
+            f.transform.parent = foodWater.transform;
             f.InitializeProperties();
             if (f.CompareTag("food_blue"))
             {

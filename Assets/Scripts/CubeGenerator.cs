@@ -42,6 +42,7 @@ public class CubeGenerator : MonoBehaviour
 
         parent.name = string.Format("Cube groups : {0}x0x{1}", count.x, count.z);
         parent.position = position;
+        parent.transform.parent = transform;
         // parent.gameObject.layer = layer;
     }
 

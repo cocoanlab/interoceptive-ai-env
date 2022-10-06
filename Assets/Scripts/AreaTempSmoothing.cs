@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
+using System.Linq;
 
 public class AreaTempSmoothing : MonoBehaviour
 {
@@ -10,28 +11,39 @@ public class AreaTempSmoothing : MonoBehaviour
     private int areaWidth;
     private int areaDepth;
 
+    private float oldLow;
+    private float oldHigh;
+    private float newLow;
+    private float newHigh;
+    public float[,] normalizedAreaTemp;
+
     private void Awake()
     {
         areaTemp = new float[100, 100];
+
         for (int x = 0; x < 100; ++x)
         {
             for (int z = 0; z < 100; ++z)
             {
-                if (x >= 10 && x < 20)
+                if (x >= 70 && x <= 90 && z >= 70 && z <= 90)
                 {
-                    areaTemp[x, z] = -5.0f;
+                    areaTemp[x, z] = 48.0f;
+                }
+                else if (x >= 10 && x < 20)
+                {
+                    areaTemp[x, z] = -16.0f;
                 }
                 else if (x >= 30 && x < 40)
                 {
-                    areaTemp[x, z] = -10.0f;
+                    areaTemp[x, z] = -8.0f;
                 }
                 else if (x >= 50 && x < 60)
                 {
-                    areaTemp[x, z] = 10.0f;
+                    areaTemp[x, z] = 8.0f;
                 }
                 else if (x >= 70 && x < 80)
                 {
-                    areaTemp[x, z] = 5.0f;
+                    areaTemp[x, z] = 16.0f;
                 }
                 else
                 {
@@ -57,12 +69,11 @@ public class AreaTempSmoothing : MonoBehaviour
         // }
         // Debug.Log(sb.ToString());
 
-        smoothingRepetition = 3;
+        smoothingRepetition = 5;
         areaWidth = 100;
         areaDepth = 100;
         SmoothingAreaTemp(smoothingRepetition, areaTemp, areaWidth, areaDepth);
 
-        // Debug.Log(areaTemp[0, 0].ToString());
         // StringBuilder sc = new StringBuilder();
         // for (int i = 0; i < areaTemp.GetLength(1); i++)
         // {
@@ -75,11 +86,58 @@ public class AreaTempSmoothing : MonoBehaviour
         // }
         // Debug.Log(sc.ToString());
 
+        normalizedAreaTemp = new float[100, 100];
+        oldLow = areaTemp.Cast<float>().Min() - 15;
+        oldHigh = areaTemp.Cast<float>().Max() + 15;
+        newLow = 0.0f;
+        newHigh = 1.0f;
+
+        for (int x = 0; x < 100; ++x)
+        {
+            for (int z = 0; z < 100; ++z)
+            {
+                normalizedAreaTemp[x, z] = Remap(areaTemp[x, z], oldLow, oldHigh, newLow, newHigh);
+            }
+        }
+
+        // StringBuilder sd = new StringBuilder();
+        // for (int i = 0; i < normalizedAreaTemp.GetLength(1); i++)
+        // {
+        //     for (int j = 0; j < normalizedAreaTemp.GetLength(0); j++)
+        //     {
+        //         sd.Append(normalizedAreaTemp[i, j]);
+        //         sd.Append(' ');
+        //     }
+        //     sd.AppendLine();
+        // }
+        // Debug.Log(sd.ToString());
     }
 
     public float GetAreaTemp(int x, int z)
     {
         return areaTemp[x, z];
+    }
+
+    public void SetAreaTemp(float temp)
+    {
+        for (int x = 0; x < 100; ++x)
+        {
+            for (int z = 0; z < 100; ++z)
+            {
+                areaTemp[x, z] = areaTemp[x, z] + temp;
+            }
+        }
+    }
+
+    public float GetNormalizedAreaTemp(int x, int z)
+    {
+        return normalizedAreaTemp[x, z];
+    }
+
+    public static float Remap(float input, float oldLow, float oldHigh, float newLow, float newHigh)
+    {
+        float t = Mathf.InverseLerp(oldLow, oldHigh, input);
+        return Mathf.Lerp(newLow, newHigh, t);
     }
 
 

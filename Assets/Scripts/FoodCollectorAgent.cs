@@ -64,19 +64,31 @@ public class FoodCollectorAgent : Agent
     int olfactorySize = 10;
     float[] olfactory;
 
-    // thermal
-    int thermalSize = 10;
-    float range = 10;
-    private float bodyTemp;
-    public GameObject foodCollectorArea;
+    // // thermal
+    // int thermalSize = 10;
+    // float range = 10;
 
-    // thermalObserving
-    float[] thermalSense;
-    float nightAreaTemp;
-    float dayAreaTemp;
-    string cubeName;
-    string[] index;
-    int x, y, z;
+    // // thermalObserving
+    // float[] thermalSense;
+    // float nightAreaTemp;
+    // float dayAreaTemp;
+    // string cubeName;
+    // string[] index;
+    // int x, y, z;
+
+    private float bodyTemp;
+    public GameObject sensorCenter;
+    public GameObject sensorForward;
+    public GameObject sensorBackward;
+    public GameObject sensorLeft;
+    public GameObject sensorRight;
+    public GameObject sensorForwardLeft;
+    public GameObject sensorForwardRight;
+    public GameObject sensorBackwardLeft;
+    public GameObject sensorBackwardRight;
+
+    private float[] thermalSensor;
+
 
     FoodProperty[] FoodObjects;
 
@@ -86,7 +98,7 @@ public class FoodCollectorAgent : Agent
         // For two resource
         this.resourceLevels = new float[this.numResources];
         olfactory = new float[olfactorySize];
-        thermalSense = new float[thermalSize];
+        thermalSensor = new float[8];
         this.autoEat = false;
 
         m_AgentRb = GetComponent<Rigidbody>();
@@ -113,10 +125,23 @@ public class FoodCollectorAgent : Agent
             olfactory[i] = 0;
         }
 
-        for (int i = 0; i < thermalSize; i++)
+        for (int i = 0; i < 8; i++)
         {
-            thermalSense[i] = 0;
+            thermalSensor[i] = 0;
         }
+
+        bodyTemp = 0;
+
+        sensorCenter.GetComponent<ThermalSensing>().SetThermalSense(0);
+        sensorForward.GetComponent<ThermalSensing>().SetThermalSense(0);
+        sensorBackward.GetComponent<ThermalSensing>().SetThermalSense(0);
+        sensorLeft.GetComponent<ThermalSensing>().SetThermalSense(0);
+        sensorRight.GetComponent<ThermalSensing>().SetThermalSense(0);
+        sensorForwardLeft.GetComponent<ThermalSensing>().SetThermalSense(0);
+        sensorForwardRight.GetComponent<ThermalSensing>().SetThermalSense(0);
+        sensorBackwardLeft.GetComponent<ThermalSensing>().SetThermalSense(0);
+        sensorBackwardRight.GetComponent<ThermalSensing>().SetThermalSense(0);
+
 
         // Reset agent
         m_AgentRb.velocity = Vector3.zero;
@@ -147,20 +172,27 @@ public class FoodCollectorAgent : Agent
         }
         if (useThermalObs)
         {
-            // sensor.AddObservation(thermalSense);
+            sensor.AddObservation(thermalSensor);
+
             // Debug.Log("ThermalSense : " + thermalSense[0].ToString() + ", " + thermalSense[1].ToString() + ", " + thermalSense[2].ToString() + ", " + thermalSense[3].ToString() + ", " + thermalSense[4].ToString());
             // Debug.Log(resourceLevels[2].ToString());
             // Debug.Log(bodyTemp.ToString());
 
+            // if (bodyTemp != 0)
+            // {
+            //     sensor.AddObservation(thermalSensor);
+            //     Debug.Log("Success");
+            // }
+
             // 작동 확인용
-            if (thermalSense[0] > 5)
-            {
-                float temp = bodyTemp;
-                sensor.AddObservation(thermalSense);
-                Debug.Log("ThermalSense : " + thermalSense[0].ToString() + ", " + thermalSense[1].ToString() + ", " + thermalSense[2].ToString() + ", " + thermalSense[3].ToString() + ", " + thermalSense[4].ToString());
-                Debug.Log(resourceLevels[2].ToString());
-                Debug.Log(bodyTemp.ToString());
-            }
+            // if (thermalSense[0] > 5)
+            // {
+            //     float temp = bodyTemp;
+            //     sensor.AddObservation(thermalSense);
+            //     Debug.Log("ThermalSense : " + thermalSense[0].ToString() + ", " + thermalSense[1].ToString() + ", " + thermalSense[2].ToString() + ", " + thermalSense[3].ToString() + ", " + thermalSense[4].ToString());
+            //     Debug.Log(resourceLevels[2].ToString());
+            //     Debug.Log(bodyTemp.ToString());
+            // }
         }
     }
 
@@ -356,93 +388,118 @@ public class FoodCollectorAgent : Agent
         //return olfactory;
     }
 
-
     public float[] ThermalObserving()
     {
-        Vector3 offset = new Vector3(0, GetComponent<BoxCollider>().size.z, 0);
-        Collider[] colliders = Physics.OverlapSphere(transform.position + offset, range);
-        Collider[] isTriggerColliders = colliders.Where(data => data.tag == "cube").ToArray();
-        Collider[] orderedByProximity = isTriggerColliders.OrderBy(data => (transform.position + offset - data.transform.position).sqrMagnitude).ToArray();
-        if (orderedByProximity.Length != 0)
-        {
-            for (int i = 0; i < thermalSize; i++)
-            {
-                int j = i * 20;
+        thermalSensor[0] = sensorForward.GetComponent<ThermalSensing>().GetThermalSense() - sensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
+        thermalSensor[1] = sensorBackward.GetComponent<ThermalSensing>().GetThermalSense() - sensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
+        thermalSensor[2] = sensorLeft.GetComponent<ThermalSensing>().GetThermalSense() - sensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
+        thermalSensor[3] = sensorRight.GetComponent<ThermalSensing>().GetThermalSense() - sensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
+        thermalSensor[4] = sensorForwardLeft.GetComponent<ThermalSensing>().GetThermalSense() - sensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
+        thermalSensor[5] = sensorForwardRight.GetComponent<ThermalSensing>().GetThermalSense() - sensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
+        thermalSensor[6] = sensorBackwardLeft.GetComponent<ThermalSensing>().GetThermalSense() - sensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
+        thermalSensor[7] = sensorBackwardRight.GetComponent<ThermalSensing>().GetThermalSense() - sensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
 
-                cubeName = orderedByProximity[j].gameObject.name;
-                index = cubeName.Split(',');
-                if (!int.TryParse(index[0], out x)) x = 0;
-                if (!int.TryParse(index[1], out y)) y = 0;
-                if (!int.TryParse(index[2], out z)) z = 0;
+        // Debug.Log("0 : " + thermalSensor[0].ToString());
+        // Debug.Log("1 : " + thermalSensor[1].ToString());
+        // Debug.Log("2 : " + thermalSensor[2].ToString());
+        // Debug.Log("3 : " + thermalSensor[3].ToString());
+        // Debug.Log("4 : " + thermalSensor[4].ToString());
+        // Debug.Log("5 : " + thermalSensor[5].ToString());
+        // Debug.Log("6 : " + thermalSensor[6].ToString());
+        // Debug.Log("7 : " + thermalSensor[7].ToString());
 
-                if (sun.GetComponent<DayAndNight>().GetIsNight())
-                {
-                    nightAreaTemp = foodCollectorArea.GetComponent<AreaTempSmoothing>().GetAreaTemp(x + 50, z + 50) - 15.0f;
-                    if (thermalSense[i] > nightAreaTemp)
-                    {
-                        thermalSense[i] -= Mathf.Abs(nightAreaTemp) * 0.05f * Time.deltaTime;
+        bodyTemp = sensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
 
-                        // 작동 확인용 코드
-                        // Debug.Log(nightAreaTemp.ToString());
-                        // Debug.Log((Mathf.Abs(nightAreaTemp) * 0.05f * Time.deltaTime).ToString());
-                        // Debug.Log("NightAreaTemp : " + nightAreaTemp.ToString());
-                        // Debug.LogFormat("AreaTemp[{0}, {1}] = {2}", x.ToString(), z.ToString(), thermalSense[i].ToString());
-                    }
-                    else if (thermalSense[i] < nightAreaTemp)
-                    {
-                        thermalSense[i] += Mathf.Abs(nightAreaTemp) * 0.05f * Time.deltaTime;
+        // Debug.Log("BodyTemp : " + bodyTemp.ToString());
 
-                        // Debug.Log(nightAreaTemp.ToString());
-                        // Debug.Log((Mathf.Abs(nightAreaTemp) * 0.05f * Time.deltaTime).ToString());
-                    }
-                    else
-                    {
-                        thermalSense[i] = nightAreaTemp;
-
-                        // Debug.Log("NightAreaTemp : " + nightAreaTemp.ToString());
-                        // Debug.LogFormat("AreaTemp[{0}, {1}] = {2}", x.ToString(), z.ToString(), thermalSense[i].ToString());
-                    }
-                }
-                else
-                {
-                    dayAreaTemp = foodCollectorArea.GetComponent<AreaTempSmoothing>().GetAreaTemp(x + 50, z + 50) + 15.0f;
-                    if (thermalSense[i] < dayAreaTemp)
-                    {
-                        thermalSense[i] += Mathf.Abs(dayAreaTemp) * 0.05f * Time.deltaTime;
-
-                        // Debug.Log(dayAreaTemp.ToString());
-                        // Debug.Log("DayAreaTemp : " + dayAreaTemp.ToString());
-                        // Debug.Log((Mathf.Abs(dayAreaTemp) * 0.05f * Time.deltaTime).ToString());
-                        // Debug.LogFormat("AreaTemp[{0}, {1}] = {2}", x.ToString(), z.ToString(), thermalSense[i].ToString());
-                    }
-                    else if (thermalSense[i] > dayAreaTemp)
-                    {
-                        thermalSense[i] -= Mathf.Abs(dayAreaTemp) * 0.05f * Time.deltaTime;
-
-                        // Debug.Log(dayAreaTemp.ToString());
-                        // Debug.Log((Mathf.Abs(dayAreaTemp) * 0.05f * Time.deltaTime).ToString());
-                    }
-                    else
-                    {
-                        thermalSense[i] = dayAreaTemp;
-
-                        // Debug.Log("DayAreaTemp : " + dayAreaTemp.ToString());
-                        // Debug.LogFormat("AreaTemp[{0}, {1}] = {2}", x.ToString(), z.ToString(), thermalSense[i].ToString());
-                    }
-                }
-            }
-
-            bodyTemp = thermalSense[0];
-
-            // 작동 확인용
-            Debug.Log("BodyTemp : " + bodyTemp.ToString());
-        }
-        return thermalSense;
+        return thermalSensor;
     }
 
-    public float GetBodyTemp()
-    {
-        return bodyTemp;
-    }
+    // public float[] ThermalObserving()
+    // {
+    //     Vector3 offset = new Vector3(0, GetComponent<BoxCollider>().size.z, 0);
+    //     Collider[] colliders = Physics.OverlapSphere(transform.position + offset, range);
+    //     Collider[] isTriggerColliders = colliders.Where(data => data.tag == "cube").ToArray();
+    //     Collider[] orderedByProximity = isTriggerColliders.OrderBy(data => (transform.position + offset - data.transform.position).sqrMagnitude).ToArray();
+    //     if (orderedByProximity.Length != 0)
+    //     {
+    //         for (int i = 0; i < thermalSize; i++)
+    //         {
+    //             int j = i * 20;
 
+    //             cubeName = orderedByProximity[j].gameObject.name;
+    //             index = cubeName.Split(',');
+    //             if (!int.TryParse(index[0], out x)) x = 0;
+    //             if (!int.TryParse(index[1], out y)) y = 0;
+    //             if (!int.TryParse(index[2], out z)) z = 0;
+
+    //             if (sun.GetComponent<DayAndNight>().GetIsNight())
+    //             {
+    //                 nightAreaTemp = area.GetComponent<AreaTempSmoothing>().GetAreaTemp(x + 50, z + 50) - 15.0f;
+    //                 if (thermalSense[i] > nightAreaTemp)
+    //                 {
+    //                     thermalSense[i] -= Mathf.Abs(nightAreaTemp) * 0.05f * Time.deltaTime;
+
+    //                     // 작동 확인용 코드
+    //                     // Debug.Log(nightAreaTemp.ToString());
+    //                     // Debug.Log((Mathf.Abs(nightAreaTemp) * 0.05f * Time.deltaTime).ToString());
+    //                     // Debug.Log("NightAreaTemp : " + nightAreaTemp.ToString());
+    //                     // Debug.LogFormat("AreaTemp[{0}, {1}] = {2}", x.ToString(), z.ToString(), thermalSense[i].ToString());
+    //                 }
+    //                 else if (thermalSense[i] < nightAreaTemp)
+    //                 {
+    //                     thermalSense[i] += Mathf.Abs(nightAreaTemp) * 0.05f * Time.deltaTime;
+
+    //                     // Debug.Log(nightAreaTemp.ToString());
+    //                     // Debug.Log((Mathf.Abs(nightAreaTemp) * 0.05f * Time.deltaTime).ToString());
+    //                 }
+    //                 else
+    //                 {
+    //                     thermalSense[i] = nightAreaTemp;
+
+    //                     // Debug.Log("NightAreaTemp : " + nightAreaTemp.ToString());
+    //                     // Debug.LogFormat("AreaTemp[{0}, {1}] = {2}", x.ToString(), z.ToString(), thermalSense[i].ToString());
+    //                 }
+    //             }
+    //             else
+    //             {
+    //                 dayAreaTemp = area.GetComponent<AreaTempSmoothing>().GetAreaTemp(x + 50, z + 50) + 15.0f;
+    //                 if (thermalSense[i] < dayAreaTemp)
+    //                 {
+    //                     thermalSense[i] += Mathf.Abs(dayAreaTemp) * 0.05f * Time.deltaTime;
+
+    //                     // Debug.Log(dayAreaTemp.ToString());
+    //                     // Debug.Log("DayAreaTemp : " + dayAreaTemp.ToString());
+    //                     // Debug.Log((Mathf.Abs(dayAreaTemp) * 0.05f * Time.deltaTime).ToString());
+    //                     // Debug.LogFormat("AreaTemp[{0}, {1}] = {2}", x.ToString(), z.ToString(), thermalSense[i].ToString());
+    //                 }
+    //                 else if (thermalSense[i] > dayAreaTemp)
+    //                 {
+    //                     thermalSense[i] -= Mathf.Abs(dayAreaTemp) * 0.05f * Time.deltaTime;
+
+    //                     // Debug.Log(dayAreaTemp.ToString());
+    //                     // Debug.Log((Mathf.Abs(dayAreaTemp) * 0.05f * Time.deltaTime).ToString());
+    //                 }
+    //                 else
+    //                 {
+    //                     thermalSense[i] = dayAreaTemp;
+
+    //                     // Debug.Log("DayAreaTemp : " + dayAreaTemp.ToString());
+    //                     // Debug.LogFormat("AreaTemp[{0}, {1}] = {2}", x.ToString(), z.ToString(), thermalSense[i].ToString());
+    //                 }
+    //             }
+    //         }
+
+    //         bodyTemp = thermalSense[0];
+
+    //         // 작동 확인용
+    //         // Debug.Log("BodyTemp : " + bodyTemp.ToString());
+    //     }
+    //     return thermalSense;
+    // }
+
+    // public float GetBodyTemp()
+    // {
+    //     return bodyTemp;
+    // }
 }
