@@ -89,6 +89,8 @@ public class FoodCollectorAgent : Agent
 
     private float[] thermalSensor;
 
+    public GameObject heatMap;
+
 
     FoodProperty[] FoodObjects;
 
@@ -145,15 +147,20 @@ public class FoodCollectorAgent : Agent
 
         // Reset agent
         m_AgentRb.velocity = Vector3.zero;
-        transform.position = new Vector3(Random.Range(-m_MyArea.range, m_MyArea.range),
-            2f, Random.Range(-m_MyArea.range, m_MyArea.range))
-            + area.transform.position;
+        transform.position = new Vector3(Random.Range(-m_MyArea.range, m_MyArea.range), 2f, Random.Range(-m_MyArea.range, m_MyArea.range)) + area.transform.position;
         transform.rotation = Quaternion.Euler(new Vector3(0f, Random.Range(0, 360)));
         SetResetParameters();
 
         // Reset cubes
         FoodObjects = FindObjectsOfType(typeof(FoodProperty)) as FoodProperty[];
         ResetObject(FoodObjects);
+
+        // Reset area
+        area.GetComponent<AreaTempSmoothing>().EpisodeAreaSmoothing();
+
+        // Reset heatmap
+        heatMap.GetComponent<HeatMap>().EpisodeHeatMap();
+
 
         // Reset DayAndNight (지금은 DayAndNight가 에피소드 시작할 때 초기화되지 않는데 필요하면 추가)
     }
@@ -235,25 +242,25 @@ public class FoodCollectorAgent : Agent
         {
             // actionsOut[0] = 1f;
             discreteActionsOut[0] = 1;
-            Debug.Log("Forward!");
+            // Debug.Log("Forward!");
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             // actionsOut[0] = 2f;
             discreteActionsOut[0] = 2;
-            Debug.Log("Left!");
+            // Debug.Log("Left!");
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
             // actionsOut[0] = 3f;
             discreteActionsOut[0] = 3;
-            Debug.Log("Right!");
+            // Debug.Log("Right!");
         }
         if (Input.GetKey(KeyCode.Space))
         {
             // actionsOut[0] = 4f;
             discreteActionsOut[0] = 4;
-            Debug.Log("Eat!");
+            // Debug.Log("Eat!");
         }
     }
 
@@ -305,19 +312,19 @@ public class FoodCollectorAgent : Agent
             case 1:
                 dirToGo = transform.forward;
                 m_AgentRb.velocity = dirToGo * moveSpeed;
-                Debug.Log("Forward!");
+                // Debug.Log("Forward!");
                 break;
             case 2:
                 transform.Rotate(-transform.up, Time.fixedDeltaTime * turnSpeed);
-                Debug.Log("Left!");
+                // Debug.Log("Left!");
                 break;
             case 3:
                 transform.Rotate(transform.up, Time.fixedDeltaTime * turnSpeed);
-                Debug.Log("Right!");
+                // Debug.Log("Right!");
                 break;
             case 4:
                 this.isEat = true;
-                Debug.Log("Eat!");
+                // Debug.Log("Eat!");
                 break;
         }
     }

@@ -22,9 +22,16 @@ public class FoodCollectorArea : MonoBehaviour
     public float range;
     public float height;
 
+    public float thermoRatio;
+    public float dayVariance;
+    public float nightVariance;
+
     public void Awake()
     {
         m_ResetParams = Academy.Instance.EnvironmentParameters;
+        thermoRatio = m_ResetParams.GetWithDefault("thermo_ratio", 0.005f);
+        dayVariance = m_ResetParams.GetWithDefault("day_variance", 10.0f);
+        nightVariance = m_ResetParams.GetWithDefault("night_variance", -10.0f);
     }
 
     // 음식의 생성 개수 조절
@@ -33,6 +40,7 @@ public class FoodCollectorArea : MonoBehaviour
         // 하이퍼파라미터 설정 (아마 Python에 존재)에서 num_resource_red가 있으면 그 값을 가져오고 없으면 50으로 설정
         float numResourceRed = m_ResetParams.GetWithDefault("num_resource_red", 50.0f);
         float numResourceBlue = m_ResetParams.GetWithDefault("num_resource_blue", 50.0f);
+
         foods[0].num = (int)numResourceBlue;
         foods[1].num = (int)numResourceRed;
     }

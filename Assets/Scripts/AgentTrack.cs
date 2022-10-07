@@ -12,14 +12,17 @@ public class AgentTrack : MonoBehaviour
     Vector2 screenPosition;
 
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         canvasRect = canvas.GetComponent<RectTransform>();
-        viewportPosition = cam.WorldToViewportPoint(agent.transform.position);
-        screenPosition = new Vector2(((viewportPosition.x * canvasRect.sizeDelta.x) - (canvasRect.sizeDelta.x * 0.5f) - 30), ((viewportPosition.y * canvasRect.sizeDelta.y) - (canvasRect.sizeDelta.y * 0.5f) + 30));
-        GetComponent<RectTransform>().anchoredPosition = screenPosition;
-
     }
+
+    // void Start()
+    // {
+    //     viewportPosition = cam.WorldToViewportPoint(agent.transform.position);
+    //     screenPosition = new Vector2(((viewportPosition.x * canvasRect.sizeDelta.x) - (canvasRect.sizeDelta.x * 0.5f) - 30), ((viewportPosition.y * canvasRect.sizeDelta.y) - (canvasRect.sizeDelta.y * 0.5f) + 30));
+    //     GetComponent<RectTransform>().anchoredPosition = screenPosition;
+    // }
 
     // Update is called once per frame
     void Update()

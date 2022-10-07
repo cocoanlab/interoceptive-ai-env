@@ -10,11 +10,33 @@ public class HeatMap : MonoBehaviour
     public Gradient gradient;
     private Texture2D mapTexture;
 
-    void Start()
+    // private int count = 0;
+    // private int a = 10;
+    // private int b = 10;
+
+    void Awake()
     {
         mapTexture = new Texture2D(100, 100);
-        heatMap.material.mainTexture = mapTexture;
+    }
 
+    public void EpisodeHeatMap()
+    {
+
+        ModifyPixels();
+
+        // count += 1;
+        // Debug.Log("Episode : " + count.ToString());
+        // Debug.Log("Test : " + area.GetComponent<AreaTempSmoothing>().GetNormalizedAreaTemp(10, 10).ToString());
+
+        // b = b + 10;
+        // a = a + 10;
+
+        // Debug.Log("a : " + a.ToString() + "b : " + b.ToString());
+
+    }
+
+    public void ModifyPixels()
+    {
         for (int z = 0; z < mapTexture.height; z++)
         {
             for (int x = 0; x < mapTexture.width; x++)
@@ -23,7 +45,12 @@ public class HeatMap : MonoBehaviour
                 mapTexture.SetPixel(z, -x, color);
             }
         }
+
+        // mapTexture.SetPixel(b, -a, Color.black);
+
         mapTexture.Apply();
+
+        heatMap.material.mainTexture = mapTexture;
     }
 
     // void Start()
