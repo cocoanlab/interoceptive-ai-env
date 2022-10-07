@@ -27,7 +27,7 @@ public class ThermalSensing : MonoBehaviour
 
             if (sun.GetComponent<DayAndNight>().GetIsNight())
             {
-                nightAreaTemp = area.GetComponent<AreaTempSmoothing>().GetAreaTemp(x + 50, z + 50) - 15.0f;
+                nightAreaTemp = area.GetComponent<AreaTempSmoothing>().GetAreaTemp(x + 50, z + 50) - 5.0f;
                 if (thermalSense > nightAreaTemp)
                 {
                     thermalSense -= Mathf.Abs(nightAreaTemp) * 0.01f * Time.deltaTime;
@@ -50,7 +50,7 @@ public class ThermalSensing : MonoBehaviour
 
             else
             {
-                dayAreaTemp = area.GetComponent<AreaTempSmoothing>().GetAreaTemp(x + 50, z + 50) + 15.0f;
+                dayAreaTemp = area.GetComponent<AreaTempSmoothing>().GetAreaTemp(x + 50, z + 50) + 5.0f;
 
                 if (thermalSense < dayAreaTemp)
                 {

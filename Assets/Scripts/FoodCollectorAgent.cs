@@ -399,14 +399,14 @@ public class FoodCollectorAgent : Agent
         thermalSensor[6] = sensorBackwardLeft.GetComponent<ThermalSensing>().GetThermalSense() - sensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
         thermalSensor[7] = sensorBackwardRight.GetComponent<ThermalSensing>().GetThermalSense() - sensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
 
-        Debug.Log("Forward (0) : " + thermalSensor[0].ToString());
-        Debug.Log("Backward (1) : " + thermalSensor[1].ToString());
-        Debug.Log("Left (2) : " + thermalSensor[2].ToString());
-        Debug.Log("Right (3) : " + thermalSensor[3].ToString());
-        Debug.Log("ForwardLeft (4) : " + thermalSensor[4].ToString());
-        Debug.Log("ForwardRight (5) : " + thermalSensor[5].ToString());
-        Debug.Log("BackwardLeft (6) : " + thermalSensor[6].ToString());
-        Debug.Log("BackwardRight (7) : " + thermalSensor[7].ToString());
+        // Debug.Log("Forward (0) : " + thermalSensor[0].ToString());
+        // Debug.Log("Backward (1) : " + thermalSensor[1].ToString());
+        // Debug.Log("Left (2) : " + thermalSensor[2].ToString());
+        // Debug.Log("Right (3) : " + thermalSensor[3].ToString());
+        // Debug.Log("ForwardLeft (4) : " + thermalSensor[4].ToString());
+        // Debug.Log("ForwardRight (5) : " + thermalSensor[5].ToString());
+        // Debug.Log("BackwardLeft (6) : " + thermalSensor[6].ToString());
+        // Debug.Log("BackwardRight (7) : " + thermalSensor[7].ToString());
 
         bodyTemp = sensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
 

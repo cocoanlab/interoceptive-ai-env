@@ -56,25 +56,29 @@ public class AreaTempSmoothing : MonoBehaviour
         {
             for (int z = 0; z < 100; ++z)
             {
-                if (x >= 40 && x < 60 && z >= 40 && z < 60)
+                if (x >= 60 && x < 70 && z >= 60 && z < 70)
                 {
-                    areaTemp[x, z] = Random.Range(-20, 20);
+                    areaTemp[x, z] = Random.Range(100, 120);
+                }
+                else if (x >= 40 && x < 60 && z >= 40 && z < 60)
+                {
+                    areaTemp[x, z] = Random.Range(-5, 5);
                 }
                 else if (x >= 0 && x < 50 && z >= 0 && z < 50)
                 {
-                    areaTemp[x, z] = Random.Range(40, 60);
+                    areaTemp[x, z] = Random.Range(5, 10);
                 }
                 else if (x >= 0 && x < 50 && z >= 50 && z < 100)
                 {
-                    areaTemp[x, z] = Random.Range(20, 40);
+                    areaTemp[x, z] = Random.Range(0, 5);
                 }
                 else if (x >= 50 && x < 100 && z >= 0 && z < 50)
                 {
-                    areaTemp[x, z] = Random.Range(-40, -20);
+                    areaTemp[x, z] = Random.Range(-5, 0);
                 }
                 else if (x >= 50 && x < 100 && z >= 50 && z < 100)
                 {
-                    areaTemp[x, z] = Random.Range(-60, -40);
+                    areaTemp[x, z] = Random.Range(-10, -5);
                 }
                 else
                 {
