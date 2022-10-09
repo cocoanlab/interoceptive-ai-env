@@ -9,7 +9,7 @@ public class AreaTempSmoothing : MonoBehaviour
 {
         EnvironmentParameters m_ResetParams;
 
-        private int smoothingRepetition;
+        public int smoothingRepetition = 100;
         public float[,] areaTemp;
         private int areaWidth;
         private int areaDepth;
@@ -20,11 +20,14 @@ public class AreaTempSmoothing : MonoBehaviour
         private float newHigh;
         public float[,] normalizedAreaTemp;
 
-        public float bonfireLow;
-        public float bonfireHigh;
+        public float bonfireLow = 30.0f;
+        public float bonfireHigh = 40.0f;
         private float bonfireTemp;
 
-        public float bonfireCount;
+        public float bonfireCount = 300;
+
+        public float fieldTempLow = -40.0f;
+        public float fieldTempHigh = -35.0f;
 
         // private int count = 0;
 
@@ -43,9 +46,13 @@ public class AreaTempSmoothing : MonoBehaviour
         private void SetParameters()
         {
                 m_ResetParams = Academy.Instance.EnvironmentParameters;
-                bonfireLow = m_ResetParams.GetWithDefault("bonfire_low", 60.0f);
-                bonfireHigh = m_ResetParams.GetWithDefault("bonfire_high", 70.0f);
-                bonfireCount = m_ResetParams.GetWithDefault("bonfire_count", 10);
+                bonfireLow = m_ResetParams.GetWithDefault("bonfire_low", bonfireLow);
+                bonfireHigh = m_ResetParams.GetWithDefault("bonfire_high", bonfireHigh);
+                bonfireCount = m_ResetParams.GetWithDefault("bonfire_count", bonfireCount);
+
+                fieldTempLow = m_ResetParams.GetWithDefault("field_temp_low", fieldTempLow);
+                fieldTempHigh = m_ResetParams.GetWithDefault("field_temp_high", fieldTempHigh);
+                smoothingRepetition = System.Convert.ToInt32(m_ResetParams.GetWithDefault("smoothing_repetition", smoothingRepetition));
         }
 
         public void EpisodeAreaSmoothing()
@@ -89,23 +96,23 @@ public class AreaTempSmoothing : MonoBehaviour
                         {
                                 if (x >= 40 && x < 60 && z >= 40 && z < 60)
                                 {
-                                        areaTemp[x, z] = Random.Range(-1, 1);
+                                        areaTemp[x, z] = Random.Range(fieldTempLow, fieldTempHigh);
                                 }
                                 else if (x >= 0 && x < 50 && z >= 0 && z < 50)
                                 {
-                                        areaTemp[x, z] = Random.Range(10, 20);
+                                        areaTemp[x, z] = Random.Range(fieldTempLow, fieldTempHigh);
                                 }
                                 else if (x >= 0 && x < 50 && z >= 50 && z < 100)
                                 {
-                                        areaTemp[x, z] = Random.Range(0, 10);
+                                        areaTemp[x, z] = Random.Range(fieldTempLow, fieldTempHigh);
                                 }
                                 else if (x >= 50 && x < 100 && z >= 0 && z < 50)
                                 {
-                                        areaTemp[x, z] = Random.Range(-10, 0);
+                                        areaTemp[x, z] = Random.Range(fieldTempLow, fieldTempHigh);
                                 }
                                 else if (x >= 50 && x < 100 && z >= 50 && z < 100)
                                 {
-                                        areaTemp[x, z] = Random.Range(-20, -10);
+                                        areaTemp[x, z] = Random.Range(fieldTempLow, fieldTempHigh);
                                 }
                                 else
                                 {
@@ -138,7 +145,7 @@ public class AreaTempSmoothing : MonoBehaviour
                 // }
                 // Debug.Log(sb.ToString());
 
-                smoothingRepetition = 5;
+                // smoothingRepetition = 5;
                 areaWidth = 100;
                 areaDepth = 100;
                 SmoothingAreaTemp(smoothingRepetition, areaTemp, areaWidth, areaDepth);

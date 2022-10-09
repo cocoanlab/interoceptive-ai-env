@@ -5422,6 +5422,11 @@ PrefabInstance:
       objectReference: {fileID: 178834548}
     - target: {fileID: 114176228333253036, guid: 38400a68c4ea54b52998e34ee238d1a7,
         type: 3}
+      propertyPath: thermoRatio
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 114176228333253036, guid: 38400a68c4ea54b52998e34ee238d1a7,
+        type: 3}
       propertyPath: lossRateBlue
       value: 0.1
       objectReference: {fileID: 0}
@@ -12372,9 +12377,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e528b8b4ba3e0ed498750493a69dda17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bonfireLow: 90
-  bonfireHigh: 100
-  bonfireCount: 15
+  smoothingRepetition: 100
+  bonfireLow: 30
+  bonfireHigh: 40
+  bonfireCount: 300
+  fieldTempLow: -40
+  fieldTempHigh: -35
 --- !u!4 &1447158885 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4688212428263696, guid: 38400a68c4ea54b52998e34ee238d1a7,
