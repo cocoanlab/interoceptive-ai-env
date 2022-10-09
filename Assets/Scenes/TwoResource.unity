@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44021663, g: 0.48875427, b: 0.5689346, a: 1}
+  m_IndirectSpecularColor: {r: 0.44021598, g: 0.48875344, b: 0.5689334, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5130,6 +5130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 705507993}
   area: {fileID: 1447158878}
+  agent: {fileID: 275893088}
 --- !u!1 &205308262
 GameObject:
   m_ObjectHideFlags: 0
@@ -5948,6 +5949,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 705507993}
   area: {fileID: 1447158878}
+  agent: {fileID: 275893088}
 --- !u!1 &450069916
 GameObject:
   m_ObjectHideFlags: 0
@@ -6045,6 +6047,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 705507993}
   area: {fileID: 1447158878}
+  agent: {fileID: 275893088}
 --- !u!1 &666139393
 GameObject:
   m_ObjectHideFlags: 0
@@ -6105,6 +6108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 705507993}
   area: {fileID: 1447158878}
+  agent: {fileID: 275893088}
 --- !u!1 &677854296
 GameObject:
   m_ObjectHideFlags: 0
@@ -6291,6 +6295,10 @@ MonoBehaviour:
   secondPerRealTimeSecound: 80
   fogDensityCalc: 0.15
   nightFogDensity: 0.35
+  dayFogDensity: 0
+  currentFogDensity: 0
+  dayVariance: 0
+  nightVariance: -10
 --- !u!1 &739219502
 GameObject:
   m_ObjectHideFlags: 0
@@ -6427,6 +6435,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 705507993}
   area: {fileID: 1447158878}
+  agent: {fileID: 275893088}
 --- !u!1 &782570909
 GameObject:
   m_ObjectHideFlags: 0
@@ -12048,6 +12057,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 705507993}
   area: {fileID: 1447158878}
+  agent: {fileID: 275893088}
 --- !u!1 &1164685606
 GameObject:
   m_ObjectHideFlags: 0
@@ -12108,6 +12118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 705507993}
   area: {fileID: 1447158878}
+  agent: {fileID: 275893088}
 --- !u!1 &1167587520
 GameObject:
   m_ObjectHideFlags: 0
@@ -12349,18 +12360,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 275893087}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1447158881
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1447158878}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2d4b38b331a75947a9cd85aaa35a77c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1447158884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12382,6 +12381,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 275893087}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1447158887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1447158878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2d4b38b331a75947a9cd85aaa35a77c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1455634029
 GameObject:
   m_ObjectHideFlags: 0
@@ -17708,6 +17719,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 705507993}
   area: {fileID: 1447158878}
+  agent: {fileID: 275893088}
 --- !u!1 &1637494394
 GameObject:
   m_ObjectHideFlags: 0
@@ -28082,6 +28094,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 705507993}
   area: {fileID: 1447158878}
+  agent: {fileID: 275893088}
 --- !u!65 &1972561381
 BoxCollider:
   m_ObjectHideFlags: 0
