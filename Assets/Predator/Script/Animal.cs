@@ -85,7 +85,7 @@ public class Animal : MonoBehaviour
         anim.SetBool("Walking", isWalking);
         currentTime = walkTime;
         applySpeed = walkSpeed;
-        Debug.Log("걷기");
+        Debug.Log("Walk");
     }
 
     public virtual void Damage(int _dmg, Vector3 _targetPos)

@@ -27,19 +27,19 @@ public class Pig: WeakAnimal
     private void Wait()
     {
         currentTime = waitTime;
-        Debug.Log("대기");
+        Debug.Log("Wait");
     }
     private void Eat()
     {
         currentTime = waitTime;
         anim.SetTrigger("Eat");
-        Debug.Log("풀뜯기");
+        Debug.Log("Eat");
     }
     private void Peek()
     {
         currentTime = waitTime;
         anim.SetTrigger("Peek");
-        Debug.Log("두리번");
+        Debug.Log("Peek");
     }
 
 }
