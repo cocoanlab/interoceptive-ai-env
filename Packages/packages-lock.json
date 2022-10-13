@@ -51,7 +51,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ml-agents": {
-      "version": "file:/Users/sungwoo320/Documents/InteroceptiveAI/ml-agents/com.unity.ml-agents",
+      "version": "file:/Users/jungmin/Desktop/Project/Unity/ml-agents/com.unity.ml-agents",
       "depth": 0,
       "source": "local",
       "dependencies": {
