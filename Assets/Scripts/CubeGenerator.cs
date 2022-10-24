@@ -8,10 +8,16 @@ public class CubeGenerator : MonoBehaviour
 {
         private Vector3 position = new Vector3(0.0f, 0.0f, 0.0f);
         private Vector3 count = new Vector3(50.0f, 0.0f, 50.0f);
+        // public bool useThermalObs = false;
+        public FoodCollectorAgent agent;
+
 
         private void Awake()
-        {
-                generateCube(count, position);
+        {       if (agent.useThermalObs)
+                {
+                        generateCube(count, position);
+                }
+                
         }
 
         private void generateCube(Vector3 count, Vector3 position)

@@ -2,12 +2,14 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
+using Unity.MLAgents.Policies;
 using System.Linq;
 
 
 // GameObject인 Agent에 부착함
 public class FoodCollectorAgent : Agent
-{
+{       
+        public GameObject agent;
         public GameObject area;
         public GameObject sun;
 
@@ -16,6 +18,7 @@ public class FoodCollectorAgent : Agent
         Rigidbody m_AgentRb;
         public float m_LaserLength = 1.0f;
         EnvironmentParameters m_ResetParams;
+        
 
         [Header("Movement")]
         public float moveSpeed = 6.0f;
@@ -25,13 +28,14 @@ public class FoodCollectorAgent : Agent
         public Material agentMerterial;
         public Material redMaterial;
         public Material blueMaterial;
+        public bool useThermalObs = true;
         public bool useOlfactoryObs;
         public float SensorLength = 0.1f;
-        public bool useThermalObs;
 
 
         [Header("Resourses")]
-        public int numResources = 3;
+        // public int vecObsSize = 12;
+        public int numResources = 2;
         private float[] resourceLevels;
         public float[] ResourceLevels { get { return resourceLevels; } set { resourceLevels = value; } }
         private bool autoEat = false;
@@ -99,16 +103,32 @@ public class FoodCollectorAgent : Agent
         public override void Initialize()
         {
                 // For two resource
-                this.resourceLevels = new float[this.numResources];
-                olfactory = new float[olfactorySize];
-                thermalSensor = new float[8];
+                m_ResetParams = Academy.Instance.EnvironmentParameters;
+                SetResetParameters();
+
+                // int VectorObservationSize = agent.GetComponent<BehaviorParameters>().BrainParameters.VectorObservationSize;
+                // VectorObservationSize = this.vecObsSize;
+                // Debug.Log("vecObsSize");
+                // Debug.Log(vecObsSize);
+
+                this.resourceLevels = new float[this.numResources];                
                 this.autoEat = false;
+                // this.useThermalObs = false;
 
                 m_AgentRb = GetComponent<Rigidbody>();
                 m_MyArea = area.GetComponent<FoodCollectorArea>();
                 m_SceneInitialization = FindObjectOfType<SceneInitialization>();
-                m_ResetParams = Academy.Instance.EnvironmentParameters;
-                SetResetParameters();
+                
+
+                if(this.useOlfactoryObs)
+                {
+                        olfactory = new float[olfactorySize];
+                }
+
+                if (this.useThermalObs)
+                {
+                        thermalSensor = new float[8];
+                }
         }
 
         //에피소드(학습단위)가 시작할때마다 호출
@@ -116,35 +136,44 @@ public class FoodCollectorAgent : Agent
         {
                 print("New episode begin");
 
+                // print("this.numResources");
+                // print(this.numResources);
+
                 // Reset energy
                 for (int i = 0; i < this.numResources; i++)
                 {
                         this.resourceLevels[i] = 0;
                 }
 
+
                 // Reset olfactory
+                if (this.useOlfactoryObs)
+                {
                 for (int i = 0; i < olfactorySize; i++)
                 {
                         olfactory[i] = 0;
                 }
-
-                for (int i = 0; i < 8; i++)
-                {
-                        thermalSensor[i] = 0;
                 }
+                
+                if (this.useThermalObs)
+                {
+                        for (int i = 0; i < 8; i++)
+                        {
+                                thermalSensor[i] = 0;
+                        }
+                
+                        bodyTemp = 0;
 
-                bodyTemp = 0;
-
-                sensorCenter.GetComponent<ThermalSensing>().SetThermalSense(0);
-                sensorForward.GetComponent<ThermalSensing>().SetThermalSense(0);
-                sensorBackward.GetComponent<ThermalSensing>().SetThermalSense(0);
-                sensorLeft.GetComponent<ThermalSensing>().SetThermalSense(0);
-                sensorRight.GetComponent<ThermalSensing>().SetThermalSense(0);
-                sensorForwardLeft.GetComponent<ThermalSensing>().SetThermalSense(0);
-                sensorForwardRight.GetComponent<ThermalSensing>().SetThermalSense(0);
-                sensorBackwardLeft.GetComponent<ThermalSensing>().SetThermalSense(0);
-                sensorBackwardRight.GetComponent<ThermalSensing>().SetThermalSense(0);
-
+                        sensorCenter.GetComponent<ThermalSensing>().SetThermalSense(0);
+                        sensorForward.GetComponent<ThermalSensing>().SetThermalSense(0);
+                        sensorBackward.GetComponent<ThermalSensing>().SetThermalSense(0);
+                        sensorLeft.GetComponent<ThermalSensing>().SetThermalSense(0);
+                        sensorRight.GetComponent<ThermalSensing>().SetThermalSense(0);
+                        sensorForwardLeft.GetComponent<ThermalSensing>().SetThermalSense(0);
+                        sensorForwardRight.GetComponent<ThermalSensing>().SetThermalSense(0);
+                        sensorBackwardLeft.GetComponent<ThermalSensing>().SetThermalSense(0);
+                        sensorBackwardRight.GetComponent<ThermalSensing>().SetThermalSense(0);
+                }
 
                 // Reset agent
                 m_AgentRb.velocity = Vector3.zero;
@@ -156,12 +185,15 @@ public class FoodCollectorAgent : Agent
                 FoodObjects = FindObjectsOfType(typeof(FoodProperty)) as FoodProperty[];
                 ResetObject(FoodObjects);
 
-                // Reset area
-                area.GetComponent<AreaTempSmoothing>().EpisodeAreaSmoothing();
 
-                // Reset heatmap
-                heatMap.GetComponent<HeatMap>().EpisodeHeatMap();
+                if (useThermalObs)
+                {
+                        // Reset area
+                        area.GetComponent<AreaTempSmoothing>().EpisodeAreaSmoothing();
 
+                        // Reset heatmap
+                        heatMap.GetComponent<HeatMap>().EpisodeHeatMap();
+                }               
 
                 // Reset DayAndNight (지금은 DayAndNight가 에피소드 시작할 때 초기화되지 않는데 필요하면 추가)
         }
@@ -209,13 +241,33 @@ public class FoodCollectorAgent : Agent
         {
                 this.resourceLevels[0] -= this.lossRateRed * Time.fixedDeltaTime;
                 this.resourceLevels[1] -= this.lossRateBlue * Time.fixedDeltaTime;
-                this.resourceLevels[2] = this.bodyTemp;
 
-                if ((this.maxEnergyLevelRed < this.resourceLevels[0] || this.resourceLevels[0] < this.minEnergyLevelRed)
-                || (this.maxEnergyLevelBlue < this.resourceLevels[1] || this.resourceLevels[1] < this.minEnergyLevelBlue)
-                || (this.maxEnergyLevelYellow < this.bodyTemp || this.bodyTemp < this.minEnergyLevelYellow))
+                if (this.useThermalObs)
+                { 
+                        this.resourceLevels[2] = this.bodyTemp;
+                }
+
+                bool checkRed = (this.maxEnergyLevelRed < this.resourceLevels[0] || this.resourceLevels[0] < this.minEnergyLevelRed);
+                bool checkBlue = (this.maxEnergyLevelBlue < this.resourceLevels[1] || this.resourceLevels[1] < this.minEnergyLevelBlue);
+
+                bool checkYellow = false;
+                if (this.useThermalObs)
+                { 
+                        checkYellow = (this.maxEnergyLevelYellow < this.bodyTemp || this.bodyTemp < this.minEnergyLevelYellow);
+                }
+                
+
+                // if ((this.maxEnergyLevelRed < this.resourceLevels[0] || this.resourceLevels[0] < this.minEnergyLevelRed)
+                // || (this.maxEnergyLevelBlue < this.resourceLevels[1] || this.resourceLevels[1] < this.minEnergyLevelBlue)
+                // || (this.maxEnergyLevelYellow < this.bodyTemp || this.bodyTemp < this.minEnergyLevelYellow))
+                //         EndEpisode();
+
+                if (checkRed || checkBlue || checkYellow)
                         EndEpisode();
 
+
+                if (this.useOlfactoryObs)
+                {
                 PropertyObserving();
                 string olf = "Olfactory: ";
                 for (int i = 0; i < olfactorySize; i++)
@@ -223,11 +275,13 @@ public class FoodCollectorAgent : Agent
                         olf += olfactory[i];
                         olf += ", ";
                 }
+                }
 
                 // olfactory 정보 출력 (정상적으로 작동하는 것 확인하면 주석 처리)
                 // if (useOlfactoryObs) { Debug.Log(olf); }
-
-                ThermalObserving();
+                if (this.useThermalObs){
+                        ThermalObserving();
+                }
 
                 int action = actions.DiscreteActions[0];
                 MoveAgent(action);
@@ -336,6 +390,9 @@ public class FoodCollectorAgent : Agent
                 turnSpeed = m_ResetParams.GetWithDefault("turn_speed", turnSpeed);
                 autoEat = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("auto_eat", 0));
 
+                // vecObsSize = System.Convert.ToInt32(m_ResetParams.GetWithDefault("vector_obs_size", vecObsSize));
+                numResources = System.Convert.ToInt32(m_ResetParams.GetWithDefault("num_resources", numResources));
+
                 maxEnergyLevelRed = m_ResetParams.GetWithDefault("max_energy_level_red", maxEnergyLevelRed);
                 minEnergyLevelRed = m_ResetParams.GetWithDefault("min_energy_level_red", minEnergyLevelRed);
                 resourceEnergyRed = m_ResetParams.GetWithDefault("resource_energy_red", resourceEnergyRed);
@@ -346,6 +403,7 @@ public class FoodCollectorAgent : Agent
                 resourceEnergyBlue = m_ResetParams.GetWithDefault("resource_energy_blue", resourceEnergyBlue);
                 lossRateBlue = m_ResetParams.GetWithDefault("loss_rate_blue", lossRateBlue);
 
+                useThermalObs = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("use_thermo_obs", System.Convert.ToSingle(useThermalObs)));
                 maxEnergyLevelYellow = m_ResetParams.GetWithDefault("max_energy_level_blue", maxEnergyLevelYellow);
                 minEnergyLevelYellow = m_ResetParams.GetWithDefault("min_energy_level_blue", minEnergyLevelYellow);
                 // resourceEnergyYellow = m_ResetParams.GetWithDefault("resource_energy_blue", resourceEnergyYellow);

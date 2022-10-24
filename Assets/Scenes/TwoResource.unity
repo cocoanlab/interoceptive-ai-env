@@ -5131,6 +5131,7 @@ MonoBehaviour:
   sun: {fileID: 705507993}
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
+  Agent: {fileID: 1690238423}
 --- !u!1 &205308262
 GameObject:
   m_ObjectHideFlags: 0
@@ -5429,6 +5430,11 @@ PrefabInstance:
         type: 3}
       propertyPath: lossRateBlue
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114176228333253036, guid: 38400a68c4ea54b52998e34ee238d1a7,
+        type: 3}
+      propertyPath: numResources
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114176228333253036, guid: 38400a68c4ea54b52998e34ee238d1a7,
         type: 3}
@@ -5955,6 +5961,7 @@ MonoBehaviour:
   sun: {fileID: 705507993}
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
+  Agent: {fileID: 1690238423}
 --- !u!1 &450069916
 GameObject:
   m_ObjectHideFlags: 0
@@ -6053,6 +6060,7 @@ MonoBehaviour:
   sun: {fileID: 705507993}
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
+  Agent: {fileID: 1690238423}
 --- !u!1 &666139393
 GameObject:
   m_ObjectHideFlags: 0
@@ -6114,6 +6122,7 @@ MonoBehaviour:
   sun: {fileID: 705507993}
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
+  Agent: {fileID: 1690238423}
 --- !u!1 &677854296
 GameObject:
   m_ObjectHideFlags: 0
@@ -6441,6 +6450,7 @@ MonoBehaviour:
   sun: {fileID: 705507993}
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
+  Agent: {fileID: 1690238423}
 --- !u!1 &782570909
 GameObject:
   m_ObjectHideFlags: 0
@@ -12063,6 +12073,7 @@ MonoBehaviour:
   sun: {fileID: 705507993}
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
+  Agent: {fileID: 1690238423}
 --- !u!1 &1164685606
 GameObject:
   m_ObjectHideFlags: 0
@@ -12124,6 +12135,7 @@ MonoBehaviour:
   sun: {fileID: 705507993}
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
+  Agent: {fileID: 1690238423}
 --- !u!1 &1167587520
 GameObject:
   m_ObjectHideFlags: 0
@@ -12401,6 +12413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2d4b38b331a75947a9cd85aaa35a77c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  agent: {fileID: 1690238423}
 --- !u!1 &1455634029
 GameObject:
   m_ObjectHideFlags: 0
@@ -17728,6 +17741,7 @@ MonoBehaviour:
   sun: {fileID: 705507993}
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
+  Agent: {fileID: 1690238423}
 --- !u!1 &1637494394
 GameObject:
   m_ObjectHideFlags: 0
@@ -28103,6 +28117,7 @@ MonoBehaviour:
   sun: {fileID: 705507993}
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
+  Agent: {fileID: 1690238423}
 --- !u!65 &1972561381
 BoxCollider:
   m_ObjectHideFlags: 0

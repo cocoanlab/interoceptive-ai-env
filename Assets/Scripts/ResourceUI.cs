@@ -24,22 +24,35 @@ public class ResourceUI : MonoBehaviour
     {
         BlueLevel.value = 0;
         RedLevel.value = 0;
-        YellowLevel.value = 0;
-
         Bluehandle.color = Color.blue;
         Redhandle.color = Color.red;
-        Yellowhandle.color = Color.yellow;
+
+        if (agent.useThermalObs)
+        {
+            YellowLevel.value = 0;
+            Yellowhandle.color = Color.yellow;
+        }
+        else
+        {
+            YellowLevel.enabled = false;
+            Yellowhandle.enabled = false;
+        }
+
     }
 
     void Update()
     {
         redLevel = agent.ResourceLevels[0];
         blueLevel = agent.ResourceLevels[1];
-        yellowLevel = agent.ResourceLevels[2];
 
         BlueLevel.value = blueLevel;
         RedLevel.value = redLevel;
-        YellowLevel.value = yellowLevel;
+
+        if (agent.useThermalObs)
+        {
+            yellowLevel = agent.ResourceLevels[2];
+            YellowLevel.value = yellowLevel;
+        }
 
         // if (blueLevel >= 0) { Bluehandle.color = Color.green; } else { Bluehandle.color = Color.red; }
         // if (redLevel >= 0) { Redhandle.color = Color.green; } else { Redhandle.color = Color.red; }
