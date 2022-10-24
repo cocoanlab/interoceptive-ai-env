@@ -5403,6 +5403,11 @@ PrefabInstance:
       objectReference: {fileID: 705507993}
     - target: {fileID: 114176228333253036, guid: 38400a68c4ea54b52998e34ee238d1a7,
         type: 3}
+      propertyPath: agent
+      value: 
+      objectReference: {fileID: 275893088}
+    - target: {fileID: 114176228333253036, guid: 38400a68c4ea54b52998e34ee238d1a7,
+        type: 3}
       propertyPath: heatMap
       value: 
       objectReference: {fileID: 1071050609}
@@ -11687,8 +11692,6 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 7
     m_NumAlphaKeys: 2
-  agentTrack: {fileID: 413098046}
-  agent: {fileID: 1690238423}
 --- !u!114 &1071050612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22736,9 +22739,6 @@ MonoBehaviour:
   Bluehandle: {fileID: 1328240863}
   Redhandle: {fileID: 1601758593}
   Yellowhandle: {fileID: 1090973805}
-  BlueText: {fileID: 206369964}
-  RedText: {fileID: 1085360609}
-  YellowText: {fileID: 1468537313}
   agent: {fileID: 1690238423}
 --- !u!1 &1745825038
 GameObject:

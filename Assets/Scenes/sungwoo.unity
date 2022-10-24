@@ -5403,11 +5403,6 @@ PrefabInstance:
       objectReference: {fileID: 705507993}
     - target: {fileID: 114176228333253036, guid: 38400a68c4ea54b52998e34ee238d1a7,
         type: 3}
-      propertyPath: agent
-      value: 
-      objectReference: {fileID: 275893088}
-    - target: {fileID: 114176228333253036, guid: 38400a68c4ea54b52998e34ee238d1a7,
-        type: 3}
       propertyPath: heatMap
       value: 
       objectReference: {fileID: 1071050609}
@@ -5454,7 +5449,7 @@ PrefabInstance:
     - target: {fileID: 114176228333253036, guid: 38400a68c4ea54b52998e34ee238d1a7,
         type: 3}
       propertyPath: useThermalObs
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114176228333253036, guid: 38400a68c4ea54b52998e34ee238d1a7,
         type: 3}
