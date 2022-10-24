@@ -35,7 +35,7 @@ public class FoodCollectorAgent : Agent
 
         [Header("Resourses")]
         // public int vecObsSize = 12;
-        public int numResources = 2;
+        public int numResources = 3;
         private float[] resourceLevels;
         public float[] ResourceLevels { get { return resourceLevels; } set { resourceLevels = value; } }
         private bool autoEat = false;
