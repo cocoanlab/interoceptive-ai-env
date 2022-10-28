@@ -13,7 +13,6 @@ public struct WeatherData
     public bool useAudio;
     public AudioClip weatherAudio;
     public float audioFadeInTimer;
-    public Transform windzone;
     public float lightIntensity;
     public float lightDimTimer;
     public float fogChangeSpeed;

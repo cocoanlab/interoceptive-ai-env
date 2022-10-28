@@ -13,8 +13,11 @@ public class FieldOfViewAngle : MonoBehaviour
     private PlayerController thePlayer;
     private NavMeshAgent nav;
 
+    // private Pig thePig ;
     void Start()
     {
+        // thePig = GetComponent<Pig>(); 
+        
         thePlayer = FindObjectOfType<PlayerController>();
         nav = GetComponent<NavMeshAgent>();
     }

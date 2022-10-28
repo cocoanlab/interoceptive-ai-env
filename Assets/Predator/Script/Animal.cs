@@ -11,6 +11,7 @@ public class Animal : MonoBehaviour {
     // [SerializeField] public int itemNumber; // 아이템의 획득 개수
     [SerializeField] protected float walkSpeed; // 걷기 스피드
     [SerializeField] protected float runSpeed; // 뛰기 스피드
+    [SerializeField] protected float turningSpeed; 
     protected Vector3 destination; // 목적지
     protected float applySpeed ;
     protected Vector3 direction ;
@@ -81,7 +82,7 @@ public class Animal : MonoBehaviour {
     {
         if (isWalking || isRunning)
         {
-            Vector3 _rotation = Vector3.Lerp(transform.eulerAngles, new Vector3(0f, direction.y, 0f), 0.01f);
+            Vector3 _rotation = Vector3.Lerp(transform.eulerAngles, new Vector3(0f, direction.y, 0f), turningSpeed);
             rigid.MoveRotation(Quaternion.Euler(_rotation));
         }
     }

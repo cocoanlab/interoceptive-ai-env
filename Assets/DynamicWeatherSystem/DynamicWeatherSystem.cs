@@ -14,6 +14,8 @@ public class DynamicWeatherSystem : MonoBehaviour
     private int switchWeather;
     public AudioSource audiosource;
     public Light sunLight; 
+    public Transform windzone;
+
     public WeatherState weatherState;
     public WeatherData [] weatherData;
     
@@ -58,10 +60,11 @@ public class DynamicWeatherSystem : MonoBehaviour
     {   
         while (true)
         {
+            Debug.Log(weatherState);
             if (weatherState == WeatherState.Change) {SelectWeather(); }
-            else if (weatherState == WeatherState.Sun) {ActivedWeather("Sun"); }
+            // else if (weatherState == WeatherState.Sun) {ActivedWeather("Sun"); }
             else if (weatherState == WeatherState.Thunder) {ActivedWeather("Thunder"); }
-            else if (weatherState == WeatherState.Mist) {ActivedWeather("Mist"); }
+            // else if (weatherState == WeatherState.Mist) {ActivedWeather("Mist"); }
             else if (weatherState == WeatherState.Rain) {ActivedWeather("Rain"); }
             else if (weatherState == WeatherState.Snow) {ActivedWeather("Snow"); }
             yield return null; 
@@ -95,10 +98,10 @@ public class DynamicWeatherSystem : MonoBehaviour
     {
         switchWeather = Random.Range(0, System.Enum.GetValues(typeof(WeatherState)).Length);
         ResetWeather();
-        if (switchWeather == 0) { weatherState = WeatherState.Change; } 
-        else if (switchWeather == 1) { weatherState = WeatherState.Sun; }
+        if (switchWeather == 0) { weatherState = WeatherState.Change; }     
+        // else if (switchWeather == 1) { weatherState = WeatherState.Sun; }
         else if (switchWeather == 2) { weatherState = WeatherState.Thunder; }
-        else if (switchWeather == 3) { weatherState = WeatherState.Mist; }
+        // else if (switchWeather == 3) { weatherState = WeatherState.Mist; }
         else if (switchWeather == 4) { weatherState = WeatherState.Rain; }
         else if (switchWeather == 5) { weatherState = WeatherState.Snow; }
     }
@@ -109,7 +112,7 @@ public class DynamicWeatherSystem : MonoBehaviour
         if(tmpLight.intensity > maxLightIntensity) { tmpLight.intensity -= Time.deltaTime * lightIntensity; }
         if(tmpLight.intensity < maxLightIntensity) { tmpLight.intensity += Time.deltaTime * lightIntensity; } 
 
-        if(weatherData[switchWeather].useAudio== true)
+        // if(weatherData[switchWeather].useAudio == true)
         {
             AudioSource tmpAudio = GetComponent<AudioSource>();
 
