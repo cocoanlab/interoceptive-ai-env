@@ -5130,6 +5130,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 705507993}
   area: {fileID: 1447158878}
+  agent: {fileID: 275893088}
+  Agent: {fileID: 1690238423}
 --- !u!1 &205308262
 GameObject:
   m_ObjectHideFlags: 0
@@ -5211,7 +5213,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 18.3, y: -29}
+  m_AnchoredPosition: {x: 20.1, y: -47.3999}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &206369966
@@ -5401,6 +5403,11 @@ PrefabInstance:
       objectReference: {fileID: 705507993}
     - target: {fileID: 114176228333253036, guid: 38400a68c4ea54b52998e34ee238d1a7,
         type: 3}
+      propertyPath: heatMap
+      value: 
+      objectReference: {fileID: 1071050609}
+    - target: {fileID: 114176228333253036, guid: 38400a68c4ea54b52998e34ee238d1a7,
+        type: 3}
       propertyPath: sensorLeft
       value: 
       objectReference: {fileID: 1099151097}
@@ -5416,8 +5423,18 @@ PrefabInstance:
       objectReference: {fileID: 178834548}
     - target: {fileID: 114176228333253036, guid: 38400a68c4ea54b52998e34ee238d1a7,
         type: 3}
+      propertyPath: thermoRatio
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 114176228333253036, guid: 38400a68c4ea54b52998e34ee238d1a7,
+        type: 3}
       propertyPath: lossRateBlue
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114176228333253036, guid: 38400a68c4ea54b52998e34ee238d1a7,
+        type: 3}
+      propertyPath: numResources
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114176228333253036, guid: 38400a68c4ea54b52998e34ee238d1a7,
         type: 3}
@@ -5484,6 +5501,21 @@ PrefabInstance:
       propertyPath: foodWater
       value: 
       objectReference: {fileID: 1828650591}
+    - target: {fileID: 114181230191376748, guid: 38400a68c4ea54b52998e34ee238d1a7,
+        type: 3}
+      propertyPath: dayVariance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114181230191376748, guid: 38400a68c4ea54b52998e34ee238d1a7,
+        type: 3}
+      propertyPath: thermoRatio
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 114181230191376748, guid: 38400a68c4ea54b52998e34ee238d1a7,
+        type: 3}
+      propertyPath: nightVariance
+      value: -10
+      objectReference: {fileID: 0}
     - target: {fileID: 114181230191376748, guid: 38400a68c4ea54b52998e34ee238d1a7,
         type: 3}
       propertyPath: foods.Array.data[0].num
@@ -5813,7 +5845,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -30, y: 90}
-  m_SizeDelta: {x: 5, y: 5}
+  m_SizeDelta: {x: 3, y: 3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &413098048
 MonoBehaviour:
@@ -5928,6 +5960,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 705507993}
   area: {fileID: 1447158878}
+  agent: {fileID: 275893088}
+  Agent: {fileID: 1690238423}
 --- !u!1 &450069916
 GameObject:
   m_ObjectHideFlags: 0
@@ -6025,6 +6059,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 705507993}
   area: {fileID: 1447158878}
+  agent: {fileID: 275893088}
+  Agent: {fileID: 1690238423}
 --- !u!1 &666139393
 GameObject:
   m_ObjectHideFlags: 0
@@ -6085,6 +6121,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 705507993}
   area: {fileID: 1447158878}
+  agent: {fileID: 275893088}
+  Agent: {fileID: 1690238423}
 --- !u!1 &677854296
 GameObject:
   m_ObjectHideFlags: 0
@@ -6270,7 +6308,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   secondPerRealTimeSecound: 80
   fogDensityCalc: 0.15
-  nightFogDensity: 0
+  nightFogDensity: 0.35
+  dayFogDensity: 0
+  currentFogDensity: 0
+  dayVariance: 0
+  nightVariance: -10
 --- !u!1 &739219502
 GameObject:
   m_ObjectHideFlags: 0
@@ -6407,6 +6449,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 705507993}
   area: {fileID: 1447158878}
+  agent: {fileID: 275893088}
+  Agent: {fileID: 1690238423}
 --- !u!1 &782570909
 GameObject:
   m_ObjectHideFlags: 0
@@ -11643,6 +11687,8 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 7
     m_NumAlphaKeys: 2
+  agentTrack: {fileID: 413098046}
+  agent: {fileID: 1690238423}
 --- !u!114 &1071050612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11716,7 +11762,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 20.1, y: -47.399902}
+  m_AnchoredPosition: {x: 23.2, y: -29}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1085360611
@@ -12028,6 +12074,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 705507993}
   area: {fileID: 1447158878}
+  agent: {fileID: 275893088}
+  Agent: {fileID: 1690238423}
 --- !u!1 &1164685606
 GameObject:
   m_ObjectHideFlags: 0
@@ -12088,6 +12136,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 705507993}
   area: {fileID: 1447158878}
+  agent: {fileID: 275893088}
+  Agent: {fileID: 1690238423}
 --- !u!1 &1167587520
 GameObject:
   m_ObjectHideFlags: 0
@@ -12329,18 +12379,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 275893087}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1447158881
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1447158878}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2d4b38b331a75947a9cd85aaa35a77c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1447158884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12353,12 +12391,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e528b8b4ba3e0ed498750493a69dda17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  smoothingRepetition: 100
+  bonfireLow: 30
+  bonfireHigh: 40
+  bonfireCount: 300
+  fieldTempLow: -40
+  fieldTempHigh: -35
 --- !u!4 &1447158885 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4688212428263696, guid: 38400a68c4ea54b52998e34ee238d1a7,
     type: 3}
   m_PrefabInstance: {fileID: 275893087}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1447158887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1447158878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2d4b38b331a75947a9cd85aaa35a77c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 1690238423}
 --- !u!1 &1455634029
 GameObject:
   m_ObjectHideFlags: 0
@@ -17685,6 +17742,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 705507993}
   area: {fileID: 1447158878}
+  agent: {fileID: 275893088}
+  Agent: {fileID: 1690238423}
 --- !u!1 &1637494394
 GameObject:
   m_ObjectHideFlags: 0
@@ -22677,6 +22736,9 @@ MonoBehaviour:
   Bluehandle: {fileID: 1328240863}
   Redhandle: {fileID: 1601758593}
   Yellowhandle: {fileID: 1090973805}
+  BlueText: {fileID: 206369964}
+  RedText: {fileID: 1085360609}
+  YellowText: {fileID: 1468537313}
   agent: {fileID: 1690238423}
 --- !u!1 &1745825038
 GameObject:
@@ -27589,6 +27651,7 @@ MonoBehaviour:
   maxLightIntensity: 1
   audiosource: {fileID: 0}
   sunLight: {fileID: 0}
+  windzone: {fileID: 0}
   weatherState: 0
   weatherData:
   - name: Sun
@@ -27596,7 +27659,6 @@ MonoBehaviour:
     useAudio: 0
     weatherAudio: {fileID: 0}
     audioFadeInTimer: 0
-    windzone: {fileID: 205308264}
     lightIntensity: 0
     lightDimTimer: 0
     fogChangeSpeed: 0
@@ -27607,7 +27669,6 @@ MonoBehaviour:
     useAudio: 0
     weatherAudio: {fileID: 0}
     audioFadeInTimer: 0
-    windzone: {fileID: 205308264}
     lightIntensity: 0
     lightDimTimer: 0
     fogChangeSpeed: 0
@@ -27618,7 +27679,6 @@ MonoBehaviour:
     useAudio: 0
     weatherAudio: {fileID: 0}
     audioFadeInTimer: 0
-    windzone: {fileID: 205308264}
     lightIntensity: 0
     lightDimTimer: 0
     fogChangeSpeed: 0
@@ -27629,7 +27689,6 @@ MonoBehaviour:
     useAudio: 0
     weatherAudio: {fileID: 0}
     audioFadeInTimer: 0
-    windzone: {fileID: 205308264}
     lightIntensity: 0
     lightDimTimer: 0
     fogChangeSpeed: 0
@@ -27640,7 +27699,6 @@ MonoBehaviour:
     useAudio: 0
     weatherAudio: {fileID: 0}
     audioFadeInTimer: 0
-    windzone: {fileID: 205308264}
     lightIntensity: 0
     lightDimTimer: 0
     fogChangeSpeed: 0
@@ -27830,7 +27888,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 23.2, y: 69.1}
+  m_AnchoredPosition: {x: 23.2, y: 87}
   m_SizeDelta: {x: 130, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1853919706
@@ -27958,7 +28016,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 23.1, y: 87}
+  m_AnchoredPosition: {x: 23.2, y: 69.1}
   m_SizeDelta: {x: 130, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1893345872
@@ -28059,6 +28117,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 705507993}
   area: {fileID: 1447158878}
+  agent: {fileID: 275893088}
+  Agent: {fileID: 1690238423}
 --- !u!65 &1972561381
 BoxCollider:
   m_ObjectHideFlags: 0

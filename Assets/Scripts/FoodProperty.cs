@@ -8,8 +8,8 @@ public class FoodProperty : MonoBehaviour
     int VectorSize = 10;
 
     //easy
-    private float[] BlueProperty = { 1f, 1f, 1f, 1f, 1f, 0f, 0f, 0f, 0f, 0f };
-    private float[] RedProperty = { 0f, 0f, 0f, 0f, 0f, 1f, 1f, 1f, 1f, 1f };
+    private float[] RedProperty = { 1f, 1f, 1f, 1f, 1f, 0f, 0f, 0f, 0f, 0f };
+    private float[] BlueProperty = { 0f, 0f, 0f, 0f, 0f, 1f, 1f, 1f, 1f, 1f };
 
     //mid
     //private float[] BlueProperty = { 9f, 8f, 7f, 6f, 5f, 0f, 0f, 0f, 0f, 0f };
