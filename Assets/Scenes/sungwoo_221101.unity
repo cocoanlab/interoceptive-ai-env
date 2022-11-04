@@ -11687,8 +11687,8 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 7
     m_NumAlphaKeys: 2
-  agentTrack: {fileID: 413098046}
-  agent: {fileID: 1690238423}
+  agentTrack: {fileID: 0}
+  agent: {fileID: 0}
 --- !u!114 &1071050612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22736,9 +22736,9 @@ MonoBehaviour:
   Bluehandle: {fileID: 1328240863}
   Redhandle: {fileID: 1601758593}
   Yellowhandle: {fileID: 1090973805}
-  BlueText: {fileID: 206369964}
-  RedText: {fileID: 1085360609}
-  YellowText: {fileID: 1468537313}
+  BlueText: {fileID: 0}
+  RedText: {fileID: 0}
+  YellowText: {fileID: 0}
   agent: {fileID: 1690238423}
 --- !u!1 &1745825038
 GameObject:

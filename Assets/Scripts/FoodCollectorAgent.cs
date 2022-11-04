@@ -28,7 +28,7 @@ public class FoodCollectorAgent : Agent
         public Material agentMerterial;
         public Material redMaterial;
         public Material blueMaterial;
-        public bool useThermalObs = true;
+        public bool useThermalObs;
         public bool useOlfactoryObs;
         public float SensorLength = 0.1f;
 
@@ -403,7 +403,7 @@ public class FoodCollectorAgent : Agent
                 resourceEnergyBlue = m_ResetParams.GetWithDefault("resource_energy_blue", resourceEnergyBlue);
                 lossRateBlue = m_ResetParams.GetWithDefault("loss_rate_blue", lossRateBlue);
 
-                useThermalObs = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("use_thermo_obs", System.Convert.ToSingle(useThermalObs)));
+                // useThermalObs = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("use_thermo_obs", 1));
                 maxEnergyLevelYellow = m_ResetParams.GetWithDefault("max_energy_level_blue", maxEnergyLevelYellow);
                 minEnergyLevelYellow = m_ResetParams.GetWithDefault("min_energy_level_blue", minEnergyLevelYellow);
                 // resourceEnergyYellow = m_ResetParams.GetWithDefault("resource_energy_blue", resourceEnergyYellow);
