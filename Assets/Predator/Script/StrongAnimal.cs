@@ -37,6 +37,7 @@ public class StrongAnimal : Animal {
     protected IEnumerator ChaseTargetCoroutine()
     {
         currentChaseTime = 0;
+        Chase(theViewAngle.GetTargetPos());
 
         while (currentChaseTime < ChaseTime)
         {
@@ -56,10 +57,10 @@ public class StrongAnimal : Animal {
         isChasing = false;
         isRunning = false;
         anim.SetBool("Running", isRunning);
-        // nav.ResetPath();
+        nav.ResetPath();
     }
 
-    protected  IEnumerator AttackCoroutine()
+    protected IEnumerator AttackCoroutine()
     {
         isAttacking = true;
         // nav.ResetPath();

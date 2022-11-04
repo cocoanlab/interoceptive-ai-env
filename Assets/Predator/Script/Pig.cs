@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pig: StrongAnimal
+public class Pig: WeakAnimal
 {
     // protected override void Update()
     // {
@@ -33,8 +33,8 @@ public class Pig: StrongAnimal
             TryRun();
         else if (_random == 2)
             TryWalk();
-        else if (_random == 3)
-            Eat();
+        // else if (_random == 3)
+        //     Eat();
     }
     private void Wait() //weak animal일때
     {
