@@ -5132,6 +5132,8 @@ MonoBehaviour:
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
   Agent: {fileID: 1690238423}
+  isSensor: 1
+  sensorRate: 10
 --- !u!1 &205308262
 GameObject:
   m_ObjectHideFlags: 0
@@ -5962,6 +5964,8 @@ MonoBehaviour:
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
   Agent: {fileID: 1690238423}
+  isSensor: 1
+  sensorRate: 10
 --- !u!1 &450069916
 GameObject:
   m_ObjectHideFlags: 0
@@ -6061,6 +6065,8 @@ MonoBehaviour:
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
   Agent: {fileID: 1690238423}
+  isSensor: 1
+  sensorRate: 10
 --- !u!1 &666139393
 GameObject:
   m_ObjectHideFlags: 0
@@ -6123,6 +6129,8 @@ MonoBehaviour:
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
   Agent: {fileID: 1690238423}
+  isSensor: 1
+  sensorRate: 10
 --- !u!1 &677854296
 GameObject:
   m_ObjectHideFlags: 0
@@ -6451,6 +6459,8 @@ MonoBehaviour:
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
   Agent: {fileID: 1690238423}
+  isSensor: 1
+  sensorRate: 10
 --- !u!1 &782570909
 GameObject:
   m_ObjectHideFlags: 0
@@ -12076,6 +12086,8 @@ MonoBehaviour:
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
   Agent: {fileID: 1690238423}
+  isSensor: 1
+  sensorRate: 10
 --- !u!1 &1164685606
 GameObject:
   m_ObjectHideFlags: 0
@@ -12138,6 +12150,8 @@ MonoBehaviour:
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
   Agent: {fileID: 1690238423}
+  isSensor: 1
+  sensorRate: 10
 --- !u!1 &1167587520
 GameObject:
   m_ObjectHideFlags: 0
@@ -17744,6 +17758,8 @@ MonoBehaviour:
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
   Agent: {fileID: 1690238423}
+  isSensor: 1
+  sensorRate: 10
 --- !u!1 &1637494394
 GameObject:
   m_ObjectHideFlags: 0
@@ -28119,6 +28135,8 @@ MonoBehaviour:
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
   Agent: {fileID: 1690238423}
+  isSensor: 0
+  sensorRate: 0
 --- !u!65 &1972561381
 BoxCollider:
   m_ObjectHideFlags: 0
