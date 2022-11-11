@@ -19,7 +19,7 @@ public class FieldOfViewAngle : MonoBehaviour
         // thePig = GetComponent<Pig>(); 
         
         thePlayer = FindObjectOfType<PlayerController>();
-        nav = GetComponent<NavMeshAgent>();
+        // nav = GetComponent<NavMeshAgent>();
     }
 
     public Vector3 GetTargetPos()
@@ -55,14 +55,14 @@ public class FieldOfViewAngle : MonoBehaviour
                 }
             }
 
-            if (thePlayer.GetRun())
-            {
-                if(CalcPathLength(thePlayer.transform.position) <= viewDistance)
-                {
-                    Debug.Log("Pig noticed enemies");
-                    return true;
-                }
-            }
+            // if (thePlayer.GetRun())
+            // {
+            //     if(CalcPathLength(thePlayer.transform.position) <= viewDistance)
+            //     {
+            //         Debug.Log("Pig noticed enemies");
+            //         return true;
+            //     }
+            // }
 
         }
         return false;

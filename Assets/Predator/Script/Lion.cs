@@ -14,19 +14,19 @@ public class Lion : StrongAnimal
         }
     }
 
-    IEnumerator ChaseTargetCoroutine()
+    IEnumerator chaseTargetCoroutine()
     {
-        currentChaseTime = 0;
+        CurrentChaseTime = 0;
         Chase(theViewAngle.GetTargetPos());
 
-        while(currentChaseTime < ChaseTime)
+        while(CurrentChaseTime < ChaseTime)
         {
             Chase(theViewAngle.GetTargetPos());
             yield return new WaitForSeconds(ChaseDelayTime);
-            currentChaseTime += ChaseDelayTime;
+            CurrentChaseTime += ChaseDelayTime;
         }
 
-        isChasing = false;
+        isChasing = true;
         isRunning = false;
         anim.SetBool("Running", isRunning);
         nav.ResetPath();
@@ -42,12 +42,14 @@ public class Lion : StrongAnimal
     {
         RandomSound();
 
-        int _random = Random.Range(0, 2); // 대기, 걷기
+        int _random = Random.Range(0, 3); // 대기, 걷기
 
         if (_random == 1)
             TryRun();
         else if (_random == 2)
             TryWalk();
+        
+
     }
 
     private void Walk() 
@@ -58,40 +60,17 @@ public class Lion : StrongAnimal
     }
     private void Run() 
     {
-        currentTime = waitTime;
+        currentTime = runTime;
         anim.SetTrigger("Run");
         Debug.Log("Run");
     }
-
+   
     private void Wait()  // 대기
     {
         currentTime = waitTime;
-        Debug.Log("대기");
+        Debug.Log("wait");
     }
-    // protected override void Update()
-    // {
-    //     base.Update();
-    //     if (theViewAngle.View() && !isDead)
-    //     {
-    //         StopAllCoroutines();
-    //         StartCoroutine(ChaseTargetCoroutine());
-    //     }
-    // }
 
-    // IEnumerator ChaseTargetCoroutine()
-    // {
-    //     currentChaseTime = 0;
-    //     Chase(theViewAngle.GetTargetPos());
-
-    //     while(currentChaseTime < ChaseTime)
-    //     {
-    //         Chase(theViewAngle.GetTargetPos());
-    //         yield return new WaitForSeconds(ChaseDelayTime);
-    //         currentChaseTime += ChaseDelayTime;
-    //     }
-
-    //     isChasing = false;
-    //     nav.ResetPath();
-    // }
+    
 }
 

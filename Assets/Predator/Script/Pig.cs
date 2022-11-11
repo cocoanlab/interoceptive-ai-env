@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Pig: WeakAnimal
 {
-    // protected override void Update()
-    // {
-    //     base.Update();
-    //     if(theViewAngle.View() && !isDead)
-    //     {
-    //         Run(theViewAngle.GetTargetPos());
-    //     }
-    // }
+    protected override void Update()
+    {
+        base.Update();
+        if(theViewAngle.View() && !isDead)
+        {
+            Run(theViewAngle.GetTargetPos());
+        }
+    }
 
     protected override void ReSet()
     {
@@ -25,16 +25,14 @@ public class Pig: WeakAnimal
 
         int _random = Random.Range(0, 4); // 대기, 풀뜯기, 두리번, 걷기.
 
-        // if (_random == 0)
-        //     Wait();
-        // else if (_random == 2)
-        //     Peek();
-        if (_random == 1)
-            TryRun();
+         if (_random == 0)
+            Wait();
+        else if (_random == 1)
+            Eat();
         else if (_random == 2)
+            Peek();
+        else if (_random == 3)
             TryWalk();
-        // else if (_random == 3)
-        //     Eat();
     }
     private void Wait() //weak animal일때
     {
@@ -53,12 +51,12 @@ public class Pig: WeakAnimal
         anim.SetTrigger("Walk");
         Debug.Log("Walk");
     }
-    private void Run() 
-    {
-        currentTime = waitTime;
-        anim.SetTrigger("Run");
-        Debug.Log("Run");
-    }
+    // private void Run() 
+    // {
+    //     currentTime = waitTime;
+    //     anim.SetTrigger("Run");
+    //     Debug.Log("Run");
+    // }
     private void Peek()  //weak animal일떄
     {
         currentTime = waitTime;

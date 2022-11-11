@@ -37,6 +37,7 @@ public class Animal : MonoBehaviour {
     protected AudioSource theAudio;
     protected NavMeshAgent nav;
     protected FieldOfViewAngle theViewAngle;
+
     [SerializeField] protected AudioClip[] sound_Normal;
     [SerializeField] protected AudioClip sound_Hurt;
     [SerializeField] protected AudioClip sound_Dead;
@@ -74,7 +75,7 @@ public class Animal : MonoBehaviour {
         if (isAction)
         {
             currentTime -= Time.deltaTime;
-            if (currentTime <= 0 && !isChasing && !isAttacking)
+            if (currentTime <= 0 && !isChasing && !isAttacking)  // 랜덤하게 다음 행동을 개시
                 ReSet();
         }
     }
@@ -157,4 +158,5 @@ public class Animal : MonoBehaviour {
     //     Destroy(this.gameObject, 3f);
     //     return item_Prefab;
     // }
+   
 }
