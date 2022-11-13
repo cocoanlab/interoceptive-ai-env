@@ -247,6 +247,15 @@ public class FoodCollectorAgent : Agent
             this.resourceLevels[2] = this.bodyTemp;
         }
 
+        // EV 정보 출력 (정상적으로 작동하는 것 확인하면 주석 처리)
+        string ev = "EV: ";
+        for (int i = 0; i < this.numResources; i++)
+        {
+            ev += this.resourceLevels[i];
+            ev += ", ";
+        }
+        Debug.Log(ev);
+
         bool checkRed = (this.maxEnergyLevelRed < this.resourceLevels[0] || this.resourceLevels[0] < this.minEnergyLevelRed);
         bool checkBlue = (this.maxEnergyLevelBlue < this.resourceLevels[1] || this.resourceLevels[1] < this.minEnergyLevelBlue);
 
@@ -269,19 +278,30 @@ public class FoodCollectorAgent : Agent
         if (this.useOlfactoryObs)
         {
             PropertyObserving();
+
+            // olfactory 정보 출력 (정상적으로 작동하는 것 확인하면 주석 처리)
             string olf = "Olfactory: ";
             for (int i = 0; i < olfactorySize; i++)
             {
                 olf += olfactory[i];
                 olf += ", ";
             }
+            if (useOlfactoryObs) { Debug.Log(olf); }
         }
-
-        // olfactory 정보 출력 (정상적으로 작동하는 것 확인하면 주석 처리)
-        // if (useOlfactoryObs) { Debug.Log(olf); }
+        
         if (this.useThermalObs)
         {
             ThermalObserving();
+
+            // Thermo 정보 출력 (정상적으로 작동하는 것 확인하면 주석 처리)
+            string thermo = "Thermo: ";
+            for (int i = 0; i < 8; i++)
+            {
+                thermo += thermalSensor[i];
+                thermo += ", ";
+            }
+            Debug.Log(thermo);
+
         }
 
         int action = actions.DiscreteActions[0];
@@ -469,14 +489,14 @@ public class FoodCollectorAgent : Agent
         thermalSensor[6] = sensorBackwardLeft.GetComponent<ThermalSensing>().GetThermalSense() - sensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
         thermalSensor[7] = sensorBackwardRight.GetComponent<ThermalSensing>().GetThermalSense() - sensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
 
-        Debug.Log("Forward (0) : " + thermalSensor[0].ToString());
-        Debug.Log("Backward (1) : " + thermalSensor[1].ToString());
-        Debug.Log("Left (2) : " + thermalSensor[2].ToString());
-        Debug.Log("Right (3) : " + thermalSensor[3].ToString());
-        Debug.Log("ForwardLeft (4) : " + thermalSensor[4].ToString());
-        Debug.Log("ForwardRight (5) : " + thermalSensor[5].ToString());
-        Debug.Log("BackwardLeft (6) : " + thermalSensor[6].ToString());
-        Debug.Log("BackwardRight (7) : " + thermalSensor[7].ToString());
+        // Debug.Log("Forward (0) : " + thermalSensor[0].ToString());
+        // Debug.Log("Backward (1) : " + thermalSensor[1].ToString());
+        // Debug.Log("Left (2) : " + thermalSensor[2].ToString());
+        // Debug.Log("Right (3) : " + thermalSensor[3].ToString());
+        // Debug.Log("ForwardLeft (4) : " + thermalSensor[4].ToString());
+        // Debug.Log("ForwardRight (5) : " + thermalSensor[5].ToString());
+        // Debug.Log("BackwardLeft (6) : " + thermalSensor[6].ToString());
+        // Debug.Log("BackwardRight (7) : " + thermalSensor[7].ToString());
 
         bodyTemp = sensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
 
