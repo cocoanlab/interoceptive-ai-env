@@ -11,7 +11,7 @@ public class ThermalSensing : MonoBehaviour
     public GameObject agent;
     public FoodCollectorAgent Agent;
     public bool isSensor;
-    public int sensorRate;
+    // public int sensorRate;
 
     // EnvironmentParameters m_ResetParams;
 
@@ -55,12 +55,12 @@ public class ThermalSensing : MonoBehaviour
                             if (Mathf.Abs(nightAreaTemp) > 50.0f)
                             {
                                 // thermalSense -= Mathf.Abs(nightAreaTemp) * area.GetComponent<FoodCollectorArea>().thermoRatio * Time.fixedDeltaTime * 10;
-                                thermalSense -= Mathf.Abs(nightAreaTemp) * agent.GetComponent<FoodCollectorAgent>().thermoRatio * Time.fixedDeltaTime * 10 * sensorRate;
+                                thermalSense -= Mathf.Abs(nightAreaTemp) * agent.GetComponent<FoodCollectorAgent>().thermoRatio * Time.fixedDeltaTime * 10 * agent.GetComponent<FoodCollectorAgent>().sensorRate;
                             }
                             else
                             {
                                 // thermalSense -= Mathf.Abs(nightAreaTemp) * area.GetComponent<FoodCollectorArea>().thermoRatio * Time.fixedDeltaTime;
-                                thermalSense -= Mathf.Abs(nightAreaTemp) * agent.GetComponent<FoodCollectorAgent>().thermoRatio * Time.fixedDeltaTime * sensorRate;
+                                thermalSense -= Mathf.Abs(nightAreaTemp) * agent.GetComponent<FoodCollectorAgent>().thermoRatio * Time.fixedDeltaTime * agent.GetComponent<FoodCollectorAgent>().sensorRate;
                             }
 
                             // Debug.Log(cubeName + " : " + area.GetComponent<AreaTempSmoothing>().GetAreaTemp(x + 50, z + 50).ToString());
@@ -70,12 +70,12 @@ public class ThermalSensing : MonoBehaviour
                             if (Mathf.Abs(nightAreaTemp) > 50.0f)
                             {
                                 // thermalSense += Mathf.Abs(nightAreaTemp) * area.GetComponent<FoodCollectorArea>().thermoRatio * Time.fixedDeltaTime * 10;
-                                thermalSense += Mathf.Abs(nightAreaTemp) * agent.GetComponent<FoodCollectorAgent>().thermoRatio * Time.fixedDeltaTime * 10 * sensorRate;
+                                thermalSense += Mathf.Abs(nightAreaTemp) * agent.GetComponent<FoodCollectorAgent>().thermoRatio * Time.fixedDeltaTime * 10 * agent.GetComponent<FoodCollectorAgent>().sensorRate;
                             }
                             else
                             {
                                 // thermalSense += Mathf.Abs(nightAreaTemp) * area.GetComponent<FoodCollectorArea>().thermoRatio * Time.fixedDeltaTime;
-                                thermalSense += Mathf.Abs(nightAreaTemp) * agent.GetComponent<FoodCollectorAgent>().thermoRatio * Time.fixedDeltaTime * sensorRate;
+                                thermalSense += Mathf.Abs(nightAreaTemp) * agent.GetComponent<FoodCollectorAgent>().thermoRatio * Time.fixedDeltaTime * agent.GetComponent<FoodCollectorAgent>().sensorRate;
                             }
 
                             // Debug.Log(cubeName + " : " + area.GetComponent<AreaTempSmoothing>().GetAreaTemp(x + 50, z + 50).ToString());
@@ -98,12 +98,12 @@ public class ThermalSensing : MonoBehaviour
                             if (Mathf.Abs(dayAreaTemp) > 50)
                             {
                                 // thermalSense += Mathf.Abs(dayAreaTemp) * area.GetComponent<FoodCollectorArea>().thermoRatio * Time.fixedDeltaTime * 10;
-                                thermalSense += Mathf.Abs(dayAreaTemp) * agent.GetComponent<FoodCollectorAgent>().thermoRatio * Time.fixedDeltaTime * 10 * sensorRate;
+                                thermalSense += Mathf.Abs(dayAreaTemp) * agent.GetComponent<FoodCollectorAgent>().thermoRatio * Time.fixedDeltaTime * 10 * agent.GetComponent<FoodCollectorAgent>().sensorRate;
                             }
                             else
                             {
                                 // thermalSense += Mathf.Abs(dayAreaTemp) * area.GetComponent<FoodCollectorArea>().thermoRatio * Time.fixedDeltaTime;
-                                thermalSense += Mathf.Abs(dayAreaTemp) * agent.GetComponent<FoodCollectorAgent>().thermoRatio * Time.fixedDeltaTime * sensorRate;
+                                thermalSense += Mathf.Abs(dayAreaTemp) * agent.GetComponent<FoodCollectorAgent>().thermoRatio * Time.fixedDeltaTime * agent.GetComponent<FoodCollectorAgent>().sensorRate;
                             }
 
                             // Debug.Log(cubeName + " : " + area.GetComponent<AreaTempSmoothing>().GetAreaTemp(x + 50, z + 50).ToString());
@@ -113,12 +113,12 @@ public class ThermalSensing : MonoBehaviour
                             if (Mathf.Abs(dayAreaTemp) > 50)
                             {
                                 // thermalSense -= Mathf.Abs(dayAreaTemp) * area.GetComponent<FoodCollectorArea>().thermoRatio * Time.fixedDeltaTime * 10;
-                                thermalSense -= Mathf.Abs(dayAreaTemp) * agent.GetComponent<FoodCollectorAgent>().thermoRatio * Time.fixedDeltaTime * 10 * sensorRate;
+                                thermalSense -= Mathf.Abs(dayAreaTemp) * agent.GetComponent<FoodCollectorAgent>().thermoRatio * Time.fixedDeltaTime * 10 * agent.GetComponent<FoodCollectorAgent>().sensorRate;
                             }
                             else
                             {
                                 // thermalSense -= Mathf.Abs(dayAreaTemp) * area.GetComponent<FoodCollectorArea>().thermoRatio * Time.fixedDeltaTime;
-                                thermalSense -= Mathf.Abs(dayAreaTemp) * agent.GetComponent<FoodCollectorAgent>().thermoRatio * Time.fixedDeltaTime * sensorRate;
+                                thermalSense -= Mathf.Abs(dayAreaTemp) * agent.GetComponent<FoodCollectorAgent>().thermoRatio * Time.fixedDeltaTime * agent.GetComponent<FoodCollectorAgent>().sensorRate;
                             }
 
                             // Debug.Log(cubeName + " : " + area.GetComponent<AreaTempSmoothing>().GetAreaTemp(x + 50, z + 50).ToString());

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44021598, g: 0.48875344, b: 0.5689334, a: 1}
+  m_IndirectSpecularColor: {r: 0.44021663, g: 0.48875427, b: 0.5689346, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5132,7 +5132,6 @@ MonoBehaviour:
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
   Agent: {fileID: 1690238423}
-  isSensor: 1
 --- !u!1 &205308262
 GameObject:
   m_ObjectHideFlags: 0
@@ -5412,11 +5411,6 @@ PrefabInstance:
       propertyPath: sensorLeft
       value: 
       objectReference: {fileID: 1099151097}
-    - target: {fileID: 114176228333253036, guid: 38400a68c4ea54b52998e34ee238d1a7,
-        type: 3}
-      propertyPath: sensorRate
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 114176228333253036, guid: 38400a68c4ea54b52998e34ee238d1a7,
         type: 3}
       propertyPath: lossRateRed
@@ -5968,7 +5962,6 @@ MonoBehaviour:
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
   Agent: {fileID: 1690238423}
-  isSensor: 1
 --- !u!1 &450069916
 GameObject:
   m_ObjectHideFlags: 0
@@ -6068,7 +6061,6 @@ MonoBehaviour:
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
   Agent: {fileID: 1690238423}
-  isSensor: 1
 --- !u!1 &666139393
 GameObject:
   m_ObjectHideFlags: 0
@@ -6131,7 +6123,6 @@ MonoBehaviour:
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
   Agent: {fileID: 1690238423}
-  isSensor: 1
 --- !u!1 &677854296
 GameObject:
   m_ObjectHideFlags: 0
@@ -6460,7 +6451,6 @@ MonoBehaviour:
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
   Agent: {fileID: 1690238423}
-  isSensor: 1
 --- !u!1 &782570909
 GameObject:
   m_ObjectHideFlags: 0
@@ -12086,7 +12076,6 @@ MonoBehaviour:
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
   Agent: {fileID: 1690238423}
-  isSensor: 1
 --- !u!1 &1164685606
 GameObject:
   m_ObjectHideFlags: 0
@@ -12149,7 +12138,6 @@ MonoBehaviour:
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
   Agent: {fileID: 1690238423}
-  isSensor: 1
 --- !u!1 &1167587520
 GameObject:
   m_ObjectHideFlags: 0
@@ -17756,7 +17744,6 @@ MonoBehaviour:
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
   Agent: {fileID: 1690238423}
-  isSensor: 1
 --- !u!1 &1637494394
 GameObject:
   m_ObjectHideFlags: 0
@@ -28132,7 +28119,6 @@ MonoBehaviour:
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
   Agent: {fileID: 1690238423}
-  isSensor: 0
 --- !u!65 &1972561381
 BoxCollider:
   m_ObjectHideFlags: 0

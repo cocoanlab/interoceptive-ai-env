@@ -61,6 +61,7 @@ public class FoodCollectorAgent : Agent
     public float maxEnergyLevelYellow = 15.0f;
     public float minEnergyLevelYellow = -15.0f;
     public float thermoRatio = 0.007f;
+    public int sensorRate = 10;
     // public float lossRateYellow = 0.002f;
     // public float resourceEnergyYellow = 3.0f;
 
@@ -412,6 +413,7 @@ public class FoodCollectorAgent : Agent
         m_LaserLength = m_ResetParams.GetWithDefault("laser_length", m_LaserLength);
 
         thermoRatio = m_ResetParams.GetWithDefault("thermo_ratio", thermoRatio);
+        sensorRate = (int)m_ResetParams.GetWithDefault("thermo_ratio", sensorRate);
     }
 
     public void IncreaseLevel(string tag)

@@ -5132,6 +5132,7 @@ MonoBehaviour:
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
   Agent: {fileID: 1690238423}
+  isSensor: 1
 --- !u!1 &205308262
 GameObject:
   m_ObjectHideFlags: 0
@@ -5213,7 +5214,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 18.3, y: -29}
+  m_AnchoredPosition: {x: 20.1, y: -47.3999}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &206369966
@@ -5411,6 +5412,11 @@ PrefabInstance:
       propertyPath: sensorLeft
       value: 
       objectReference: {fileID: 1099151097}
+    - target: {fileID: 114176228333253036, guid: 38400a68c4ea54b52998e34ee238d1a7,
+        type: 3}
+      propertyPath: sensorRate
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 114176228333253036, guid: 38400a68c4ea54b52998e34ee238d1a7,
         type: 3}
       propertyPath: lossRateRed
@@ -5962,6 +5968,7 @@ MonoBehaviour:
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
   Agent: {fileID: 1690238423}
+  isSensor: 1
 --- !u!1 &450069916
 GameObject:
   m_ObjectHideFlags: 0
@@ -6061,6 +6068,7 @@ MonoBehaviour:
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
   Agent: {fileID: 1690238423}
+  isSensor: 1
 --- !u!1 &666139393
 GameObject:
   m_ObjectHideFlags: 0
@@ -6123,6 +6131,7 @@ MonoBehaviour:
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
   Agent: {fileID: 1690238423}
+  isSensor: 1
 --- !u!1 &677854296
 GameObject:
   m_ObjectHideFlags: 0
@@ -6451,6 +6460,7 @@ MonoBehaviour:
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
   Agent: {fileID: 1690238423}
+  isSensor: 1
 --- !u!1 &782570909
 GameObject:
   m_ObjectHideFlags: 0
@@ -11762,7 +11772,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 20.1, y: -47.399902}
+  m_AnchoredPosition: {x: 23.2, y: -29}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1085360611
@@ -12076,6 +12086,7 @@ MonoBehaviour:
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
   Agent: {fileID: 1690238423}
+  isSensor: 1
 --- !u!1 &1164685606
 GameObject:
   m_ObjectHideFlags: 0
@@ -12138,6 +12149,7 @@ MonoBehaviour:
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
   Agent: {fileID: 1690238423}
+  isSensor: 1
 --- !u!1 &1167587520
 GameObject:
   m_ObjectHideFlags: 0
@@ -17744,6 +17756,7 @@ MonoBehaviour:
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
   Agent: {fileID: 1690238423}
+  isSensor: 1
 --- !u!1 &1637494394
 GameObject:
   m_ObjectHideFlags: 0
@@ -27888,7 +27901,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 23.2, y: 69.1}
+  m_AnchoredPosition: {x: 23.2, y: 87}
   m_SizeDelta: {x: 130, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1853919706
@@ -28016,7 +28029,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 23.1, y: 87}
+  m_AnchoredPosition: {x: 23.2, y: 69.1}
   m_SizeDelta: {x: 130, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1893345872
@@ -28119,6 +28132,7 @@ MonoBehaviour:
   area: {fileID: 1447158878}
   agent: {fileID: 275893088}
   Agent: {fileID: 1690238423}
+  isSensor: 0
 --- !u!65 &1972561381
 BoxCollider:
   m_ObjectHideFlags: 0
