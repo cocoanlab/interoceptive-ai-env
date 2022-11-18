@@ -10,21 +10,23 @@ public class FieldOfViewAngle : MonoBehaviour
     [SerializeField] private float viewDistance; // 시야거리 (10미터);
     [SerializeField] private LayerMask targetMask; // 타겟 마스크 (플레이어)
 
-    private PlayerController thePlayer;
+    // private PlayerController thePlayer;
     private NavMeshAgent nav;
 
-    // private Pig thePig ;
+    private Pig thePig ;
     void Start()
     {
-        // thePig = GetComponent<Pig>(); 
+        thePig = GetComponent<Pig>(); 
         
-        thePlayer = FindObjectOfType<PlayerController>();
-        // nav = GetComponent<NavMeshAgent>();
+        // thePlayer = FindObjectOfType<PlayerController>();
+        nav = GetComponent<NavMeshAgent>();
     }
 
     public Vector3 GetTargetPos()
     {
-        return thePlayer.transform.position;
+        // return thePlayer.transform.position;
+        return thePig.transform.position;
+
     }
 
     public bool View()
@@ -34,7 +36,7 @@ public class FieldOfViewAngle : MonoBehaviour
         for (int i = 0; i < _target.Length; i++)
         {
             Transform _targetTf = _target[i].transform;
-            if (_targetTf.name == "Player")
+            if (_targetTf.tag == "Player")
             {
 
                 Vector3 _direction = (_targetTf.position - transform.position).normalized;
@@ -45,19 +47,20 @@ public class FieldOfViewAngle : MonoBehaviour
                     RaycastHit _hit;
                     if (Physics.Raycast(transform.position + transform.up, _direction, out _hit, viewDistance))
                     {
-                        if (_hit.transform.name == "Player")
+                        if (_hit.transform.tag == "Player")
                         {
                             Debug.Log("Player is in FOV of Pig");
                             Debug.DrawRay(transform.position + transform.up, _direction, Color.blue);
+                            thePig.Run(_hit.transform.position);
                             return true;
                         }
                     }
                 }
             }
 
-            // if (thePlayer.GetRun())
+            // if (thePig.GetRun())
             // {
-            //     if(CalcPathLength(thePlayer.transform.position) <= viewDistance)
+            //     if(CalcPathLength(thePig.transform.position) <= viewDistance)
             //     {
             //         Debug.Log("Pig noticed enemies");
             //         return true;

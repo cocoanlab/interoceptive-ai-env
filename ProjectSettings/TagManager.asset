@@ -11,6 +11,7 @@ TagManager:
   - food_blue
   - cube
   - tree
+  - player
   layers:
   - Default
   - TransparentFX

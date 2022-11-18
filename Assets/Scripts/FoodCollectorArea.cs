@@ -28,7 +28,7 @@ public class FoodCollectorArea : MonoBehaviour
                 // 하이퍼파라미터 설정 (아마 Python에 존재)에서 num_resource_red가 있으면 그 값을 가져오고 없으면 50으로 설정
                 m_ResetParams = Academy.Instance.EnvironmentParameters;
                 float numResourceRed = m_ResetParams.GetWithDefault("num_resource_red", 50.0f);
-                float numResourceBlue = m_ResetParams.GetWithDefault("num_resource_blue", 50.0f);
+                float numResourceBlue = m_ResetParams.GetWithDefault("num_resource_blue", 1.0f);
 
                 foods[0].num = (int)numResourceBlue;
                 foods[1].num = (int)numResourceRed;
@@ -39,19 +39,43 @@ public class FoodCollectorArea : MonoBehaviour
         {
                 for (int i = 0; i < num; i++)
                 {
-                        FoodProperty f = Instantiate(type, new Vector3(Random.Range(-range, range), 1f,
+                        // FoodProperty f = Instantiate(type, new Vector3(Random.Range(-range, range), 1f,
+                        //         Random.Range(-range, range)) + transform.position,
+                        //         Quaternion.Euler(new Vector3(0f, Random.Range(0f, 360f), 90f)));
+                        // f.transform.parent = foodWater.transform;
+                        // f.InitializeProperties();
+                        
+                        // if (f.CompareTag("food_red"))
+                        // {
+                        //         f.name = "FoodRed" + (i + 1).ToString();
+                        // }
+                        // else if (f.CompareTag("food_blue"))
+                        // {
+                        //         f.name = "FoodBlue" + (i + 1).ToString();
+                        // }
+
+                        if (string.Equals(type.name, "FoodRed"))
+                        {
+                                FoodProperty f = Instantiate(type, new Vector3(Random.Range(-range, range), 1f,
                                 Random.Range(-range, range)) + transform.position,
                                 Quaternion.Euler(new Vector3(0f, Random.Range(0f, 360f), 90f)));
-                        f.transform.parent = foodWater.transform;
-                        f.InitializeProperties();
-                        if (f.CompareTag("food_blue"))
-                        {
-                                f.name = "FoodBlue" + (i + 1).ToString();
-                        }
-                        else if (f.CompareTag("food_red"))
-                        {
+                                f.transform.parent = foodWater.transform;
+                                f.InitializeProperties();
+                                
                                 f.name = "FoodRed" + (i + 1).ToString();
+
                         }
+                        else if (string.Equals(type.name, "FoodBlue"))
+                        {
+                                // FoodProperty f = Instantiate(type, new Vector3(Random.Range(-range, range), 1f,
+                                // Random.Range(-range, range)) + transform.position,
+                                // Quaternion.Euler(new Vector3(0f, Random.Range(0f, 360f), 90f)));
+                                // f.transform.parent = foodWater.transform;
+                                // f.InitializeProperties();
+                                
+                                // f.name = "FoodBlue" + (i + 1).ToString();
+                        }
+
                 }
         }
 

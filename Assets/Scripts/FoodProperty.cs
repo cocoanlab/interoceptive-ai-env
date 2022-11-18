@@ -24,14 +24,15 @@ public class FoodProperty : MonoBehaviour
     // 음식이 가진 property 초기화 함수 (벡터 성분 초기화)
     public void InitializeProperties()
     {
-        if (gameObject.CompareTag("food_blue"))
-        {
-            FoodP = AddNoise(BlueProperty);
-        }
-        else if (gameObject.CompareTag("food_red"))
+        if (gameObject.CompareTag("food_red"))
         {
             FoodP = AddNoise(RedProperty);
         }
+        // else if (gameObject.CompareTag("food_blue"))
+        // {
+        //     FoodP = AddNoise(BlueProperty);
+        // }
+       
     }
 
     // Sniffing을 할 때 음식에 대한 noise 설정 함수

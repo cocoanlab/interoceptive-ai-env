@@ -26,7 +26,7 @@ public class Lion : StrongAnimal
             CurrentChaseTime += ChaseDelayTime;
         }
 
-        isChasing = true;
+        isChasing = false;
         isRunning = false;
         anim.SetBool("Running", isRunning);
         nav.ResetPath();
@@ -42,28 +42,28 @@ public class Lion : StrongAnimal
     {
         RandomSound();
 
-        int _random = Random.Range(0, 3); // 대기, 걷기
+        int _random = Random.Range(0, 2); 
 
-        if (_random == 1)
-            TryRun();
-        else if (_random == 2)
+        if (_random == 0)
+            Wait();
+        else if (_random == 1)
             TryWalk();
         
 
     }
 
-    private void Walk() 
-    {
-        currentTime = waitTime;
-        anim.SetTrigger("Walk");
-        Debug.Log("Walk");
-    }
-    private void Run() 
-    {
-        currentTime = runTime;
-        anim.SetTrigger("Run");
-        Debug.Log("Run");
-    }
+    // private void Walk() 
+    // {
+    //     currentTime = waitTime;
+    //     anim.SetTrigger("Walk");
+    //     Debug.Log("Walk");
+    // }
+    // private void Run() 
+    // {
+    //     currentTime = runTime;
+    //     anim.SetTrigger("Run");
+    //     Debug.Log("Run");
+    // }
    
     private void Wait()  // 대기
     {

@@ -7,7 +7,7 @@
                 {
                         "name": "Unity Editor",
                         "type": "unity",
-                        "path": "/Users/sungwoo320/Documents/InteroceptiveAI/interoceptive-ai-env/Library/EditorInstance.json",
+                        "path": "/Users/jungmin/Desktop/Project/Unity/interoceptive-ai-env/Library/EditorInstance.json",
                         "request": "launch"
                 },
                 {

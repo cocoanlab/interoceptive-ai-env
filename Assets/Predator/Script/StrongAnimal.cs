@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StrongAnimal : Animal {
+public class StrongAnimal : Animal 
+{
 
     [SerializeField]
     protected int attackDamage; 

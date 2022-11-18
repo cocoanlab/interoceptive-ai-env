@@ -7,10 +7,12 @@ using System.Linq;
 
 
 // GameObject인 Agent에 부착함
+
 public class FoodCollectorAgent : Agent
 {
     public GameObject area;
     public GameObject sun;
+
 
     FoodCollectorArea m_MyArea;
     SceneInitialization m_SceneInitialization;
@@ -95,7 +97,7 @@ public class FoodCollectorAgent : Agent
     private float[] thermalSensor;
 
     public GameObject heatMap;
-
+    public GameObject pig;
 
     FoodProperty[] FoodObjects;
 
@@ -185,6 +187,13 @@ public class FoodCollectorAgent : Agent
         FoodObjects = FindObjectsOfType(typeof(FoodProperty)) as FoodProperty[];
         ResetObject(FoodObjects);
 
+       // Reset pig
+    //    Rigidbody m_pig;
+    //    m_pig = GetComponent<Rigidbody>();
+    //    m_pig.velocity = Vector3.zero;
+    //    transform.position = new Vector3(Random.Range(-m_MyArea.range, m_MyArea.range), 2f, Random.Range(-m_MyArea.range, m_MyArea.range)) + area.transform.position;
+    //    transform.rotation = Quaternion.Euler(new Vector3(0f, Random.Range(0, 360)));
+    //    SetResetParameters();
 
         if (useThermalObs)
         {
@@ -248,13 +257,13 @@ public class FoodCollectorAgent : Agent
         }
 
         // EV 정보 출력 (정상적으로 작동하는 것 확인하면 주석 처리)
-        string ev = "EV: ";
-        for (int i = 0; i < this.numResources; i++)
-        {
-            ev += this.resourceLevels[i];
-            ev += ", ";
-        }
-        Debug.Log(ev);
+        // string ev = "EV: ";
+        // for (int i = 0; i < this.numResources; i++)
+        // {
+        //     ev += this.resourceLevels[i];
+        //     ev += ", ";
+        // }
+        // Debug.Log(ev);
 
         bool checkRed = (this.maxEnergyLevelRed < this.resourceLevels[0] || this.resourceLevels[0] < this.minEnergyLevelRed);
         bool checkBlue = (this.maxEnergyLevelBlue < this.resourceLevels[1] || this.resourceLevels[1] < this.minEnergyLevelBlue);
@@ -280,13 +289,13 @@ public class FoodCollectorAgent : Agent
             PropertyObserving();
 
             // olfactory 정보 출력 (정상적으로 작동하는 것 확인하면 주석 처리)
-            string olf = "Olfactory: ";
-            for (int i = 0; i < olfactorySize; i++)
-            {
-                olf += olfactory[i];
-                olf += ", ";
-            }
-            if (useOlfactoryObs) { Debug.Log(olf); }
+            // string olf = "Olfactory: ";
+            // for (int i = 0; i < olfactorySize; i++)
+            // {
+            //     olf += olfactory[i];
+            //     olf += ", ";
+            // }
+            // if (useOlfactoryObs) { Debug.Log(olf); }
         }
         
         if (this.useThermalObs)
@@ -294,13 +303,13 @@ public class FoodCollectorAgent : Agent
             ThermalObserving();
 
             // Thermo 정보 출력 (정상적으로 작동하는 것 확인하면 주석 처리)
-            string thermo = "Thermo: ";
-            for (int i = 0; i < 8; i++)
-            {
-                thermo += thermalSensor[i];
-                thermo += ", ";
-            }
-            Debug.Log(thermo);
+            // string thermo = "Thermo: ";
+            // for (int i = 0; i < 8; i++)
+            // {
+            //     thermo += thermalSensor[i];
+            //     thermo += ", ";
+            // }
+            // Debug.Log(thermo);
 
         }
 

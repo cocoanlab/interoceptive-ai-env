@@ -11,6 +11,7 @@ public class Pig: WeakAnimal
         {
             Run(theViewAngle.GetTargetPos());
         }
+
     }
 
     protected override void ReSet()
@@ -27,11 +28,11 @@ public class Pig: WeakAnimal
 
          if (_random == 0)
             Wait();
+        // else if (_random == 1)
+        //     Eat();
         else if (_random == 1)
-            Eat();
-        else if (_random == 2)
             Peek();
-        else if (_random == 3)
+        else if (_random == 2)
             TryWalk();
     }
     private void Wait() //weak animal일때
@@ -51,17 +52,18 @@ public class Pig: WeakAnimal
         anim.SetTrigger("Walk");
         Debug.Log("Walk");
     }
-    // private void Run() 
-    // {
-    //     currentTime = waitTime;
-    //     anim.SetTrigger("Run");
-    //     Debug.Log("Run");
-    // }
+    private void Run() 
+    {
+        currentTime = waitTime;
+        anim.SetTrigger("Run");
+        Debug.Log("Run");
+    }
     private void Peek()  //weak animal일떄
     {
         currentTime = waitTime;
         anim.SetTrigger("Peek");
         Debug.Log("Peek");
     }
+
 
 }

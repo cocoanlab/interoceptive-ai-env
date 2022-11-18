@@ -29,10 +29,13 @@ public class FoodEating : MonoBehaviour
         // 음식을 먹으면 그 음식의 위치가 옮겨짐 (사실상 먹으면 다른 곳에 새로 생기는 것과 비슷한 효과)
         if (isEaten)
         {
-            other.transform.position = new Vector3(Random.Range(-myArea.range, myArea.range),
-            3f, Random.Range(-myArea.range, myArea.range)) + myArea.transform.position;
-            FoodProperty f = other.gameObject.GetComponent<FoodProperty>();
-            f.InitializeProperties();
+            if (other.CompareTag("food_red"))
+            {
+                other.transform.position = new Vector3(Random.Range(-myArea.range, myArea.range),
+                3f, Random.Range(-myArea.range, myArea.range)) + myArea.transform.position;
+                FoodProperty f = other.gameObject.GetComponent<FoodProperty>();
+                f.InitializeProperties();
+            }
         }
     }
 }
