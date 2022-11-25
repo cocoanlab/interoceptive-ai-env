@@ -5100,31 +5100,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 147749067}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 397cf186129164f12ab99456f373306a, type: 3}
+  m_Script: {fileID: 11500000, guid: dad020bb5f2f2467da16e5bfeea3b668, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animalName: Lion
-  hp: 2
-  walkSpeed: 1
-  runSpeed: 4
-  turningSpeed: 5
-  walkTime: 5
-  waitTime: 4
-  runTime: 5
+  animalName: lion
+  hp: 5
+  walkSpeed: 2
+  runSpeed: 5
+  turningSpeed: 2
+  walkTime: 3
+  waitTime: 0
+  runTime: 8
   anim: {fileID: 1136953474}
   rigid: {fileID: 147749073}
   boxcol: {fileID: 147749072}
+  AgentStatus: {fileID: 1690238430}
   sound_Normal: []
   sound_Hurt: {fileID: 0}
   sound_Dead: {fileID: 0}
-  attackDamage: 10
-  attackDelay: 3
+  attackDamage: 0
+  attackDelay: 0
   attackDistance: 0
   targetMask:
     serializedVersion: 2
     m_Bits: 128
-  ChaseTime: 4
-  ChaseDelayTime: 0.5
+  ChaseTime: 3
+  ChaseDelayTime: 0
 --- !u!195 &147749069
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5156,7 +5157,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 147749067}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5abf570a5a2d14ea4ac9db7b3bc642fb, type: 3}
+  m_Script: {fileID: 11500000, guid: 9040ed297b63c41ceb9c54bd6cb13dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   viewAngle: 130
@@ -5164,6 +5165,7 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 128
+  Agent: {fileID: 1690238423}
 --- !u!65 &147749072
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5201,7 +5203,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 147749067}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.55, y: 0.71, z: -3.95}
+  m_LocalPosition: {x: 9.55, y: 0.71, z: -33.5}
   m_LocalScale: {x: 1, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5591,7 +5593,7 @@ PrefabInstance:
     - target: {fileID: 114176228333253036, guid: 38400a68c4ea54b52998e34ee238d1a7,
         type: 3}
       propertyPath: thermoRatio
-      value: 0.05
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 114176228333253036, guid: 38400a68c4ea54b52998e34ee238d1a7,
         type: 3}
@@ -12588,7 +12590,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!195 &1223203883
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -12620,24 +12622,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1223203881}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e5976602cff04e1e924056c37209ff7, type: 3}
+  m_Script: {fileID: 11500000, guid: 7c3f1ecec7f924948853b49ce00d9151, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animalName: Pig
-  hp: 2
-  walkSpeed: 1
-  runSpeed: 4
-  turningSpeed: 0.5
+  animalName: pig
+  hp: 5
+  walkSpeed: 2
+  runSpeed: 5
+  turningSpeed: 2
   walkTime: 5
-  waitTime: 4
+  waitTime: 10
   runTime: 5
   anim: {fileID: 1629849397}
   rigid: {fileID: 1223203887}
   boxcol: {fileID: 1223203886}
-  sound_Normal:
-  - {fileID: 8300000, guid: 326488c2aa83bf94891f72d9983a1702, type: 3}
-  - {fileID: 8300000, guid: 27505496045a2aa488d704d52d8f8f71, type: 3}
-  - {fileID: 8300000, guid: 8f8582b9e1419c9489c2f055e0b7b9d6, type: 3}
+  AgentStatus: {fileID: 1690238430}
+  sound_Normal: []
   sound_Hurt: {fileID: 8300000, guid: 2576a8e1fd281864ba888a6c4e83b676, type: 3}
   sound_Dead: {fileID: 8300000, guid: 65140d1bef2dca24790253f9884c3a52, type: 3}
 --- !u!114 &1223203885
@@ -12649,7 +12649,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1223203881}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5abf570a5a2d14ea4ac9db7b3bc642fb, type: 3}
+  m_Script: {fileID: 11500000, guid: 9040ed297b63c41ceb9c54bd6cb13dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   viewAngle: 130
@@ -12657,6 +12657,7 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 128
+  Agent: {fileID: 1690238423}
 --- !u!65 &1223203886
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18523,7 +18524,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400024, guid: cfb4000a5f9598a4d9dbad028d46680d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.57
+      value: -0.6
       objectReference: {fileID: 0}
     - target: {fileID: 400024, guid: cfb4000a5f9598a4d9dbad028d46680d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -18531,7 +18532,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400024, guid: cfb4000a5f9598a4d9dbad028d46680d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.17
+      value: -29.6
       objectReference: {fileID: 0}
     - target: {fileID: 400024, guid: cfb4000a5f9598a4d9dbad028d46680d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -28537,7 +28538,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &1826095208
 Light:
   m_ObjectHideFlags: 0

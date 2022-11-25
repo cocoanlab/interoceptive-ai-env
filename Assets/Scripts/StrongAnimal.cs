@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StrongAnimal : Animal 
+public class StrongAnimal : Animal
 {
-
     [SerializeField]
     protected int attackDamage; 
     [SerializeField]
@@ -19,10 +18,10 @@ public class StrongAnimal : Animal
     protected float CurrentChaseTime; 
     [SerializeField]
     protected float ChaseDelayTime; 
-
     public void Chase(Vector3 _targetPos)
     {
         destination = _targetPos;
+        Debug.Log(destination);
 
         isChasing = true;
 
@@ -47,6 +46,7 @@ public class StrongAnimal : Animal
     {
         CurrentChaseTime = 0;
         Chase(theViewAngle.GetTargetPos());
+        
 
         while (CurrentChaseTime < ChaseTime)
         {
@@ -94,6 +94,5 @@ public class StrongAnimal : Animal
         isAttacking = false;
         StartCoroutine(ChaseTargetCoroutine());
     }
+
 }
-
-

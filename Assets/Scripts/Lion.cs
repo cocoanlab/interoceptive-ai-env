@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Lion : StrongAnimal
 {
-    protected override void Update()
+   protected override void Update()
     {
         base.Update();
+        // Debug.Log(theViewAngle.View());
         if (theViewAngle.View() && !isDead)
         {
             StopAllCoroutines();
+            Debug.Log("stop");
             StartCoroutine(ChaseTargetCoroutine());
+            Debug.Log("start chasing");
         }
     }
 
@@ -24,6 +28,7 @@ public class Lion : StrongAnimal
             Chase(theViewAngle.GetTargetPos());
             yield return new WaitForSeconds(ChaseDelayTime);
             CurrentChaseTime += ChaseDelayTime;
+            Debug.Log("chasing");
         }
 
         isChasing = false;
@@ -45,25 +50,25 @@ public class Lion : StrongAnimal
         int _random = Random.Range(0, 2); 
 
         if (_random == 0)
-            Wait();
+            TryRun();
         else if (_random == 1)
             TryWalk();
         
 
     }
 
-    // private void Walk() 
-    // {
-    //     currentTime = waitTime;
-    //     anim.SetTrigger("Walk");
-    //     Debug.Log("Walk");
-    // }
-    // private void Run() 
-    // {
-    //     currentTime = runTime;
-    //     anim.SetTrigger("Run");
-    //     Debug.Log("Run");
-    // }
+    private void Walk() 
+    {
+        currentTime = waitTime;
+        anim.SetTrigger("Walk");
+        Debug.Log("Walk");
+    }
+    private void Run() 
+    {
+        currentTime = runTime;
+        anim.SetTrigger("Run");
+        Debug.Log("Run");
+    }
    
     private void Wait()  // 대기
     {
@@ -71,6 +76,4 @@ public class Lion : StrongAnimal
         Debug.Log("wait");
     }
 
-    
 }
-

@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Animal : MonoBehaviour {
-    // protected StatusController thePlayerStatus;
-    [SerializeField] public string animalName; // 동물의 이름
+public class Animal : MonoBehaviour
+{
+    // protected PlayerController thePlayerStatus;
+    [SerializeField] public string animalName; 
     [SerializeField] protected int hp; // 체력
-    // [SerializeField] protected Item item_Prefab; // 아이템
-    // [SerializeField] public int itemNumber; // 아이템의 획득 개수
-    [SerializeField] protected float walkSpeed; // 걷기 스피드
-    [SerializeField] protected float runSpeed; // 뛰기 스피드
+   
+    [SerializeField] protected float walkSpeed; 
+    [SerializeField] protected float runSpeed; 
     [SerializeField] protected float turningSpeed; 
-    protected Vector3 destination; // 목적지
+    protected Vector3 destination; 
     protected float applySpeed ;
     protected Vector3 direction ;
 
@@ -36,6 +36,7 @@ public class Animal : MonoBehaviour {
     [SerializeField] protected BoxCollider boxcol ; 
     protected AudioSource theAudio;
     protected NavMeshAgent nav;
+    public Transform AgentStatus;
     protected FieldOfViewAngle theViewAngle;
 
     [SerializeField] protected AudioClip[] sound_Normal;
@@ -44,8 +45,8 @@ public class Animal : MonoBehaviour {
     
     // Start is called before the first frame update
      void Start()
-    {
-        // thePlayerStatus = FindObjectOfType<StatusController>();
+    {   
+        // AgentStatus = GameObject.FindGameObjectsWithTag("Player").transform
         theViewAngle = GetComponent<FieldOfViewAngle>();
         nav = GetComponent<NavMeshAgent>();
         theAudio = GetComponent<AudioSource>();
@@ -53,7 +54,9 @@ public class Animal : MonoBehaviour {
         isAction = true;
     }
     protected virtual void Update()
-    {
+    {   
+        nav.SetDestination(AgentStatus.position);
+        
         if (!isDead)
         {
             Move();
@@ -160,3 +163,5 @@ public class Animal : MonoBehaviour {
     // }
    
 }
+
+

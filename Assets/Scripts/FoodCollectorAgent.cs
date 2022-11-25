@@ -97,7 +97,9 @@ public class FoodCollectorAgent : Agent
     private float[] thermalSensor;
 
     public GameObject heatMap;
-    public GameObject pig;
+    // public GameObject Pig;
+    // Rigidbody m_pig;
+
 
     FoodProperty[] FoodObjects;
 
@@ -120,6 +122,8 @@ public class FoodCollectorAgent : Agent
         m_AgentRb = GetComponent<Rigidbody>();
         m_MyArea = area.GetComponent<FoodCollectorArea>();
         m_SceneInitialization = FindObjectOfType<SceneInitialization>();
+        
+        // m_pig = GetComponent<Rigidbody>();
 
 
         if (this.useOlfactoryObs)
@@ -188,8 +192,6 @@ public class FoodCollectorAgent : Agent
         ResetObject(FoodObjects);
 
        // Reset pig
-    //    Rigidbody m_pig;
-    //    m_pig = GetComponent<Rigidbody>();
     //    m_pig.velocity = Vector3.zero;
     //    transform.position = new Vector3(Random.Range(-m_MyArea.range, m_MyArea.range), 2f, Random.Range(-m_MyArea.range, m_MyArea.range)) + area.transform.position;
     //    transform.rotation = Quaternion.Euler(new Vector3(0f, Random.Range(0, 360)));

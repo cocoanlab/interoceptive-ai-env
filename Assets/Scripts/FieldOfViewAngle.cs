@@ -5,68 +5,55 @@ using UnityEngine.AI;
 
 public class FieldOfViewAngle : MonoBehaviour
 {
-
     [SerializeField] private float viewAngle; // 시야각 (120도);
     [SerializeField] private float viewDistance; // 시야거리 (10미터);
     [SerializeField] private LayerMask targetMask; // 타겟 마스크 (플레이어)
 
-    // private PlayerController thePlayer;
+    public FoodCollectorAgent Agent;
     private NavMeshAgent nav;
 
-    private Pig thePig ;
     void Start()
     {
-        thePig = GetComponent<Pig>(); 
-        
-        // thePlayer = FindObjectOfType<PlayerController>();
         nav = GetComponent<NavMeshAgent>();
     }
 
     public Vector3 GetTargetPos()
     {
-        // return thePlayer.transform.position;
-        return thePig.transform.position;
-
+        return Agent.transform.position;
     }
 
     public bool View()
     {
         Collider[] _target = Physics.OverlapSphere(transform.position, viewDistance, targetMask);
-
         for (int i = 0; i < _target.Length; i++)
         {
             Transform _targetTf = _target[i].transform;
-            if (_targetTf.tag == "Player")
+            Debug.Log(_targetTf.tag);
+
+            if (_targetTf.tag == "player")
             {
 
-                Vector3 _direction = (_targetTf.position - transform.position).normalized;
-                float _angle = Vector3.Angle(_direction, transform.forward);
+                // Vector3 _direction = (_targetTf.position - transform.position).normalized;
+                // float _angle = Vector3.Angle(_direction, transform.forward);
 
-                if (_angle < viewAngle * 0.5f)
-                {
-                    RaycastHit _hit;
-                    if (Physics.Raycast(transform.position + transform.up, _direction, out _hit, viewDistance))
-                    {
-                        if (_hit.transform.tag == "Player")
-                        {
-                            Debug.Log("Player is in FOV of Pig");
-                            Debug.DrawRay(transform.position + transform.up, _direction, Color.blue);
-                            thePig.Run(_hit.transform.position);
-                            return true;
-                        }
-                    }
-                }
+                // if (_angle < viewAngle * 0.5f)
+                // {
+                //     RaycastHit _hit;
+
+                //     if (Physics.Raycast(transform.position + transform.up, _direction, out _hit, viewDistance))
+                //     {                       
+                //         Debug.Log(_hit.transform.tag);
+
+                //         if (_hit.transform.tag == "player")
+                //         {
+                //             Debug.Log("Player is in FOV of lion");
+                //             Debug.DrawRay(transform.position + transform.up, _direction, Color.blue);
+                //             return true;
+                //         }
+                //     }
+                // }
+                return true;
             }
-
-            // if (thePig.GetRun())
-            // {
-            //     if(CalcPathLength(thePig.transform.position) <= viewDistance)
-            //     {
-            //         Debug.Log("Pig noticed enemies");
-            //         return true;
-            //     }
-            // }
-
         }
         return false;
     }
