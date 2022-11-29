@@ -9,7 +9,7 @@ public class AreaTempSmoothing : MonoBehaviour
 {
         EnvironmentParameters m_ResetParams;
 
-        public int smoothingRepetition = 100;
+        public int smoothingRepetition = 10;
         public float[,] areaTemp;
         private int areaWidth;
         private int areaDepth;
@@ -20,14 +20,14 @@ public class AreaTempSmoothing : MonoBehaviour
         private float newHigh;
         public float[,] normalizedAreaTemp;
 
-        public float bonfireLow = 30.0f;
-        public float bonfireHigh = 40.0f;
+        public float bonfireLow = 60.0f;
+        public float bonfireHigh = 60.0f;
         private float bonfireTemp;
 
-        public float bonfireCount = 300;
+        public float bonfireCount = 100;
 
-        public float fieldTempLow = -40.0f;
-        public float fieldTempHigh = -35.0f;
+        public float fieldTempLow = -60.0f;
+        public float fieldTempHigh = -60.0f;
 
         // private int count = 0;
 

@@ -5404,6 +5404,11 @@ PrefabInstance:
       objectReference: {fileID: 705507993}
     - target: {fileID: 114176228333253036, guid: 38400a68c4ea54b52998e34ee238d1a7,
         type: 3}
+      propertyPath: seed
+      value: 8217
+      objectReference: {fileID: 0}
+    - target: {fileID: 114176228333253036, guid: 38400a68c4ea54b52998e34ee238d1a7,
+        type: 3}
       propertyPath: heatMap
       value: 
       objectReference: {fileID: 1071050609}
@@ -5430,7 +5435,7 @@ PrefabInstance:
     - target: {fileID: 114176228333253036, guid: 38400a68c4ea54b52998e34ee238d1a7,
         type: 3}
       propertyPath: thermoRatio
-      value: 0.05
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 114176228333253036, guid: 38400a68c4ea54b52998e34ee238d1a7,
         type: 3}
@@ -6315,13 +6320,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa42205c8b8f747ff8e7a6d58e76ae6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  secondPerRealTimeSecound: 80
+  secondPerRealTimeSecound: 40
   fogDensityCalc: 0.15
   nightFogDensity: 0.35
   dayFogDensity: 0
   currentFogDensity: 0
   dayVariance: 0
-  nightVariance: -10
+  nightVariance: -20
 --- !u!1 &739219502
 GameObject:
   m_ObjectHideFlags: 0
@@ -12403,12 +12408,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e528b8b4ba3e0ed498750493a69dda17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smoothingRepetition: 100
-  bonfireLow: 30
-  bonfireHigh: 40
+  smoothingRepetition: 10
+  bonfireLow: 60
+  bonfireHigh: 60
   bonfireCount: 300
-  fieldTempLow: -40
-  fieldTempHigh: -35
+  fieldTempLow: -60
+  fieldTempHigh: -60
 --- !u!4 &1447158885 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4688212428263696, guid: 38400a68c4ea54b52998e34ee238d1a7,

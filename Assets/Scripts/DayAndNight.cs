@@ -9,7 +9,7 @@ public class DayAndNight : MonoBehaviour
         EnvironmentParameters m_ResetParams;
 
         // 현실 세계에서 1초가 지났을 때 게임 세계에서 몇 초가 지나도록 할 것인지 설정하기 위한 변수
-        [SerializeField] private float secondPerRealTimeSecound;
+        [SerializeField] private float secondPerRealTimeSecound = 0.0f;
         // private float secondPerRealTimeSecound;
 
         // 밤 여부 판단
@@ -27,8 +27,8 @@ public class DayAndNight : MonoBehaviour
         // 계산
         public float currentFogDensity;
 
-        public float dayVariance;
-        public float nightVariance;
+        public float dayVariance = 0.0f;
+        public float nightVariance = -20.0f;
 
         public void Awake()
         {
@@ -49,9 +49,9 @@ public class DayAndNight : MonoBehaviour
         {
                 // Setting parameters from python
                 m_ResetParams = Academy.Instance.EnvironmentParameters;
-                secondPerRealTimeSecound = m_ResetParams.GetWithDefault("day_night_speed", 0.0f);
-                dayVariance = m_ResetParams.GetWithDefault("day_variance", 0.0f);
-                nightVariance = m_ResetParams.GetWithDefault("night_variance", -10.0f);
+                secondPerRealTimeSecound = m_ResetParams.GetWithDefault("day_night_speed", secondPerRealTimeSecound);
+                dayVariance = m_ResetParams.GetWithDefault("day_variance", dayVariance);
+                nightVariance = m_ResetParams.GetWithDefault("night_variance", nightVariance);
         }
 
 
