@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8834216161069874123}
   m_Layer: 8
   m_Name: FoodBlue
-  m_TagString: Untagged
+  m_TagString: food_blue
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
