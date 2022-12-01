@@ -5,34 +5,34 @@ using Unity.MLAgents;
 // GameObject인 FoodCollectorSettings에 부착됨
 public class SceneInitialization : MonoBehaviour
 {
-    [HideInInspector]
-    public GameObject[] agents;
-    [HideInInspector]
-    public FoodCollectorArea[] listArea;
+        [HideInInspector]
+        public GameObject[] agents;
+        [HideInInspector]
+        public Field[] listArea;
 
-    public void Awake()
-    {
-        Academy.Instance.OnEnvironmentReset += EnvironmentReset;
-    }
-
-    void EnvironmentReset()
-    {
-        ClearObjects(GameObject.FindGameObjectsWithTag("food_blue"));
-        ClearObjects(GameObject.FindGameObjectsWithTag("food_red"));
-
-        agents = GameObject.FindGameObjectsWithTag("agent");
-        listArea = FindObjectsOfType<FoodCollectorArea>();
-        foreach (var fa in listArea)
+        public void Awake()
         {
-            fa.ResetFoodArea(agents);
+                Academy.Instance.OnEnvironmentReset += EnvironmentReset;
         }
-    }
 
-    void ClearObjects(GameObject[] objects)
-    {
-        foreach (var food in objects)
+        void EnvironmentReset()
         {
-            Destroy(food);
+                ClearObjects(GameObject.FindGameObjectsWithTag("water"));
+                ClearObjects(GameObject.FindGameObjectsWithTag("food"));
+
+                agents = GameObject.FindGameObjectsWithTag("agent");
+                listArea = FindObjectsOfType<Field>();
+                foreach (var fa in listArea)
+                {
+                        fa.ResetResourceArea(agents);
+                }
         }
-    }
+
+        void ClearObjects(GameObject[] objects)
+        {
+                foreach (var food in objects)
+                {
+                        Destroy(food);
+                }
+        }
 }

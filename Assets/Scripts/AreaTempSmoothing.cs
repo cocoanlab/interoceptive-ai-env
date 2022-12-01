@@ -7,36 +7,25 @@ using Unity.MLAgents;
 
 public class AreaTempSmoothing : MonoBehaviour
 {
-        EnvironmentParameters m_ResetParams;
-
-        public int smoothingRepetition = 10;
+        // Variables for code
+        private EnvironmentParameters m_ResetParams;
         public float[,] areaTemp;
         private int areaWidth;
         private int areaDepth;
-
         private float oldLow;
         private float oldHigh;
         private float newLow;
         private float newHigh;
         public float[,] normalizedAreaTemp;
 
-        public float bonfireLow = 60.0f;
-        public float bonfireHigh = 60.0f;
-        private float bonfireTemp;
+        [Header("Field Temperature parameters")]
+        public float hotSpotCount = 300;
+        public int smoothingRepetition = 10;
+        public float hotSpotTempLow = 60.0f;
+        public float hotSpotTempHigh = 60.0f;
+        public float fieldDefaultTempLow = -60.0f;
+        public float fieldDefaultTempHigh = -60.0f;
 
-        public float bonfireCount = 100;
-
-        public float fieldTempLow = -60.0f;
-        public float fieldTempHigh = -60.0f;
-
-        // private int count = 0;
-
-        // private void Awake()
-        // {
-        //     count = 0;
-
-        //     EpisodeAreaSmoothing();
-        // }
 
         public void Awake()
         {
@@ -46,13 +35,13 @@ public class AreaTempSmoothing : MonoBehaviour
         private void SetParameters()
         {
                 m_ResetParams = Academy.Instance.EnvironmentParameters;
-                bonfireLow = m_ResetParams.GetWithDefault("bonfire_low", bonfireLow);
-                bonfireHigh = m_ResetParams.GetWithDefault("bonfire_high", bonfireHigh);
-                bonfireCount = m_ResetParams.GetWithDefault("bonfire_count", bonfireCount);
+                hotSpotTempLow = m_ResetParams.GetWithDefault("hotSpotTempLow", hotSpotTempLow);
+                hotSpotTempHigh = m_ResetParams.GetWithDefault("hotSpotTempHigh", hotSpotTempHigh);
+                hotSpotCount = m_ResetParams.GetWithDefault("hotSpotCount", hotSpotCount);
 
-                fieldTempLow = m_ResetParams.GetWithDefault("field_temp_low", fieldTempLow);
-                fieldTempHigh = m_ResetParams.GetWithDefault("field_temp_high", fieldTempHigh);
-                smoothingRepetition = System.Convert.ToInt32(m_ResetParams.GetWithDefault("smoothing_repetition", smoothingRepetition));
+                fieldDefaultTempLow = m_ResetParams.GetWithDefault("fieldDefaultTempLow", fieldDefaultTempLow);
+                fieldDefaultTempHigh = m_ResetParams.GetWithDefault("fieldDefaultTempHigh", fieldDefaultTempHigh);
+                smoothingRepetition = System.Convert.ToInt32(m_ResetParams.GetWithDefault("smoothingRepetition", smoothingRepetition));
         }
 
         public void EpisodeAreaSmoothing()
@@ -96,23 +85,23 @@ public class AreaTempSmoothing : MonoBehaviour
                         {
                                 if (x >= 40 && x < 60 && z >= 40 && z < 60)
                                 {
-                                        areaTemp[x, z] = Random.Range(fieldTempLow, fieldTempHigh);
+                                        areaTemp[x, z] = Random.Range(fieldDefaultTempLow, fieldDefaultTempHigh);
                                 }
                                 else if (x >= 0 && x < 50 && z >= 0 && z < 50)
                                 {
-                                        areaTemp[x, z] = Random.Range(fieldTempLow, fieldTempHigh);
+                                        areaTemp[x, z] = Random.Range(fieldDefaultTempLow, fieldDefaultTempHigh);
                                 }
                                 else if (x >= 0 && x < 50 && z >= 50 && z < 100)
                                 {
-                                        areaTemp[x, z] = Random.Range(fieldTempLow, fieldTempHigh);
+                                        areaTemp[x, z] = Random.Range(fieldDefaultTempLow, fieldDefaultTempHigh);
                                 }
                                 else if (x >= 50 && x < 100 && z >= 0 && z < 50)
                                 {
-                                        areaTemp[x, z] = Random.Range(fieldTempLow, fieldTempHigh);
+                                        areaTemp[x, z] = Random.Range(fieldDefaultTempLow, fieldDefaultTempHigh);
                                 }
                                 else if (x >= 50 && x < 100 && z >= 50 && z < 100)
                                 {
-                                        areaTemp[x, z] = Random.Range(fieldTempLow, fieldTempHigh);
+                                        areaTemp[x, z] = Random.Range(fieldDefaultTempLow, fieldDefaultTempHigh);
                                 }
                                 else
                                 {
@@ -121,46 +110,15 @@ public class AreaTempSmoothing : MonoBehaviour
                         }
                 }
 
-                for (int tempCount = 0; tempCount < bonfireCount; ++tempCount)
+                for (int tempCount = 0; tempCount < hotSpotCount; ++tempCount)
                 {
                         MakeBonfire(Random.Range(2, 98), Random.Range(2, 98));
                 }
 
 
-
-                // Debug.Log(areaTemp[0, 0].ToString());
-                // int rowLength = areaTemp.GetLength(0);
-                // int colLength = areaTemp.GetLength(1);
-
-                // 콘솔 창에서 작동되는지 확인하기 위함
-                // StringBuilder sb = new StringBuilder();
-                // for (int i = 0; i < areaTemp.GetLength(1); i++)
-                // {
-                //     for (int j = 0; j < areaTemp.GetLength(0); j++)
-                //     {
-                //         sb.Append(areaTemp[i, j]);
-                //         sb.Append(' ');
-                //     }
-                //     sb.AppendLine();
-                // }
-                // Debug.Log(sb.ToString());
-
-                // smoothingRepetition = 5;
                 areaWidth = 100;
                 areaDepth = 100;
                 SmoothingAreaTemp(smoothingRepetition, areaTemp, areaWidth, areaDepth);
-
-                // StringBuilder sc = new StringBuilder();
-                // for (int i = 0; i < areaTemp.GetLength(1); i++)
-                // {
-                //     for (int j = 0; j < areaTemp.GetLength(0); j++)
-                //     {
-                //         sc.Append(areaTemp[i, j]);
-                //         sc.Append(' ');
-                //     }
-                //     sc.AppendLine();
-                // }
-                // Debug.Log(sc.ToString());
 
                 normalizedAreaTemp = new float[100, 100];
                 oldLow = areaTemp.Cast<float>().Min();
@@ -176,21 +134,6 @@ public class AreaTempSmoothing : MonoBehaviour
                         }
                 }
 
-                // StringBuilder sd = new StringBuilder();
-                // for (int i = 0; i < normalizedAreaTemp.GetLength(1); i++)
-                // {
-                //     for (int j = 0; j < normalizedAreaTemp.GetLength(0); j++)
-                //     {
-                //         sd.Append(normalizedAreaTemp[i, j]);
-                //         sd.Append(' ');
-                //     }
-                //     sd.AppendLine();
-                // }
-                // Debug.Log(sd.ToString());
-
-                // count += 1;
-                // Debug.Log("Area : " + count.ToString());
-                // Debug.Log("Random : " + normalizedAreaTemp[10, 10].ToString());
         }
 
 
@@ -212,38 +155,39 @@ public class AreaTempSmoothing : MonoBehaviour
 
         public void MakeBonfire(int x, int z)
         {
-                bonfireTemp = Random.Range(bonfireLow, bonfireHigh);
+                // private float bonfireTemp;
+                float hotSpotTemp = Random.Range(hotSpotTempLow, hotSpotTempHigh);
 
                 // Making 5x5 size of bonfire
-                areaTemp[x - 2, z - 2] = bonfireTemp;
-                areaTemp[x - 2, z - 1] = bonfireTemp;
-                areaTemp[x - 2, z] = bonfireTemp;
-                areaTemp[x - 2, z + 1] = bonfireTemp;
-                areaTemp[x - 2, z + 2] = bonfireTemp;
+                areaTemp[x - 2, z - 2] = hotSpotTemp;
+                areaTemp[x - 2, z - 1] = hotSpotTemp;
+                areaTemp[x - 2, z] = hotSpotTemp;
+                areaTemp[x - 2, z + 1] = hotSpotTemp;
+                areaTemp[x - 2, z + 2] = hotSpotTemp;
 
-                areaTemp[x - 1, z - 2] = bonfireTemp;
-                areaTemp[x - 1, z - 1] = bonfireTemp;
-                areaTemp[x - 1, z] = bonfireTemp;
-                areaTemp[x - 1, z + 1] = bonfireTemp;
-                areaTemp[x - 1, z + 2] = bonfireTemp;
+                areaTemp[x - 1, z - 2] = hotSpotTemp;
+                areaTemp[x - 1, z - 1] = hotSpotTemp;
+                areaTemp[x - 1, z] = hotSpotTemp;
+                areaTemp[x - 1, z + 1] = hotSpotTemp;
+                areaTemp[x - 1, z + 2] = hotSpotTemp;
 
-                areaTemp[x, z - 2] = bonfireTemp;
-                areaTemp[x, z - 1] = bonfireTemp;
-                areaTemp[x, z] = bonfireTemp;
-                areaTemp[x, z + 1] = bonfireTemp;
-                areaTemp[x, z + 2] = bonfireTemp;
+                areaTemp[x, z - 2] = hotSpotTemp;
+                areaTemp[x, z - 1] = hotSpotTemp;
+                areaTemp[x, z] = hotSpotTemp;
+                areaTemp[x, z + 1] = hotSpotTemp;
+                areaTemp[x, z + 2] = hotSpotTemp;
 
-                areaTemp[x + 1, z - 2] = bonfireTemp;
-                areaTemp[x + 1, z - 1] = bonfireTemp;
-                areaTemp[x + 1, z] = bonfireTemp;
-                areaTemp[x + 1, z + 1] = bonfireTemp;
-                areaTemp[x + 1, z + 2] = bonfireTemp;
+                areaTemp[x + 1, z - 2] = hotSpotTemp;
+                areaTemp[x + 1, z - 1] = hotSpotTemp;
+                areaTemp[x + 1, z] = hotSpotTemp;
+                areaTemp[x + 1, z + 1] = hotSpotTemp;
+                areaTemp[x + 1, z + 2] = hotSpotTemp;
 
-                areaTemp[x + 2, z - 2] = bonfireTemp;
-                areaTemp[x + 2, z - 1] = bonfireTemp;
-                areaTemp[x + 2, z] = bonfireTemp;
-                areaTemp[x + 2, z + 1] = bonfireTemp;
-                areaTemp[x + 2, z + 2] = bonfireTemp;
+                areaTemp[x + 2, z - 2] = hotSpotTemp;
+                areaTemp[x + 2, z - 1] = hotSpotTemp;
+                areaTemp[x + 2, z] = hotSpotTemp;
+                areaTemp[x + 2, z + 1] = hotSpotTemp;
+                areaTemp[x + 2, z + 2] = hotSpotTemp;
         }
 
         public float GetNormalizedAreaTemp(int x, int z)

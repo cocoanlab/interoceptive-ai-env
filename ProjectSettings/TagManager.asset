@@ -7,11 +7,11 @@ TagManager:
   - agent
   - wall
   - ground
-  - food_red
-  - food_blue
   - cube
   - tree
   - player
+  - food
+  - water
   layers:
   - Default
   - TransparentFX

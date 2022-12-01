@@ -4,20 +4,21 @@ using UnityEngine;
 
 // GameObject인 FoodCollectorArea에 부착함
 // 별도로 Inspector 창에서 tag로 "cube" 추가해야 함
-public class CubeGenerator : MonoBehaviour
+public class FieldThermoGridGenerator : MonoBehaviour
 {
         private Vector3 position = new Vector3(0.0f, 0.0f, 0.0f);
         private Vector3 count = new Vector3(50.0f, 0.0f, 50.0f);
         // public bool useThermalObs = false;
-        public FoodCollectorAgent agent;
+        public InteroceptiveAgent agent;
 
 
         private void Awake()
-        {       if (agent.useThermalObs)
+        {
+                if (agent.useThermalObs)
                 {
                         generateCube(count, position);
                 }
-                
+
         }
 
         private void generateCube(Vector3 count, Vector3 position)

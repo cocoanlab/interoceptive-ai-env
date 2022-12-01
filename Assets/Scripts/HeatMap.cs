@@ -12,7 +12,7 @@ public class HeatMap : MonoBehaviour
 
         public GameObject agentTrack;
 
-        public FoodCollectorAgent agent;
+        public InteroceptiveAgent agent;
 
         // private int count = 0;
         // private int a = 10;

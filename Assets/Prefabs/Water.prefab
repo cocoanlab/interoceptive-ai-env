@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 54759831802293544}
   - component: {fileID: 8834216161069874123}
   m_Layer: 8
-  m_Name: FoodBlue
-  m_TagString: food_blue
+  m_Name: Water
+  m_TagString: water
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,6 +124,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1699568242032636}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ca56d36804bc42a18698d31d6225109, type: 3}
+  m_Script: {fileID: 11500000, guid: 9721f13751a624790a679048373d2b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

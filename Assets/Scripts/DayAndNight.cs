@@ -7,28 +7,22 @@ using Unity.MLAgents;
 public class DayAndNight : MonoBehaviour
 {
         EnvironmentParameters m_ResetParams;
-
-        // 현실 세계에서 1초가 지났을 때 게임 세계에서 몇 초가 지나도록 할 것인지 설정하기 위한 변수
-        [SerializeField] private float secondPerRealTimeSecound = 0.0f;
-        // private float secondPerRealTimeSecound;
-
         // 밤 여부 판단
         private bool isNight = false;
 
+        [Header("Observations")]
+        // 현실 세계에서 1초가 지났을 때 게임 세계에서 몇 초가 지나도록 할 것인지 설정하기 위한 변수
+        private float dayNightSpeed = 0.0f;
         // fog 증감량 비율
-        [SerializeField] public float fogDensityCalc;
-
-        // 밤 상태의 Fog 밀도
-        [SerializeField] public float nightFogDensity;
-
+        public float fogDensityCalc;
         // 낮 상태의 fog 밀도.
         public float dayFogDensity;
-
+        // 밤 상태의 fog 밀도.
+        public float nightFogDensity;
         // 계산
         public float currentFogDensity;
-
-        public float dayVariance = 0.0f;
-        public float nightVariance = -20.0f;
+        public float dayTemperatureVariance = 0.0f;
+        public float nightTemperatureVariance = -20.0f;
 
         public void Awake()
         {
@@ -49,9 +43,9 @@ public class DayAndNight : MonoBehaviour
         {
                 // Setting parameters from python
                 m_ResetParams = Academy.Instance.EnvironmentParameters;
-                secondPerRealTimeSecound = m_ResetParams.GetWithDefault("day_night_speed", secondPerRealTimeSecound);
-                dayVariance = m_ResetParams.GetWithDefault("day_variance", dayVariance);
-                nightVariance = m_ResetParams.GetWithDefault("night_variance", nightVariance);
+                dayNightSpeed = m_ResetParams.GetWithDefault("dayNightSpeed", dayNightSpeed);
+                dayTemperatureVariance = m_ResetParams.GetWithDefault("dayTemperatureVariance", dayTemperatureVariance);
+                nightTemperatureVariance = m_ResetParams.GetWithDefault("nightTemperatureVariance", nightTemperatureVariance);
         }
 
 
@@ -59,7 +53,7 @@ public class DayAndNight : MonoBehaviour
         void Update()
         {
                 // GameObject인 Sun을 회전시키기 위한 함수
-                transform.Rotate(Vector3.right, 0.1f * secondPerRealTimeSecound * Time.deltaTime);
+                transform.Rotate(Vector3.right, 0.1f * dayNightSpeed * Time.deltaTime);
 
                 // GameObject인 Sun의 오일러 각도를 기준으로 낮과 밤을 나눔
                 if (transform.eulerAngles.x >= 170)

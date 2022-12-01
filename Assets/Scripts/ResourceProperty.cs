@@ -3,13 +3,13 @@ using UnityEngine;
 using MathNet.Numerics;
 
 // Food 클래스의 멤버 변수 prefab을 선언할 때 사용됨
-public class FoodProperty : MonoBehaviour
+public class ResourceProperty : MonoBehaviour
 {
         int VectorSize = 10;
 
         //easy
-        private float[] RedProperty = { 1f, 1f, 1f, 1f, 1f, 0f, 0f, 0f, 0f, 0f };
-        private float[] BlueProperty = { 0f, 0f, 0f, 0f, 0f, 1f, 1f, 1f, 1f, 1f };
+        private float[] FoodProperty = { 1f, 1f, 1f, 1f, 1f, 0f, 0f, 0f, 0f, 0f };
+        private float[] WaterProperty = { 0f, 0f, 0f, 0f, 0f, 1f, 1f, 1f, 1f, 1f };
 
         //mid
         //private float[] BlueProperty = { 9f, 8f, 7f, 6f, 5f, 0f, 0f, 0f, 0f, 0f };
@@ -19,18 +19,18 @@ public class FoodProperty : MonoBehaviour
         //private float[] BlueProperty = { 0f, 1f, 2f, 3f, 4f, 5f, 6f, 7f, 8f, 9f };
         //private float[] RedProperty = { 9f, 8f, 7f, 6f, 5f, 4f, 3f, 2f, 1f, 0f };
 
-        public float[] FoodP { get; private set; }
+        public float[] ResourceP { get; private set; }
 
         // 음식이 가진 property 초기화 함수 (벡터 성분 초기화)
         public void InitializeProperties()
         {
-                if (gameObject.CompareTag("food_red"))
+                if (gameObject.CompareTag("food"))
                 {
-                        FoodP = AddNoise(RedProperty);
+                        ResourceP = AddNoise(FoodProperty);
                 }
-                else if (gameObject.CompareTag("food_blue"))
+                else if (gameObject.CompareTag("water"))
                 {
-                        FoodP = AddNoise(BlueProperty);
+                        ResourceP = AddNoise(WaterProperty);
                 }
 
         }
@@ -44,7 +44,8 @@ public class FoodProperty : MonoBehaviour
                         property[i] += 0f;
 
                         // Gaussian
-                        // float noise = (float)Generate.Normal(1, 0, 1)[0];
+                        float noise = (float)Generate.Normal(1, 0, 0.1)[0];
+                        property[i] += noise;
 
                         // Uniform(0~1)
                         //System.Random r = new System.Random();

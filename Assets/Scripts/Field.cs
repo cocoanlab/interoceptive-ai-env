@@ -2,85 +2,71 @@ using UnityEngine;
 using Unity.MLAgents;
 
 [System.Serializable]
-public class Food
+public class Resource
 {
-        public FoodProperty prefab;
+        public ResourceProperty prefab;
         public int num;
 }
 
 // GameObject인 FoodCollectorArea에 부착함
-public class FoodCollectorArea : MonoBehaviour
+public class Field : MonoBehaviour
 {
         // MLAgent 내장 클래스
         EnvironmentParameters m_ResetParams;
         public GameObject foodWater;
 
         // Food 클래스의 리스트 foods
-        public Food[] foods;
+        public Resource[] resources;
 
         // range는 음식이 생성되는 범위의 가로와 세로 (정사각형), height은 음식이 떨어지는 높이
-        public float range;
-        public float height;
+        public float range = 40;
+        public float height = 1;
 
         // 음식의 생성 개수 조절
-        void SetFoodSize()
+        void SetResourceSize()
         {
                 // 하이퍼파라미터 설정 (아마 Python에 존재)에서 num_resource_red가 있으면 그 값을 가져오고 없으면 50으로 설정
                 m_ResetParams = Academy.Instance.EnvironmentParameters;
-                float numResourceRed = m_ResetParams.GetWithDefault("num_resource_red", 50.0f);
-                float numResourceBlue = m_ResetParams.GetWithDefault("num_resource_blue", 50.0f);
+                // float numResourceFood = m_ResetParams.GetWithDefault("numResourceFood", 50.0f);
+                // float numResourceWater = m_ResetParams.GetWithDefault("numResourceWater", 50.0f);
 
-                foods[0].num = (int)numResourceBlue;
-                foods[1].num = (int)numResourceRed;
+                resources[0].num = (int)m_ResetParams.GetWithDefault("numResourceFood", resources[0].num); ;
+                resources[1].num = (int)m_ResetParams.GetWithDefault("numResourceWater", resources[1].num);
         }
 
         // 음식 생성 함수
-        void CreateFood(int num, FoodProperty type)
+        void CreateResource(int num, ResourceProperty type)
         {
                 for (int i = 0; i < num; i++)
                 {
-                        // FoodProperty f = Instantiate(type, new Vector3(Random.Range(-range, range), 1f,
-                        //         Random.Range(-range, range)) + transform.position,
-                        //         Quaternion.Euler(new Vector3(0f, Random.Range(0f, 360f), 90f)));
-                        // f.transform.parent = foodWater.transform;
-                        // f.InitializeProperties();
-                        
-                        // if (f.CompareTag("food_red"))
-                        // {
-                        //         f.name = "FoodRed" + (i + 1).ToString();
-                        // }
-                        // else if (f.CompareTag("food_blue"))
-                        // {
-                        //         f.name = "FoodBlue" + (i + 1).ToString();
-                        // }
 
-                        if (string.Equals(type.name, "FoodRed"))
+                        if (string.Equals(type.name, "Food"))
                         {
-                                FoodProperty f = Instantiate(type, new Vector3(Random.Range(-range, range), 1f,
+                                ResourceProperty f = Instantiate(type, new Vector3(Random.Range(-range, range), 1f,
                                 Random.Range(-range, range)) + transform.position,
                                 Quaternion.Euler(new Vector3(0f, Random.Range(0f, 360f), 90f)));
                                 f.transform.parent = foodWater.transform;
                                 f.InitializeProperties();
-                                
-                                f.name = "FoodRed" + (i + 1).ToString();
+
+                                f.name = "Food" + (i + 1).ToString();
 
                         }
-                        else if (string.Equals(type.name, "FoodBlue"))
+                        else if (string.Equals(type.name, "Water"))
                         {
-                                FoodProperty f = Instantiate(type, new Vector3(Random.Range(-range, range), 1f,
+                                ResourceProperty f = Instantiate(type, new Vector3(Random.Range(-range, range), 1f,
                                 Random.Range(-range, range)) + transform.position,
                                 Quaternion.Euler(new Vector3(0f, Random.Range(0f, 360f), 90f)));
                                 f.transform.parent = foodWater.transform;
                                 f.InitializeProperties();
-                                
-                                f.name = "FoodBlue" + (i + 1).ToString();
+
+                                f.name = "Water" + (i + 1).ToString();
                         }
 
                 }
         }
 
         // 영역 초기화 함수
-        public void ResetFoodArea(GameObject[] agents)
+        public void ResetResourceArea(GameObject[] agents)
         {
                 foreach (GameObject agent in agents)
                 {
@@ -92,10 +78,10 @@ public class FoodCollectorArea : MonoBehaviour
                                 agent.transform.rotation = Quaternion.Euler(new Vector3(0f, Random.Range(0, 360)));
                         }
                 }
-                SetFoodSize();
-                foreach (Food food in foods)
+                SetResourceSize();
+                foreach (Resource resource in resources)
                 {
-                        CreateFood(food.num, food.prefab);
+                        CreateResource(resource.num, resource.prefab);
                 }
         }
 }
