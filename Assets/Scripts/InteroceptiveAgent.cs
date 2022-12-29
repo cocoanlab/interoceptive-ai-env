@@ -1,10 +1,10 @@
+using System.IO;
 using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Policies;
 using System.Linq;
-
 
 // GameObject인 Agent에 부착함
 
@@ -25,6 +25,8 @@ public class InteroceptiveAgent : Agent
         public GameObject area;
         public GameObject sun;
         public GameObject heatMap;
+        public GameObject playRecorder;
+        // public bool recordEnable;
         // public int seed = 8217;
 
         [Header("Actions")]
@@ -113,6 +115,9 @@ public class InteroceptiveAgent : Agent
                 minThermoLevel = m_ResetParams.GetWithDefault("minThermoLevel", minThermoLevel);
                 changeThermoLevelRate = m_ResetParams.GetWithDefault("changeThermoLevelRate", changeThermoLevelRate);
                 thermoSensorChangeRate = (int)m_ResetParams.GetWithDefault("thermoSensorChangeRate", thermoSensorChangeRate);
+
+                // recordEnable = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("recordEnable", 0));
+
 
         }
         public override void Initialize()
@@ -257,6 +262,20 @@ public class InteroceptiveAgent : Agent
                 }
                 int action = actions.DiscreteActions[0];
                 MoveAgent(action);
+
+                //Unity.Recorder is only available in Unity Editor not in builds
+                // #if UNITY_EDITOR
+
+                //                 if (playRecorder.GetComponent<CaptureScreenShot>().recordEnable)
+                //                 {
+                //                         playRecorder.GetComponent<CaptureScreenShot>().CaptureImage();
+                //                 }
+                // #endif
+                if (playRecorder.GetComponent<CaptureScreenShot>().recordEnable)
+                {
+                        playRecorder.GetComponent<CaptureScreenShot>().CaptureImage();
+                }
+
         }
 
         //개발자(사용자)가 직접 명령을 내릴때 호출하는 메소드(주로 테스트용도 또는 모방학습에 사용)
