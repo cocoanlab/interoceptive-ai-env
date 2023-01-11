@@ -18,6 +18,10 @@ public class InteroceptiveAgent : Agent
         protected Rigidbody m_AgentRb;
         protected bool isAgentActionEat = false;
         public bool IsAgentActionEat { get { return this.isAgentActionEat; } set { this.isAgentActionEat = value; } }
+        protected bool eatenResource = false;
+        public bool EatenResource { get { return this.eatenResource; } set { this.eatenResource = value; } }
+        protected string eatenResourceTag;
+        public string EatenResourceTag { get { return this.eatenResourceTag; } set { this.eatenResourceTag = value; } }
         protected float bodyTemp;
         protected GameObject[] agents;
 
@@ -27,13 +31,15 @@ public class InteroceptiveAgent : Agent
         public GameObject sun;
         public GameObject heatMap;
         public GameObject playRecorder;
+        public GameObject foodEatRange;
         // public bool recordEnable;
         // public int seed = 8217;
 
         [Header("Environment settings")]
-        public bool InitRandomAgentPosition = false;
-        public Vector3 InitAgentPosition;
-        public Vector3 InitAgentAngle;
+        public bool singleTrial = false;
+        public bool initRandomAgentPosition = false;
+        public Vector3 initAgentPosition;
+        public Vector3 initAgentAngle;
 
         [Header("Actions")]
         public float moveSpeed = 6.0f;
@@ -99,9 +105,12 @@ public class InteroceptiveAgent : Agent
         //초기화 작업을 위해 한번 호출되는 메소드
         public void SetResetParameters()
         {
+                singleTrial = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("singleTrial", System.Convert.ToSingle(singleTrial)));
+                initRandomAgentPosition = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("initRandomAgentPosition", System.Convert.ToSingle(initRandomAgentPosition)));
+
                 moveSpeed = m_ResetParams.GetWithDefault("moveSpeed", moveSpeed);
                 turnSpeed = m_ResetParams.GetWithDefault("turnSpeed", turnSpeed);
-                autoEat = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("autoEat", 0));
+                autoEat = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("autoEat", System.Convert.ToSingle(autoEat)));
                 eatingDistance = m_ResetParams.GetWithDefault("eatingDistance", eatingDistance);
 
                 countEV = System.Convert.ToInt32(m_ResetParams.GetWithDefault("countEV", countEV));
@@ -118,10 +127,10 @@ public class InteroceptiveAgent : Agent
                 changeWaterLevelRate = m_ResetParams.GetWithDefault("changeWaterLevelRate", changeWaterLevelRate);
                 startWaterLevel = m_ResetParams.GetWithDefault("startWaterLevel", startWaterLevel);
 
-                useOlfactoryObs = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("useOlfactoryObs", 1));
+                useOlfactoryObs = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("useOlfactoryObs", System.Convert.ToSingle(useOlfactoryObs)));
                 olfactorySensorLength = m_ResetParams.GetWithDefault("olfactorySensorLength", olfactorySensorLength);
 
-                useThermalObs = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("useThermalObs", 1));
+                useThermalObs = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("useThermalObs", System.Convert.ToSingle(useThermalObs)));
                 maxThermoLevel = m_ResetParams.GetWithDefault("maxThermoLevel", maxThermoLevel);
                 minThermoLevel = m_ResetParams.GetWithDefault("minThermoLevel", minThermoLevel);
                 changeThermoLevelRate = m_ResetParams.GetWithDefault("changeThermoLevelRate", changeThermoLevelRate);
@@ -137,6 +146,7 @@ public class InteroceptiveAgent : Agent
 
                 m_AgentRb = GetComponent<Rigidbody>();
                 m_MyArea = area.GetComponent<Field>();
+                eatenResource = false;
                 // m_SceneInitialization = area.GetComponent<SceneInitialization>();
                 // m_SceneInitialization = FindObjectOfType<SceneInitialization>();
 
@@ -170,6 +180,7 @@ public class InteroceptiveAgent : Agent
                 m_AgentRb.velocity = Vector3.zero;
 
                 m_MyArea.ResetResourceArea(this.gameObject);
+                eatenResource = false;
                 // if (InitRandomAgentPosition)
                 // {
                 //         transform.position = new Vector3(Random.Range(-m_MyArea.range, m_MyArea.range), 2f, Random.Range(-m_MyArea.range, m_MyArea.range)) + area.transform.position;
@@ -285,6 +296,23 @@ public class InteroceptiveAgent : Agent
                 this.resourceLevels[0] -= this.changeFoodLevelRate * Time.fixedDeltaTime;
                 this.resourceLevels[1] -= this.changeWaterLevelRate * Time.fixedDeltaTime;
 
+                if (eatenResource)
+                {
+                        if (eatenResourceTag.ToLower() == "food")
+                        {
+                                this.resourceLevels[0] += this.resourceFoodValue;
+                        }
+                        if (eatenResourceTag.ToLower() == "water")
+                        {
+                                this.resourceLevels[1] += this.resourceWaterValue;
+                        }
+
+                        if (singleTrial)
+                        {
+                                EndEpisode();
+                        }
+                }
+
                 if (this.useThermalObs)
                 {
                         this.resourceLevels[2] = this.bodyTemp;
@@ -315,6 +343,9 @@ public class InteroceptiveAgent : Agent
 
                 int action = actions.DiscreteActions[0];
                 MoveAgent(action);
+
+                eatenResource = false;
+                eatenResourceTag = "none";
 
         }
 
@@ -403,17 +434,17 @@ public class InteroceptiveAgent : Agent
         }
 
 
-        public void IncreaseLevel(string tag)
-        {
-                if (tag.ToLower() == "food")
-                {
-                        this.resourceLevels[0] += this.resourceFoodValue;
-                }
-                if (tag.ToLower() == "water")
-                {
-                        this.resourceLevels[1] += this.resourceWaterValue;
-                }
-        }
+        // public void IncreaseLevel(string tag)
+        // {
+        //         if (tag.ToLower() == "food")
+        //         {
+        //                 this.resourceLevels[0] += this.resourceFoodValue;
+        //         }
+        //         if (tag.ToLower() == "water")
+        //         {
+        //                 this.resourceLevels[1] += this.resourceWaterValue;
+        //         }
+        // }
 
         private void OlfactoryObserving()
         {

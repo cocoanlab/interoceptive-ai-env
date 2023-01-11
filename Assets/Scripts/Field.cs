@@ -102,6 +102,22 @@ public class Field : MonoBehaviour
 
                 }
         }
+        public void ResetResourcePosition(Collider resource)
+        {
+                if (resource.CompareTag("food"))
+                {
+                        resource.transform.position = new Vector3(Random.Range(-range, range), 1f, Random.Range(-range, range)) + transform.position;
+                        ResourceProperty f = resource.gameObject.GetComponent<ResourceProperty>();
+                        f.InitializeProperties();
+                }
+
+                else if (resource.CompareTag("water"))
+                {
+                        resource.transform.position = new Vector3(Random.Range(-range, range), 1f, Random.Range(-range, range)) + transform.position;
+                        ResourceProperty f = resource.gameObject.GetComponent<ResourceProperty>();
+                        f.InitializeProperties();
+                }
+        }
 
         // 영역 초기화 함수
         public void ResetResourceArea(GameObject agent)
@@ -113,15 +129,15 @@ public class Field : MonoBehaviour
                 // {
                 if (agent.transform.parent == gameObject.transform)
                 {
-                        if (agent.GetComponent<InteroceptiveAgent>().InitRandomAgentPosition)
+                        if (agent.GetComponent<InteroceptiveAgent>().initRandomAgentPosition)
                         {
-                                agent.transform.position = new Vector3(Random.Range(-range, range), 2f, Random.Range(-range, range)) + transform.position;
+                                agent.transform.position = new Vector3(Random.Range(-range, range), 1f, Random.Range(-range, range)) + transform.position;
                                 agent.transform.rotation = Quaternion.Euler(new Vector3(0f, Random.Range(0, 360)));
                         }
                         else
                         {
-                                agent.transform.position = agent.GetComponent<InteroceptiveAgent>().InitAgentPosition + transform.position;
-                                agent.transform.rotation = Quaternion.Euler(agent.GetComponent<InteroceptiveAgent>().InitAgentAngle);
+                                agent.transform.position = agent.GetComponent<InteroceptiveAgent>().initAgentPosition + transform.position;
+                                agent.transform.rotation = Quaternion.Euler(agent.GetComponent<InteroceptiveAgent>().initAgentAngle);
                         }
 
                         // agent.transform.position = new Vector3(Random.Range(-range, range), 2f, Random.Range(-range, range)) + transform.position;
