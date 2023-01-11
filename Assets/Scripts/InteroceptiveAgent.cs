@@ -11,14 +11,15 @@ using System.Linq;
 public class InteroceptiveAgent : Agent
 {
         // Variables for script
-        private Field m_MyArea;
-        private SceneInitialization m_SceneInitialization;
-        private EnvironmentParameters m_ResetParams;
-        private ResourceProperty[] FoodObjects;
-        private Rigidbody m_AgentRb;
-        private bool isAgentActionEat = false;
+        protected Field m_MyArea;
+        protected SceneInitialization m_SceneInitialization;
+        protected EnvironmentParameters m_ResetParams;
+        protected ResourceProperty[] FoodObjects;
+        protected Rigidbody m_AgentRb;
+        protected bool isAgentActionEat = false;
         public bool IsAgentActionEat { get { return this.isAgentActionEat; } set { this.isAgentActionEat = value; } }
-        private float bodyTemp;
+        protected float bodyTemp;
+        protected GameObject[] agents;
 
 
         [Header("Game Ojects for script")]
@@ -28,6 +29,11 @@ public class InteroceptiveAgent : Agent
         public GameObject playRecorder;
         // public bool recordEnable;
         // public int seed = 8217;
+
+        [Header("Environment settings")]
+        public bool InitRandomAgentPosition = false;
+        public Vector3 InitAgentPosition;
+        public Vector3 InitAgentAngle;
 
         [Header("Actions")]
         public float moveSpeed = 6.0f;
@@ -64,6 +70,7 @@ public class InteroceptiveAgent : Agent
         public float minFoodLevel = -15.0f;
         public float changeFoodLevelRate = 0.002f;
         public float resourceFoodValue = 3.0f;
+        public float startFoodLevel = 0.0f;
 
         // blue
         [Header("Water")]
@@ -71,6 +78,7 @@ public class InteroceptiveAgent : Agent
         public float minWaterLevel = -15.0f;
         public float changeWaterLevelRate = 0.002f;
         public float resourceWaterValue = 3.0f;
+        public float startWaterLevel = 0.0f;
 
         // yellow
         [Header("Temperature")]
@@ -78,6 +86,7 @@ public class InteroceptiveAgent : Agent
         public float minThermoLevel = -15.0f;
         public float changeThermoLevelRate = 0.005f;
         public int thermoSensorChangeRate = 10;
+        public float startThermoLevel = 0.0f;
 
         [Header("Merterials")]
         public Material agentMerterial;
@@ -101,11 +110,13 @@ public class InteroceptiveAgent : Agent
                 minFoodLevel = m_ResetParams.GetWithDefault("minFoodLevel", minFoodLevel);
                 resourceFoodValue = m_ResetParams.GetWithDefault("resourceFoodValue", resourceFoodValue);
                 changeFoodLevelRate = m_ResetParams.GetWithDefault("changeFoodLevelRate", changeFoodLevelRate);
+                startFoodLevel = m_ResetParams.GetWithDefault("startFoodLevel", startFoodLevel);
 
                 maxWaterLevel = m_ResetParams.GetWithDefault("maxWaterLevel", maxWaterLevel);
                 minWaterLevel = m_ResetParams.GetWithDefault("minWaterLevel", minWaterLevel);
                 resourceWaterValue = m_ResetParams.GetWithDefault("resourceWaterValue", resourceWaterValue);
                 changeWaterLevelRate = m_ResetParams.GetWithDefault("changeWaterLevelRate", changeWaterLevelRate);
+                startWaterLevel = m_ResetParams.GetWithDefault("startWaterLevel", startWaterLevel);
 
                 useOlfactoryObs = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("useOlfactoryObs", 1));
                 olfactorySensorLength = m_ResetParams.GetWithDefault("olfactorySensorLength", olfactorySensorLength);
@@ -115,9 +126,8 @@ public class InteroceptiveAgent : Agent
                 minThermoLevel = m_ResetParams.GetWithDefault("minThermoLevel", minThermoLevel);
                 changeThermoLevelRate = m_ResetParams.GetWithDefault("changeThermoLevelRate", changeThermoLevelRate);
                 thermoSensorChangeRate = (int)m_ResetParams.GetWithDefault("thermoSensorChangeRate", thermoSensorChangeRate);
-
+                startThermoLevel = m_ResetParams.GetWithDefault("startThermoLevel", startThermoLevel);
                 // recordEnable = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("recordEnable", 0));
-
 
         }
         public override void Initialize()
@@ -127,7 +137,8 @@ public class InteroceptiveAgent : Agent
 
                 m_AgentRb = GetComponent<Rigidbody>();
                 m_MyArea = area.GetComponent<Field>();
-                m_SceneInitialization = FindObjectOfType<SceneInitialization>();
+                // m_SceneInitialization = area.GetComponent<SceneInitialization>();
+                // m_SceneInitialization = FindObjectOfType<SceneInitialization>();
 
                 this.resourceLevels = new float[this.countEV];
 
@@ -139,6 +150,12 @@ public class InteroceptiveAgent : Agent
                 if (this.useThermalObs)
                 {
                         this.thermoObservation = new float[8];
+
+                        // Reset area
+                        area.GetComponent<AreaTempSmoothing>().EpisodeAreaSmoothing();
+
+                        // Reset heatmap
+                        heatMap.GetComponent<HeatMap>().EpisodeHeatMap();
                 }
 
                 // m_pig = GetComponent<Rigidbody>();
@@ -151,20 +168,42 @@ public class InteroceptiveAgent : Agent
 
                 // Reset agent
                 m_AgentRb.velocity = Vector3.zero;
-                transform.position = new Vector3(Random.Range(-m_MyArea.range, m_MyArea.range), 2f, Random.Range(-m_MyArea.range, m_MyArea.range)) + area.transform.position;
-                transform.rotation = Quaternion.Euler(new Vector3(0f, Random.Range(0, 360)));
+
+                m_MyArea.ResetResourceArea(this.gameObject);
+                // if (InitRandomAgentPosition)
+                // {
+                //         transform.position = new Vector3(Random.Range(-m_MyArea.range, m_MyArea.range), 2f, Random.Range(-m_MyArea.range, m_MyArea.range)) + area.transform.position;
+                //         transform.rotation = Quaternion.Euler(new Vector3(0f, Random.Range(0, 360)));
+                // }
+                // else
+                // {
+                //         transform.position = InitAgentPosition + area.transform.position;
+                //         transform.rotation = Quaternion.Euler(InitAgentAngle);
+                // }
+
                 SetResetParameters();
 
                 // Reset cubes
-                FoodObjects = FindObjectsOfType(typeof(ResourceProperty)) as ResourceProperty[];
-                ResetObject(FoodObjects);
+                // FoodObjects = FindObjectsOfType(typeof(ResourceProperty)) as ResourceProperty[];
+                // ResetObject(FoodObjects);
 
                 // Reset DayAndNight (지금은 DayAndNight가 에피소드 시작할 때 초기화되지 않는데 필요하면 추가)
 
                 // Reset energy
                 for (int i = 0; i < this.countEV; i++)
                 {
-                        this.resourceLevels[i] = 0;
+                        if (i == 0)
+                        {
+                                this.resourceLevels[i] = startFoodLevel;
+                        }
+                        else if (i == 1)
+                        {
+                                this.resourceLevels[i] = startWaterLevel;
+                        }
+                        else if (i == 2)
+                        {
+                                this.resourceLevels[i] = startThermoLevel;
+                        }
                 }
 
                 // Reset olfactory
@@ -230,12 +269,36 @@ public class InteroceptiveAgent : Agent
         //브레인(정책)으로 부터 전달 받은 행동을 실행하는 메소드
         public override void OnActionReceived(ActionBuffers actions)
         {
+                //Unity.Recorder is only available in Unity Editor not in builds
+                // #if UNITY_EDITOR
+
+                //                 if (playRecorder.GetComponent<CaptureScreenShot>().recordEnable)
+                //                 {
+                //                         playRecorder.GetComponent<CaptureScreenShot>().CaptureImage();
+                //                 }
+                // #endif
+                if (playRecorder.GetComponent<CaptureScreenShot>().recordEnable)
+                {
+                        playRecorder.GetComponent<CaptureScreenShot>().CaptureImage();
+                }
+
                 this.resourceLevels[0] -= this.changeFoodLevelRate * Time.fixedDeltaTime;
                 this.resourceLevels[1] -= this.changeWaterLevelRate * Time.fixedDeltaTime;
 
                 if (this.useThermalObs)
                 {
                         this.resourceLevels[2] = this.bodyTemp;
+                }
+
+                if (this.useOlfactoryObs)
+                {
+                        OlfactoryObserving();
+                }
+
+                if (this.useThermalObs)
+                {
+                        ThermalObserving();
+
                 }
 
                 bool checkFoodLevel = (this.maxFoodLevel < this.resourceLevels[0] || this.resourceLevels[0] < this.minFoodLevel);
@@ -250,31 +313,8 @@ public class InteroceptiveAgent : Agent
                 if (checkFoodLevel || checkWaterLevel || checkThermoLevel)
                         EndEpisode();
 
-                if (this.useOlfactoryObs)
-                {
-                        OlfactoryObserving();
-                }
-
-                if (this.useThermalObs)
-                {
-                        ThermalObserving();
-
-                }
                 int action = actions.DiscreteActions[0];
                 MoveAgent(action);
-
-                //Unity.Recorder is only available in Unity Editor not in builds
-                // #if UNITY_EDITOR
-
-                //                 if (playRecorder.GetComponent<CaptureScreenShot>().recordEnable)
-                //                 {
-                //                         playRecorder.GetComponent<CaptureScreenShot>().CaptureImage();
-                //                 }
-                // #endif
-                if (playRecorder.GetComponent<CaptureScreenShot>().recordEnable)
-                {
-                        playRecorder.GetComponent<CaptureScreenShot>().CaptureImage();
-                }
 
         }
 
@@ -302,29 +342,29 @@ public class InteroceptiveAgent : Agent
         }
 
         //
-        public void ResetObject(ResourceProperty[] objects)
-        {
-                foreach (var food in objects)
-                {
-                        // Area must be square!!
-                        float food_x = food.transform.position.x;
-                        float food_y = food.transform.position.y;
-                        float food_z = food.transform.position.z;
+        // public void ResetObject(ResourceProperty[] objects)
+        // {
+        //         foreach (var food in objects)
+        //         {
+        //                 // Area must be square!!
+        //                 float food_x = food.transform.position.x;
+        //                 float food_y = food.transform.position.y;
+        //                 float food_z = food.transform.position.z;
 
-                        float area_x = m_MyArea.transform.position.x;
-                        float area_y = m_MyArea.transform.position.y;
-                        float area_z = m_MyArea.transform.position.z;
+        //                 float area_x = m_MyArea.transform.position.x;
+        //                 float area_y = m_MyArea.transform.position.y;
+        //                 float area_z = m_MyArea.transform.position.z;
 
-                        if (food_x > (-m_MyArea.range + area_x) && food_x < (m_MyArea.range + area_x)
-                            && food_y > area_y && food_y < m_MyArea.height + area_y
-                            && food_z > (-m_MyArea.range + area_z) && food_z < (m_MyArea.range + area_z))
-                        {
-                                food.transform.position = new Vector3(Random.Range(-m_MyArea.range, m_MyArea.range),
-                                    m_MyArea.height, Random.Range(-m_MyArea.range, m_MyArea.range)) + m_MyArea.transform.position;
-                                food.InitializeProperties();
-                        }
-                }
-        }
+        //                 if (food_x > (-m_MyArea.range + area_x) && food_x < (m_MyArea.range + area_x)
+        //                     && food_y > area_y && food_y < m_MyArea.height + area_y
+        //                     && food_z > (-m_MyArea.range + area_z) && food_z < (m_MyArea.range + area_z))
+        //                 {
+        //                         food.transform.position = new Vector3(Random.Range(-m_MyArea.range, m_MyArea.range),
+        //                             m_MyArea.height, Random.Range(-m_MyArea.range, m_MyArea.range)) + m_MyArea.transform.position;
+        //                         food.InitializeProperties();
+        //                 }
+        //         }
+        // }
 
         public void MoveAgent(int action)
         {

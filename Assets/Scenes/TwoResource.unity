@@ -24784,8 +24784,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4806027653304860779, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
+      propertyPath: InitAgentPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4806027653304860779, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
       propertyPath: olfactorySensorLength
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4806027653304860779, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: InitRandomAgentPosition
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4837328956473616459, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
@@ -24809,13 +24819,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
+      propertyPath: IsRandomResourcePosition
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
       propertyPath: resources.Array.data[0].num
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: resources.Array.data[1].num
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
@@ -24829,6 +24844,56 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8834216161069874123, guid: b59e4a7fd76af471cadd16e90133a084,
         type: 3}
+    - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: foodResourcePositions.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: foodResourcePositions.Array.data[0].x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: foodResourcePositions.Array.data[0].y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: foodResourcePositions.Array.data[0].z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: foodResourcePositions.Array.data[1].x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: foodResourcePositions.Array.data[1].y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: foodResourcePositions.Array.data[1].z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: foodResourcePositions.Array.data[2].x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: foodResourcePositions.Array.data[2].y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: foodResourcePositions.Array.data[2].z
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 4839067235267387132, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: hotSpotCount
@@ -25078,6 +25143,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: FoodCollectorSettings
       objectReference: {fileID: 0}
+    - target: {fileID: 6025078144286417257, guid: 4fd8475ca1a0242c9a2b05f0f18e248d,
+        type: 3}
+      propertyPath: agent
+      value: 
+      objectReference: {fileID: 1464820312563697}
+    - target: {fileID: 6025078144286417257, guid: 4fd8475ca1a0242c9a2b05f0f18e248d,
+        type: 3}
+      propertyPath: field
+      value: 
+      objectReference: {fileID: 1819750871847635}
     - target: {fileID: 6025078144286417258, guid: 4fd8475ca1a0242c9a2b05f0f18e248d,
         type: 3}
       propertyPath: m_RootOrder

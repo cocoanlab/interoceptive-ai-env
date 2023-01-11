@@ -21,11 +21,11 @@ public class ResourceUI : MonoBehaviour
 
         public InteroceptiveAgent agent;
 
-        private float foodLevel;
-        private float waterLevel;
-        private float thermoLevel;
+        protected float foodLevel;
+        protected float waterLevel;
+        protected float thermoLevel;
 
-        void Start()
+        protected void Start()
         {
                 WaterLevel.value = 0;
                 FoodLevel.value = 0;
@@ -45,7 +45,7 @@ public class ResourceUI : MonoBehaviour
 
         }
 
-        void Update()
+        protected void Update()
         {
                 foodLevel = agent.resourceLevels[0];
                 waterLevel = agent.resourceLevels[1];

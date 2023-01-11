@@ -8,6 +8,12 @@ public class Resource
         public int num;
 }
 
+// [System.Serializable]
+// public class ResourcePosition
+// {
+//         public Vector3 resourcePosition;
+// }
+
 // GameObject인 FoodCollectorArea에 부착함
 public class Field : MonoBehaviour
 {
@@ -17,6 +23,10 @@ public class Field : MonoBehaviour
 
         // Food 클래스의 리스트 foods
         public Resource[] resources;
+
+        public bool IsRandomResourcePosition;
+        public Vector3[] foodResourcePositions;
+        public Vector3[] waterResourcePositions;
 
         // range는 음식이 생성되는 범위의 가로와 세로 (정사각형), height은 음식이 떨어지는 높이
         public float range = 40;
@@ -30,8 +40,11 @@ public class Field : MonoBehaviour
                 // float numResourceFood = m_ResetParams.GetWithDefault("numResourceFood", 50.0f);
                 // float numResourceWater = m_ResetParams.GetWithDefault("numResourceWater", 50.0f);
 
-                resources[0].num = (int)m_ResetParams.GetWithDefault("numResourceFood", resources[0].num); ;
+                resources[0].num = (int)m_ResetParams.GetWithDefault("numResourceFood", resources[0].num);
                 resources[1].num = (int)m_ResetParams.GetWithDefault("numResourceWater", resources[1].num);
+
+                // Debug.Log(resources[0].num);
+                // Debug.Log(IsRandomResourcePosition);
         }
 
         // 음식 생성 함수
@@ -39,49 +52,96 @@ public class Field : MonoBehaviour
         {
                 for (int i = 0; i < num; i++)
                 {
-
                         if (string.Equals(type.name, "Food"))
                         {
-                                ResourceProperty f = Instantiate(type, new Vector3(Random.Range(-range, range), 1f,
-                                Random.Range(-range, range)) + transform.position,
-                                Quaternion.Euler(new Vector3(0f, Random.Range(0f, 360f), 90f)));
-                                f.transform.parent = foodWater.transform;
-                                f.InitializeProperties();
 
-                                f.name = "Food" + (i + 1).ToString();
+                                if (IsRandomResourcePosition)
+                                {
+                                        ResourceProperty f = Instantiate(type, new Vector3(Random.Range(-range, range), 1f, Random.Range(-range, range)) + transform.position,
+                                                                        Quaternion.Euler(new Vector3(0f, Random.Range(0f, 360f), 90f)));
+
+                                        f.transform.parent = foodWater.transform;
+                                        f.InitializeProperties();
+
+                                        f.name = "Food" + (i + 1).ToString();
+                                }
+                                else
+                                {
+                                        ResourceProperty f = Instantiate(type, foodResourcePositions[i] + transform.position,
+                                                                        Quaternion.Euler(new Vector3(0f, 0f, 90f)));
+
+                                        f.transform.parent = foodWater.transform;
+                                        f.InitializeProperties();
+
+                                        f.name = "Food" + (i + 1).ToString();
+                                }
 
                         }
                         else if (string.Equals(type.name, "Water"))
                         {
-                                ResourceProperty f = Instantiate(type, new Vector3(Random.Range(-range, range), 1f,
-                                Random.Range(-range, range)) + transform.position,
-                                Quaternion.Euler(new Vector3(0f, Random.Range(0f, 360f), 90f)));
-                                f.transform.parent = foodWater.transform;
-                                f.InitializeProperties();
+                                if (IsRandomResourcePosition)
+                                {
+                                        ResourceProperty f = Instantiate(type, new Vector3(Random.Range(-range, range), 1f, Random.Range(-range, range)) + transform.position,
+                                        Quaternion.Euler(new Vector3(0f, Random.Range(0f, 360f), 90f)));
+                                        f.transform.parent = foodWater.transform;
+                                        f.InitializeProperties();
 
-                                f.name = "Water" + (i + 1).ToString();
+                                        f.name = "Water" + (i + 1).ToString();
+                                }
+                                else
+                                {
+                                        ResourceProperty f = Instantiate(type, waterResourcePositions[i] + transform.position,
+                                                                        Quaternion.Euler(new Vector3(0f, 0f, 90f)));
+
+                                        f.transform.parent = foodWater.transform;
+                                        f.InitializeProperties();
+                                        f.name = "Water" + (i + 1).ToString();
+
+                                }
                         }
 
                 }
         }
 
         // 영역 초기화 함수
-        public void ResetResourceArea(GameObject[] agents)
+        public void ResetResourceArea(GameObject agent)
         {
-                foreach (GameObject agent in agents)
+                ClearObjects(GameObject.FindGameObjectsWithTag("food"));
+                ClearObjects(GameObject.FindGameObjectsWithTag("water"));
+
+                // foreach (GameObject agent in agents)
+                // {
+                if (agent.transform.parent == gameObject.transform)
                 {
-                        if (agent.transform.parent == gameObject.transform)
+                        if (agent.GetComponent<InteroceptiveAgent>().InitRandomAgentPosition)
                         {
-                                agent.transform.position = new Vector3(Random.Range(-range, range), 2f,
-                                        Random.Range(-range, range))
-                                        + transform.position;
+                                agent.transform.position = new Vector3(Random.Range(-range, range), 2f, Random.Range(-range, range)) + transform.position;
                                 agent.transform.rotation = Quaternion.Euler(new Vector3(0f, Random.Range(0, 360)));
                         }
+                        else
+                        {
+                                agent.transform.position = agent.GetComponent<InteroceptiveAgent>().InitAgentPosition + transform.position;
+                                agent.transform.rotation = Quaternion.Euler(agent.GetComponent<InteroceptiveAgent>().InitAgentAngle);
+                        }
+
+                        // agent.transform.position = new Vector3(Random.Range(-range, range), 2f, Random.Range(-range, range)) + transform.position;
+                        // agent.transform.rotation = Quaternion.Euler(new Vector3(0f, Random.Range(0, 360)));
                 }
+                // }
                 SetResourceSize();
+
+                // Debug.Log(resources.Length);
                 foreach (Resource resource in resources)
                 {
                         CreateResource(resource.num, resource.prefab);
+                }
+        }
+
+        void ClearObjects(GameObject[] objects)
+        {
+                foreach (var obj in objects)
+                {
+                        Destroy(obj);
                 }
         }
 }
