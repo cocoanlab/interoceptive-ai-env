@@ -60,21 +60,21 @@ public class InteroceptiveAgent : Agent
     [Header("Food")]
     public float maxFoodLevel = 15.0f;
     public float minFoodLevel = -15.0f;
-    public float changeFoodLevelRate = 0.002f;
+    // public float changeFoodLevelRate = 0.002f;
     public float resourceFoodValue = 3.0f;
-    private float priorFood = 0.0f;
-    private float posteriorFood = 0.0f;
-    private float dFood = 0.0f;
+    // private float priorFood = 0.0f;
+    // private float posteriorFood = 0.0f;
+    // private float dFood = 0.0f;
 
     // blue
     [Header("Water")]
     public float maxWaterLevel = 15.0f;
     public float minWaterLevel = -15.0f;
-    public float changeWaterLevelRate = 0.002f;
+    // public float changeWaterLevelRate = 0.002f;
     public float resourceWaterValue = 3.0f;
-    private float priorWater = 0.0f;
-    private float posteriorWater = 0.0f;
-    private float dWater = 0.0f;
+    // private float priorWater = 0.0f;
+    // private float posteriorWater = 0.0f;
+    // private float dWater = 0.0f;
 
     // yellow
     [Header("Temperature")]
@@ -82,9 +82,9 @@ public class InteroceptiveAgent : Agent
     public float minThermoLevel = -15.0f;
     public float changeThermoLevelRate = 0.005f;
     public int thermoSensorChangeRate = 10;
-    private float priorBodyTemp = 0.0f;
-    private float posteriorBodyTemp = 0.0f;
-    private float dBodyTemp = 0.0f;
+    // private float priorBodyTemp = 0.0f;
+    // private float posteriorBodyTemp = 0.0f;
+    // private float dBodyTemp = 0.0f;
 
     [Header("Merterials")]
     public Material agentMerterial;
@@ -92,15 +92,43 @@ public class InteroceptiveAgent : Agent
     public Material blueMaterial;
 
     // Interaction Coefficient
-    public float food0 = 0.1f;
-    public float water0 = 0.0f;
-    public float bodyTemp0 = -1.7f;
-    public float food1 = 0.0f;
-    public float water1 = 0.1f;
-    public float bodyTemp1 = -2000.0f;
-    public float food2 = 0.3f;
-    public float water2 = 0.3f;
-    public float bodyTemp2 = 0.1f;
+    // public float food0 = 0.1f;
+    // public float water0 = 0.0f;
+    // public float bodyTemp0 = -1.7f;
+    // public float food1 = 0.0f;
+    // public float water1 = 0.1f;
+    // public float bodyTemp1 = -2000.0f;
+    // public float food2 = 0.3f;
+    // public float water2 = 0.3f;
+    // public float bodyTemp2 = 0.1f;
+
+    // Food Function Coefficient
+    [Header("Coefficient (Food)")]
+    public float changeFood_0 = -0.02f;
+    public float changeFood_1 = 0.0f;
+    public float changeFood_2 = 0.0f;
+    public float changeFood_3 = 0.0f;
+    public float changeFood_4 = 0.0f;
+    private float changeFood_5 = 0.0f;
+
+    // Water Function Coefficient
+    [Header("Coefficient (Water)")]
+    public float changeWater_0 = -0.04f;
+    public float changeWater_1 = 0.0f;
+    public float changeWater_2 = 0.0f;
+    public float changeWater_3 = 0.0f;
+    public float changeWater_4 = 0.0f;
+    private float changeWater_5 = 0.0f;
+
+    // Thermo Function Coefficient
+    [Header("Coefficient (Thermo)")]
+    public float changeBody_0 = -0.01f;
+    public float changeBody_1 = 0.0f;
+    public float changeBody_2 = 0.0f;
+    public float changeBody_3 = 0.0f;
+    public float changeBody_4 = 0.0f;
+
+    private float interactionTerm = 0.0f;
 
     // [Header("Predator / Prey")]
     // public GameObject Pig;
@@ -118,12 +146,12 @@ public class InteroceptiveAgent : Agent
         maxFoodLevel = m_ResetParams.GetWithDefault("maxFoodLevel", maxFoodLevel);
         minFoodLevel = m_ResetParams.GetWithDefault("minFoodLevel", minFoodLevel);
         resourceFoodValue = m_ResetParams.GetWithDefault("resourceFoodValue", resourceFoodValue);
-        changeFoodLevelRate = m_ResetParams.GetWithDefault("changeFoodLevelRate", changeFoodLevelRate);
+        // changeFoodLevelRate = m_ResetParams.GetWithDefault("changeFoodLevelRate", changeFoodLevelRate);
 
         maxWaterLevel = m_ResetParams.GetWithDefault("maxWaterLevel", maxWaterLevel);
         minWaterLevel = m_ResetParams.GetWithDefault("minWaterLevel", minWaterLevel);
         resourceWaterValue = m_ResetParams.GetWithDefault("resourceWaterValue", resourceWaterValue);
-        changeWaterLevelRate = m_ResetParams.GetWithDefault("changeWaterLevelRate", changeWaterLevelRate);
+        // changeWaterLevelRate = m_ResetParams.GetWithDefault("changeWaterLevelRate", changeWaterLevelRate);
 
         useOlfactoryObs = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("useOlfactoryObs", 1));
         olfactorySensorLength = m_ResetParams.GetWithDefault("olfactorySensorLength", olfactorySensorLength);
@@ -131,18 +159,33 @@ public class InteroceptiveAgent : Agent
         useThermalObs = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("useThermalObs", 1));
         maxThermoLevel = m_ResetParams.GetWithDefault("maxThermoLevel", maxThermoLevel);
         minThermoLevel = m_ResetParams.GetWithDefault("minThermoLevel", minThermoLevel);
-        changeThermoLevelRate = m_ResetParams.GetWithDefault("changeThermoLevelRate", changeThermoLevelRate);
+        // changeThermoLevelRate = m_ResetParams.GetWithDefault("changeThermoLevelRate", changeThermoLevelRate);
         thermoSensorChangeRate = (int)m_ResetParams.GetWithDefault("thermoSensorChangeRate", thermoSensorChangeRate);
 
-        food0 = m_ResetParams.GetWithDefault("food0", food0);
-        water0 = m_ResetParams.GetWithDefault("water0", water0);
-        bodyTemp0 = m_ResetParams.GetWithDefault("bodyTemp0", bodyTemp0);
-        food1 = m_ResetParams.GetWithDefault("food1", food1);
-        water1 = m_ResetParams.GetWithDefault("water1", water1);
-        bodyTemp1 = m_ResetParams.GetWithDefault("bodyTemp1", bodyTemp1);
-        food2 = m_ResetParams.GetWithDefault("food2", food2);
-        water2 = m_ResetParams.GetWithDefault("water2", water2);
-        bodyTemp2 = m_ResetParams.GetWithDefault("bodyTemp2", bodyTemp2);
+        // food0 = m_ResetParams.GetWithDefault("food0", food0);
+        // water0 = m_ResetParams.GetWithDefault("water0", water0);
+        // bodyTemp0 = m_ResetParams.GetWithDefault("bodyTemp0", bodyTemp0);
+        // food1 = m_ResetParams.GetWithDefault("food1", food1);
+        // water1 = m_ResetParams.GetWithDefault("water1", water1);
+        // bodyTemp1 = m_ResetParams.GetWithDefault("bodyTemp1", bodyTemp1);
+        // food2 = m_ResetParams.GetWithDefault("food2", food2);
+        // water2 = m_ResetParams.GetWithDefault("water2", water2);
+        // bodyTemp2 = m_ResetParams.GetWithDefault("bodyTemp2", bodyTemp2);
+
+        changeFood_0 = m_ResetParams.GetWithDefault("changeFood_0", changeFood_0);
+        changeFood_1 = m_ResetParams.GetWithDefault("changeFood_1", changeFood_1);
+        changeFood_2 = m_ResetParams.GetWithDefault("changeFood_2", changeFood_2);
+        changeFood_3 = m_ResetParams.GetWithDefault("changeFood_3", changeFood_3);
+
+        changeWater_0 = m_ResetParams.GetWithDefault("changeWater_0", changeWater_0);
+        changeWater_1 = m_ResetParams.GetWithDefault("changeWater_1", changeWater_1);
+        changeWater_2 = m_ResetParams.GetWithDefault("changeWater_2", changeWater_2);
+        changeWater_3 = m_ResetParams.GetWithDefault("changeWater_3", changeWater_3);
+
+        changeBody_0 = m_ResetParams.GetWithDefault("changeBody_0", changeBody_0);
+        changeBody_1 = m_ResetParams.GetWithDefault("changeBody_1", changeBody_1);
+        changeBody_2 = m_ResetParams.GetWithDefault("changeBody_2", changeBody_2);
+        changeBody_3 = m_ResetParams.GetWithDefault("changeBody_3", changeBody_3);
     }
     public override void Initialize()
     {
@@ -188,7 +231,7 @@ public class InteroceptiveAgent : Agent
         // Reset energy
         for (int i = 0; i < this.countEV; i++)
         {
-            this.resourceLevels[i] = 0;
+            this.resourceLevels[i] = 0.0f;
         }
 
         // Reset olfactory
@@ -201,17 +244,17 @@ public class InteroceptiveAgent : Agent
         }
 
         // Reset prior, posterior, derivative of EV
-        priorFood = 0.0f;
-        posteriorFood = 0.0f;
-        dFood = 0.0f;
+        // priorFood = 0.0f;
+        // posteriorFood = 0.0f;
+        // dFood = 0.0f;
 
-        priorWater = 0.0f;
-        posteriorWater = 0.0f;
-        dWater = 0.0f;
+        // priorWater = 0.0f;
+        // posteriorWater = 0.0f;
+        // dWater = 0.0f;
 
-        priorBodyTemp = 0.0f;
-        posteriorBodyTemp = 0.0f;
-        dBodyTemp = 0.0f;
+        // priorBodyTemp = 0.0f;
+        // posteriorBodyTemp = 0.0f;
+        // dBodyTemp = 0.0f;
 
         if (this.useThermalObs)
         {
@@ -267,23 +310,30 @@ public class InteroceptiveAgent : Agent
     //브레인(정책)으로 부터 전달 받은 행동을 실행하는 메소드
     public override void OnActionReceived(ActionBuffers actions)
     {
-        dFood = posteriorFood - priorFood;
-        dWater = posteriorWater - priorWater;
-        dBodyTemp = posteriorBodyTemp - priorBodyTemp;
-        Debug.Log("dFood : " + dFood.ToString());
-        Debug.Log("dWater : " + dWater.ToString());
-        Debug.Log("dBodyTemp : " + dBodyTemp.ToString());
+        // dFood = posteriorFood - priorFood;
+        // dWater = posteriorWater - priorWater;
+        // dBodyTemp = posteriorBodyTemp - priorBodyTemp;
+        // Debug.Log("dFood : " + dFood.ToString());
+        // Debug.Log("dWater : " + dWater.ToString());
+        // Debug.Log("dBodyTemp : " + dBodyTemp.ToString());
 
-        priorFood = resourceLevels[0];
-        priorWater = resourceLevels[1];
-        priorBodyTemp = resourceLevels[2];
+        // priorFood = resourceLevels[0];
+        // priorWater = resourceLevels[1];
+        // priorBodyTemp = resourceLevels[2];
 
-        this.resourceLevels[0] = this.resourceLevels[0] - this.changeFoodLevelRate * Time.fixedDeltaTime + food0 * dFood + water0 * dWater + bodyTemp0 * dBodyTemp;
-        this.resourceLevels[1] = this.resourceLevels[1] - this.changeWaterLevelRate * Time.fixedDeltaTime + food1 * dFood + water1 * dWater + bodyTemp1 * dBodyTemp;
+        // this.resourceLevels[0] = this.resourceLevels[0] - this.changeFoodLevelRate * Time.fixedDeltaTime + food0 * dFood + water0 * dWater + bodyTemp0 * dBodyTemp;
+        // this.resourceLevels[1] = this.resourceLevels[1] - this.changeWaterLevelRate * Time.fixedDeltaTime + food1 * dFood + water1 * dWater + bodyTemp1 * dBodyTemp;
+        // if (this.useThermalObs)
+        // {
+        //     thermoSensorCenter.GetComponent<ThermalSensing>().SetThermalSense(bodyTemp + food2 * dFood + water2 * dWater + bodyTemp2 * dBodyTemp);
+        //     this.resourceLevels[2] = this.bodyTemp;
+        // }
+
+        FoodUpdate(changeFood_0, changeFood_1, changeFood_2, changeFood_3, changeFood_4, changeFood_5);
+        WaterUpdate(changeWater_0, changeWater_1, changeWater_2, changeWater_3, changeWater_4, changeWater_5);
         if (this.useThermalObs)
         {
-            thermoSensorCenter.GetComponent<ThermalSensing>().SetThermalSense(bodyTemp + food2 * dFood + water2 * dWater + bodyTemp2 * dBodyTemp);
-            this.resourceLevels[2] = this.bodyTemp;
+            ThermoUpdate(changeBody_0, changeBody_1, changeBody_2, changeBody_3, changeBody_4);
         }
 
         bool checkFoodLevel = (this.maxFoodLevel < this.resourceLevels[0] || this.resourceLevels[0] < this.minFoodLevel);
@@ -312,9 +362,11 @@ public class InteroceptiveAgent : Agent
         int action = actions.DiscreteActions[0];
         MoveAgent(action);
 
-        posteriorFood = resourceLevels[0];
-        posteriorWater = resourceLevels[1];
-        posteriorBodyTemp = resourceLevels[2];
+        changeFood_5 = 0.0f;
+        changeWater_5 = 0.0f;
+        // posteriorFood = resourceLevels[0];
+        // posteriorWater = resourceLevels[1];
+        // posteriorBodyTemp = resourceLevels[2];
     }
 
     //개발자(사용자)가 직접 명령을 내릴때 호출하는 메소드(주로 테스트용도 또는 모방학습에 사용)
@@ -406,13 +458,15 @@ public class InteroceptiveAgent : Agent
     {
         if (tag.ToLower() == "food")
         {
-            this.resourceLevels[0] += this.resourceFoodValue;
-            posteriorFood = resourceLevels[0];
+            // this.resourceLevels[0] += this.resourceFoodValue;
+            changeFood_5 = 1.0f;
+            // posteriorFood = resourceLevels[0];
         }
         if (tag.ToLower() == "water")
         {
-            this.resourceLevels[1] += this.resourceWaterValue;
-            posteriorWater = resourceLevels[1];
+            // this.resourceLevels[1] += this.resourceWaterValue;
+            changeWater_5 = 1.0f;
+            // posteriorWater = resourceLevels[1];
         }
     }
 
@@ -473,4 +527,37 @@ public class InteroceptiveAgent : Agent
         return thermoObservation;
     }
 
+    public void FoodUpdate(float changeFood_0, float changeFood_1, float changeFood_2, float changeFood_3, float changeFood_4, float changeFood_5)
+    {
+        this.resourceLevels[0] = this.resourceLevels[0] +
+                                changeFood_0 * maxFoodLevel * Time.fixedDeltaTime +
+                                changeFood_1 * (this.resourceLevels[0] + 15) * Time.fixedDeltaTime +
+                                changeFood_2 * (this.resourceLevels[1] + 15) * Time.fixedDeltaTime +
+                                changeFood_3 * (this.resourceLevels[2] + 15) * Time.fixedDeltaTime +
+                                changeFood_4 * (interactionTerm) * Time.fixedDeltaTime +
+                                changeFood_5 * resourceFoodValue;
+    }
+
+    public void WaterUpdate(float changeWater_0, float changeWater_1, float changeWater_2, float changeWater_3, float changeWater_4, float changeWater_5)
+    {
+        this.resourceLevels[1] = this.resourceLevels[1] +
+                                changeWater_0 * maxWaterLevel * Time.fixedDeltaTime +
+                                changeWater_1 * (this.resourceLevels[0] + 15) * Time.fixedDeltaTime +
+                                changeWater_2 * (this.resourceLevels[1] + 15) * Time.fixedDeltaTime +
+                                changeWater_3 * (this.resourceLevels[2] + 15) * Time.fixedDeltaTime +
+                                changeWater_4 * (interactionTerm) * Time.fixedDeltaTime +
+                                changeWater_5 * resourceWaterValue;
+    }
+
+    public void ThermoUpdate(float changeBody_0, float changeBody_1, float changeBody_2, float changeBody_3, float changeBody_4)
+    {
+        bodyTemp = bodyTemp +
+                    changeBody_0 * maxThermoLevel * Time.fixedDeltaTime +
+                    changeBody_1 * (this.resourceLevels[0] + 15) * Time.fixedDeltaTime +
+                    changeBody_2 * (this.resourceLevels[1] + 15) * Time.fixedDeltaTime +
+                    changeBody_3 * (this.resourceLevels[2] + 15) * Time.fixedDeltaTime +
+                    changeBody_4 * (interactionTerm) * Time.fixedDeltaTime;
+        thermoSensorCenter.GetComponent<ThermalSensing>().SetThermalSense(bodyTemp);
+        this.resourceLevels[2] = this.bodyTemp;
+    }
 }
