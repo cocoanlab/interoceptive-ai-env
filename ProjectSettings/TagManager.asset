@@ -12,6 +12,8 @@ TagManager:
   - player
   - food
   - water
+  - food_blue
+  - rock
   layers:
   - Default
   - TransparentFX

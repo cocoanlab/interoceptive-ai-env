@@ -37,6 +37,27 @@ public class Lion : StrongAnimal
         nav.ResetPath();
     }
 
+    // IEnumerator AttackCoroutine()
+    // {
+    //     isAttacking = true;
+    //     nav.ResetPath();
+    //     CurrentChaseTime = ChaseTime;
+    //     yield return new WaitForSeconds(0.5f);
+    //     transform.LookAt(new Vector3(theViewAngle.GetTargetPos().x, 0f, theViewAngle.GetTargetPos().z));
+    //     anim.SetTrigger("Attack");
+    //     yield return new WaitForSeconds(0.5f);
+    //     RaycastHit _hit;
+    //     if (Physics.Raycast(transform.position + Vector3.up, transform.forward, out _hit, attackDistance, targetMask))
+    //     {
+    //         Debug.Log("target hit");
+    //         // thePlayerStatus.DecreaseHP(attackDamage);
+    //     }
+        
+    //     else
+    //     {
+    //         Debug.Log("target missed");
+    //     }
+
     protected override void ReSet()
     {
         base.ReSet();
@@ -53,7 +74,6 @@ public class Lion : StrongAnimal
             TryRun();
         else if (_random == 1)
             TryWalk();
-        
 
     }
 

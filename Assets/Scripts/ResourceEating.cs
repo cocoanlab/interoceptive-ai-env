@@ -37,13 +37,13 @@ public class ResourceEating : MonoBehaviour
                                 f.InitializeProperties();
                         }
 
-                        else if (other.CompareTag("water"))
-                        {
-                                other.transform.position = new Vector3(Random.Range(-myArea.range, myArea.range),
-                                3f, Random.Range(-myArea.range, myArea.range)) + myArea.transform.position;
-                                ResourceProperty f = other.gameObject.GetComponent<ResourceProperty>();
-                                f.InitializeProperties();
-                        }
+                        // else if (other.CompareTag("water"))
+                        // {
+                        //         other.transform.position = new Vector3(Random.Range(-myArea.range, myArea.range),
+                        //         3f, Random.Range(-myArea.range, myArea.range)) + myArea.transform.position;
+                        //         ResourceProperty f = other.gameObject.GetComponent<ResourceProperty>();
+                        //         f.InitializeProperties();
+                        // }
                 }
         }
 }

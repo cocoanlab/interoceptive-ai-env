@@ -51,5 +51,7 @@
         "ProjectSettings/": true,
         "temp/": true,
         "Temp/": true
-    }
+    },
+    "omnisharp.useModernNet": false,
+    "omnisharp.projectLoadTimeout": 36000
 }

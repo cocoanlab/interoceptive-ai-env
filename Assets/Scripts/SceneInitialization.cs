@@ -17,7 +17,7 @@ public class SceneInitialization : MonoBehaviour
 
         void EnvironmentReset()
         {
-                ClearObjects(GameObject.FindGameObjectsWithTag("water"));
+                // ClearObjects(GameObject.FindGameObjectsWithTag("water"));
                 ClearObjects(GameObject.FindGameObjectsWithTag("food"));
 
                 agents = GameObject.FindGameObjectsWithTag("agent");

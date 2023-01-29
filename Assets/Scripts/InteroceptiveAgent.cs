@@ -65,9 +65,9 @@ public class InteroceptiveAgent : Agent
 
         // blue
         [Header("Water")]
-        public float maxWaterLevel = 15.0f;
-        public float minWaterLevel = -15.0f;
-        public float changeWaterLevelRate = 0.002f;
+        public float maxWaterLevel = 15.0f;     
+        public float minWaterLevel = -15.0f;    
+        public float changeWaterLevelRate = 0.002f; 
         public float resourceWaterValue = 3.0f;
 
         // yellow

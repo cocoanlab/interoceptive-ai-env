@@ -13,7 +13,9 @@ public class Field : MonoBehaviour
 {
         // MLAgent 내장 클래스
         EnvironmentParameters m_ResetParams;
-        public GameObject foodWater;
+        public GameObject food;   //foodWater
+        // public GameObject water;
+        public GameObject rock;
 
         // Food 클래스의 리스트 foods
         public Resource[] resources;
@@ -45,21 +47,21 @@ public class Field : MonoBehaviour
                                 ResourceProperty f = Instantiate(type, new Vector3(Random.Range(-range, range), 1f,
                                 Random.Range(-range, range)) + transform.position,
                                 Quaternion.Euler(new Vector3(0f, Random.Range(0f, 360f), 90f)));
-                                f.transform.parent = foodWater.transform;
+                                f.transform.parent = food.transform;
                                 f.InitializeProperties();
 
                                 f.name = "Food" + (i + 1).ToString();
 
                         }
-                        else if (string.Equals(type.name, "Water"))
+                        else if (string.Equals(type.name, "Rock"))
                         {
                                 ResourceProperty f = Instantiate(type, new Vector3(Random.Range(-range, range), 1f,
                                 Random.Range(-range, range)) + transform.position,
                                 Quaternion.Euler(new Vector3(0f, Random.Range(0f, 360f), 90f)));
-                                f.transform.parent = foodWater.transform;
+                                f.transform.parent = rock.transform;
                                 f.InitializeProperties();
 
-                                f.name = "Water" + (i + 1).ToString();
+                                f.name = "Rock" + (i + 1).ToString();
                         }
 
                 }
