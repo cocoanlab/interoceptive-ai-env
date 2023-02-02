@@ -77,28 +77,28 @@ public class Field : MonoBehaviour
                                 }
 
                         }
-                        else if (string.Equals(type.name, "Water"))
-                        {
-                                if (IsRandomResourcePosition)
-                                {
-                                        ResourceProperty f = Instantiate(type, new Vector3(Random.Range(-range, range), 1f, Random.Range(-range, range)) + transform.position,
-                                        Quaternion.Euler(new Vector3(0f, Random.Range(0f, 360f), 90f)));
-                                        f.transform.parent = foodWater.transform;
-                                        f.InitializeProperties();
+                        // else if (string.Equals(type.name, "Water"))
+                        // {
+                        //         if (IsRandomResourcePosition)
+                        //         {
+                        //                 ResourceProperty f = Instantiate(type, new Vector3(Random.Range(-range, range), 1f, Random.Range(-range, range)) + transform.position,
+                        //                 Quaternion.Euler(new Vector3(0f, Random.Range(0f, 360f), 90f)));
+                        //                 f.transform.parent = foodWater.transform;
+                        //                 f.InitializeProperties();
 
-                                        f.name = "Water" + (i + 1).ToString();
-                                }
-                                else
-                                {
-                                        ResourceProperty f = Instantiate(type, waterResourcePositions[i] + transform.position,
-                                                                        Quaternion.Euler(new Vector3(0f, 0f, 90f)));
+                        //                 f.name = "Water" + (i + 1).ToString();
+                        //         }
+                        //         else
+                        //         {
+                        //                 ResourceProperty f = Instantiate(type, waterResourcePositions[i] + transform.position,
+                        //                                                 Quaternion.Euler(new Vector3(0f, 0f, 90f)));
 
-                                        f.transform.parent = foodWater.transform;
-                                        f.InitializeProperties();
-                                        f.name = "Water" + (i + 1).ToString();
+                        //                 f.transform.parent = foodWater.transform;
+                        //                 f.InitializeProperties();
+                        //                 f.name = "Water" + (i + 1).ToString();
 
-                                }
-                        }
+                        //         }
+                        // }
 
                 }
         }
@@ -111,19 +111,19 @@ public class Field : MonoBehaviour
                         f.InitializeProperties();
                 }
 
-                else if (resource.CompareTag("water"))
-                {
-                        resource.transform.position = new Vector3(Random.Range(-range, range), 1f, Random.Range(-range, range)) + transform.position;
-                        ResourceProperty f = resource.gameObject.GetComponent<ResourceProperty>();
-                        f.InitializeProperties();
-                }
+                // else if (resource.CompareTag("water"))
+                // {
+                //         resource.transform.position = new Vector3(Random.Range(-range, range), 1f, Random.Range(-range, range)) + transform.position;
+                //         ResourceProperty f = resource.gameObject.GetComponent<ResourceProperty>();
+                //         f.InitializeProperties();
+                // }
         }
 
         // 영역 초기화 함수
         public void ResetResourceArea(GameObject agent)
         {
                 ClearObjects(GameObject.FindGameObjectsWithTag("food"));
-                ClearObjects(GameObject.FindGameObjectsWithTag("water"));
+                // ClearObjects(GameObject.FindGameObjectsWithTag("water"));
 
                 // foreach (GameObject agent in agents)
                 // {
