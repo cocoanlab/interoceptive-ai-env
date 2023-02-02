@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Lion : StrongAnimal
+public class Predator : StrongAnimal
 {
    protected override void Update()
     {
