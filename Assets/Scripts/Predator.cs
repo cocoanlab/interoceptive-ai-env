@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Predator : StrongAnimal
 {
-   protected override void Update()
+    protected override void Update()
     {
         base.Update();
         // Debug.Log(theViewAngle.View());
@@ -18,24 +18,24 @@ public class Predator : StrongAnimal
         }
     }
 
-    IEnumerator chaseTargetCoroutine()
-    {
-        CurrentChaseTime = 0;
-        Chase(theViewAngle.GetTargetPos());
+    // IEnumerator chaseTargetCoroutine()
+    // {
+    //     CurrentChaseTime = 0;
+    //     Chase(theViewAngle.GetTargetPos());
 
-        while(CurrentChaseTime < ChaseTime)
-        {
-            Chase(theViewAngle.GetTargetPos());
-            yield return new WaitForSeconds(ChaseDelayTime);
-            CurrentChaseTime += ChaseDelayTime;
-            Debug.Log("chasing");
-        }
+    //     while(CurrentChaseTime < ChaseTime)
+    //     {
+    //         Chase(theViewAngle.GetTargetPos());
+    //         yield return new WaitForSeconds(ChaseDelayTime);
+    //         CurrentChaseTime += ChaseDelayTime;
+    //         Debug.Log("chasing");
+    //     }
 
-        isChasing = false;
-        isRunning = false;
-        anim.SetBool("Running", isRunning);
-        nav.ResetPath();
-    }
+    //     isChasing = false;
+    //     isRunning = false;
+    //     anim.SetBool("Running", isRunning);
+    //     nav.ResetPath();
+    // }
 
     protected override void ReSet()
     {
@@ -47,29 +47,29 @@ public class Predator : StrongAnimal
     {
         RandomSound();
 
-        int _random = Random.Range(0, 2); 
+        int _random = Random.Range(0, 2);
 
         if (_random == 0)
             TryRun();
         else if (_random == 1)
             TryWalk();
-        
+
 
     }
 
-    private void Walk() 
+    private void Walk()
     {
         currentTime = waitTime;
         anim.SetTrigger("Walk");
         Debug.Log("Walk");
     }
-    private void Run() 
+    private void Run()
     {
         currentTime = runTime;
         anim.SetTrigger("Run");
         Debug.Log("Run");
     }
-   
+
     private void Wait()  // 대기
     {
         currentTime = waitTime;

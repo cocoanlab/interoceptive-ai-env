@@ -66,9 +66,9 @@ public class InteroceptiveAgent : Agent
     public GameObject thermoSensorBackwardRight;
 
     [Header("Essential variables (EV)")]
-    public int countEV = 3;
+    public int countEV = 4;
     public float[] resourceLevels;
-    public float[] oldResourceLevels;
+    private float[] oldResourceLevels;
     // public float[] ResourceLevels { get { return resourceLevels; } set { resourceLevels = value; } }
 
     // red
@@ -132,6 +132,14 @@ public class InteroceptiveAgent : Agent
     public float changeBody_3 = 0.0f;
     public float changeBody_4 = 0.0f;
 
+    // hp
+    [Header("Health Point")]
+    public float maxHP = 100.0f;
+    public float minHP = 0.0f;
+    public float changeHP = 1.0f;
+    public bool checkHP;
+    public float startHP = 100.0f;
+
     // [Header("Predator / Prey")]
     // public GameObject Pig;
     // Rigidbody m_pig;
@@ -188,6 +196,11 @@ public class InteroceptiveAgent : Agent
         changeBody_2 = m_ResetParams.GetWithDefault("changeBody_2", changeBody_2);
         changeBody_3 = m_ResetParams.GetWithDefault("changeBody_3", changeBody_3);
         changeBody_3 = m_ResetParams.GetWithDefault("changeBody_4", changeBody_4);
+
+        maxHP = m_ResetParams.GetWithDefault("maxHP", maxHP);
+        minHP = m_ResetParams.GetWithDefault("minHP", minHP);
+        changeHP = m_ResetParams.GetWithDefault("changeHP", changeHP);
+        startHP = m_ResetParams.GetWithDefault("startHP", startHP);
     }
     public override void Initialize()
     {
@@ -267,6 +280,11 @@ public class InteroceptiveAgent : Agent
             else if (i == 2)
             {
                 this.resourceLevels[i] = startThermoLevel;
+                this.oldResourceLevels[i] = this.resourceLevels[i];
+            }
+            else if (i == 3)
+            {
+                this.resourceLevels[i] = startHP;
                 this.oldResourceLevels[i] = this.resourceLevels[i];
             }
         }
@@ -401,8 +419,10 @@ public class InteroceptiveAgent : Agent
             checkThermoLevel = (this.maxThermoLevel < this.bodyTemp || this.bodyTemp < this.minThermoLevel);
         }
 
+        bool checkHP = (this.resourceLevels[3] < this.minHP);
+
         // 만약 상한이나 하한을 넘어간 EV가 있다면 episode 종료
-        if (checkFoodLevel || checkWaterLevel || checkThermoLevel)
+        if (checkFoodLevel || checkWaterLevel || checkThermoLevel || checkHP)
             EndEpisode();
 
         int action = actions.DiscreteActions[0];
@@ -612,5 +632,10 @@ public class InteroceptiveAgent : Agent
     public float CalculateInteraction(float food, float water, float bodyTemp)
     {
         return 1.0f;
+    }
+
+    public void Damage()
+    {
+        resourceLevels[3] -= changeHP * Time.fixedDeltaTime;
     }
 }
