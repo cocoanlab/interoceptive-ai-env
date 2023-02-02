@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Lion : StrongAnimal
 {
-   protected override void Update()
+    protected override void Update()
     {
         base.Update();
         // Debug.Log(theViewAngle.View());
@@ -18,24 +18,24 @@ public class Lion : StrongAnimal
         }
     }
 
-    IEnumerator chaseTargetCoroutine()
-    {
-        CurrentChaseTime = 0;
-        Chase(theViewAngle.GetTargetPos());
+    // IEnumerator chaseTargetCoroutine()
+    // {
+    //     CurrentChaseTime = 0;
+    //     Chase(theViewAngle.GetTargetPos());
 
-        while(CurrentChaseTime < ChaseTime)
-        {
-            Chase(theViewAngle.GetTargetPos());
-            yield return new WaitForSeconds(ChaseDelayTime);
-            CurrentChaseTime += ChaseDelayTime;
-            Debug.Log("chasing");
-        }
+    //     while(CurrentChaseTime < ChaseTime)
+    //     {
+    //         Chase(theViewAngle.GetTargetPos());
+    //         yield return new WaitForSeconds(ChaseDelayTime);
+    //         CurrentChaseTime += ChaseDelayTime;
+    //         Debug.Log("chasing");
+    //     }
 
-        isChasing = false;
-        isRunning = false;
-        anim.SetBool("Running", isRunning);
-        nav.ResetPath();
-    }
+    //     isChasing = false;
+    //     isRunning = false;
+    //     anim.SetBool("Running", isRunning);
+    //     nav.ResetPath();
+    // }
 
     // IEnumerator AttackCoroutine()
     // {
@@ -52,7 +52,7 @@ public class Lion : StrongAnimal
     //         Debug.Log("target hit");
     //         // thePlayerStatus.DecreaseHP(attackDamage);
     //     }
-        
+
     //     else
     //     {
     //         Debug.Log("target missed");
@@ -68,7 +68,7 @@ public class Lion : StrongAnimal
     {
         RandomSound();
 
-        int _random = Random.Range(0, 2); 
+        int _random = Random.Range(0, 2);
 
         if (_random == 0)
             TryRun();
@@ -77,19 +77,19 @@ public class Lion : StrongAnimal
 
     }
 
-    private void Walk() 
+    private void Walk()
     {
         currentTime = waitTime;
         anim.SetTrigger("Walk");
         Debug.Log("Walk");
     }
-    private void Run() 
+    private void Run()
     {
         currentTime = runTime;
         anim.SetTrigger("Run");
         Debug.Log("Run");
     }
-   
+
     private void Wait()  // 대기
     {
         currentTime = waitTime;

@@ -5,19 +5,22 @@ using UnityEngine;
 public class StrongAnimal : Animal
 {
     [SerializeField]
-    protected int attackDamage; 
+    protected int attackDamage;
     [SerializeField]
-    protected float attackDelay; 
+    protected float attackDelay;
     [SerializeField]
-    protected float attackDistance; 
+    protected float attackDistance;
     [SerializeField]
-    protected LayerMask targetMask; 
+    protected LayerMask targetMask;
 
     [SerializeField]
-    protected float ChaseTime; 
-    protected float CurrentChaseTime; 
+    protected float ChaseTime;
+    protected float CurrentChaseTime;
     [SerializeField]
-    protected float ChaseDelayTime; 
+    protected float ChaseDelayTime;
+
+    public GameObject agent;
+
     public void Chase(Vector3 _targetPos)
     {
         destination = _targetPos;
@@ -39,19 +42,19 @@ public class StrongAnimal : Animal
         base.Damage(_dmg, _targetPos);
         if (!isDead)
             Chase(_targetPos);
-    
+
     }
 
     protected IEnumerator ChaseTargetCoroutine()
     {
         CurrentChaseTime = 0;
         Chase(theViewAngle.GetTargetPos());
-        
+
 
         while (CurrentChaseTime < ChaseTime)
         {
             Chase(theViewAngle.GetTargetPos()); //충분히 가까이 있고
-            if (Vector3.Distance(transform.position, theViewAngle.GetTargetPos()) <= attackDistance)           
+            if (Vector3.Distance(transform.position, theViewAngle.GetTargetPos()) <= attackDistance)
             {
                 if (theViewAngle.View()) // 눈 앞에 있을 경우
                 {
@@ -74,22 +77,22 @@ public class StrongAnimal : Animal
         isAttacking = true;
         nav.ResetPath();
         CurrentChaseTime = ChaseTime;
-        yield return new WaitForSeconds(0.5f);
+        // yield return new WaitForSeconds(0.5f);
+        Debug.Log("test");
         transform.LookAt(new Vector3(theViewAngle.GetTargetPos().x, 0f, theViewAngle.GetTargetPos().z));
         anim.SetTrigger("Attack");
-        yield return new WaitForSeconds(0.5f);
+        // yield return new WaitForSeconds(0.5f);
         RaycastHit _hit;
         if (Physics.Raycast(transform.position + Vector3.up, transform.forward, out _hit, attackDistance, targetMask))
         {
             Debug.Log("target hit");
+            agent.GetComponent<InteroceptiveAgent>().Damage();
             // thePlayerStatus.DecreaseHP(attackDamage);
         }
-        
         else
         {
             Debug.Log("target missed");
         }
-
         yield return new WaitForSeconds(attackDelay);
         isAttacking = false;
         StartCoroutine(ChaseTargetCoroutine());

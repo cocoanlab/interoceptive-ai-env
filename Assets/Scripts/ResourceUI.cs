@@ -7,60 +7,73 @@ using TMPro;
 // GameObject인 Canvas의 하위 GameObject인 ResourceLevelSetting에 부착됨
 public class ResourceUI : MonoBehaviour
 {
-        public Slider FoodLevel;
-        public Slider WaterLevel;
-        public Slider ThermoLevel;
+    public Slider FoodLevel;
+    public Slider WaterLevel;
+    public Slider ThermoLevel;
+    public Slider HpLevel;
 
-        public Image Foodhandle;
-        public Image Waterhandle;
-        public Image Thermohandle;
+    public Image Foodhandle;
+    public Image Waterhandle;
+    public Image Thermohandle;
+    public Image Hphandel;
 
-        public GameObject FoodText;
-        public GameObject WaterText;
-        public GameObject ThermoText;
+    public GameObject FoodText;
+    public GameObject WaterText;
+    public GameObject ThermoText;
+    public GameObject HpText;
 
-        public InteroceptiveAgent agent;
+    public InteroceptiveAgent agent;
 
-        private float foodLevel;
-        private float waterLevel;
-        private float thermoLevel;
+    private float foodLevel;
+    private float waterLevel;
+    private float thermoLevel;
+    private float hpLevel;
 
-        void Start()
+    void Start()
+    {
+        WaterLevel.value = 0;
+        FoodLevel.value = 0;
+        Waterhandle.color = Color.blue;
+        Foodhandle.color = Color.red;
+
+        HpLevel.value = 100.0f;
+        Hphandel.color = Color.green;
+
+        if (agent.useThermalObs)
         {
-                WaterLevel.value = 0;
-                FoodLevel.value = 0;
-                Waterhandle.color = Color.blue;
-                Foodhandle.color = Color.red;
-
-                if (agent.useThermalObs)
-                {
-                        ThermoLevel.value = 0;
-                        Thermohandle.color = Color.yellow;
-                }
-                else
-                {
-                        ThermoLevel.gameObject.SetActive(false);
-                        ThermoText.GetComponent<TextMeshProUGUI>().enabled = false;
-                }
-
+            ThermoLevel.value = 0;
+            Thermohandle.color = Color.yellow;
+        }
+        else
+        {
+            ThermoLevel.gameObject.SetActive(false);
+            ThermoText.GetComponent<TextMeshProUGUI>().enabled = false;
         }
 
-        void Update()
+    }
+
+    void Update()
+    {
+        foodLevel = agent.resourceLevels[0];
+        waterLevel = agent.resourceLevels[1];
+
+        WaterLevel.value = waterLevel;
+        FoodLevel.value = foodLevel;
+
+        hpLevel = agent.resourceLevels[3];
+        print("please : " + hpLevel.ToString());
+        HpLevel.value = hpLevel;
+
+        if (agent.useThermalObs)
         {
-                foodLevel = agent.resourceLevels[0];
-                waterLevel = agent.resourceLevels[1];
-
-                WaterLevel.value = waterLevel;
-                FoodLevel.value = foodLevel;
-
-                if (agent.useThermalObs)
-                {
-                        thermoLevel = agent.resourceLevels[2];
-                        ThermoLevel.value = thermoLevel;
-                }
-
-                // if (blueLevel >= 0) { Bluehandle.color = Color.green; } else { Bluehandle.color = Color.red; }
-                // if (redLevel >= 0) { Redhandle.color = Color.green; } else { Redhandle.color = Color.red; }
-                // if (yellowLevel >= 0) { Yellowhandle.color = Color.green; } else { Yellowhandle.color = Color.red; }
+            thermoLevel = agent.resourceLevels[2];
+            ThermoLevel.value = thermoLevel;
         }
+
+
+
+        // if (blueLevel >= 0) { Bluehandle.color = Color.green; } else { Bluehandle.color = Color.red; }
+        // if (redLevel >= 0) { Redhandle.color = Color.green; } else { Redhandle.color = Color.red; }
+        // if (yellowLevel >= 0) { Yellowhandle.color = Color.green; } else { Yellowhandle.color = Color.red; }
+    }
 }
