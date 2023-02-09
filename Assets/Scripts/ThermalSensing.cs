@@ -4,6 +4,8 @@ using UnityEngine;
 using System.Linq;
 using Unity.MLAgents;
 
+// Field - Agent - ThermalSensor - ThermalSensor_{location}에 부착함
+// 주변 온도 감지와 체온과 관련된 스크립트
 public class ThermalSensing : MonoBehaviour
 {
     public GameObject sun;
@@ -70,18 +72,22 @@ public class ThermalSensing : MonoBehaviour
         thermalSense = value;
     }
 
+    // 밤에서의 지형 온도 계산
     public float CalculateNightAreaTemp(int x, int z)
     {
         nightAreaTemp = area.GetComponent<AreaTempSmoothing>().GetAreaTemp(x + 50, z + 50) + sun.GetComponent<DayAndNight>().nightTemperatureVariance;
         return nightAreaTemp;
     }
 
+    // 낮에서의 지형 온도 계산
     public float CalculateDayAreaTemp(int x, int z)
     {
         dayAreaTemp = area.GetComponent<AreaTempSmoothing>().GetAreaTemp(x + 50, z + 50) + sun.GetComponent<DayAndNight>().dayTemperatureVariance;
         return dayAreaTemp;
     }
 
+    // 체온과 직접적으로 관련된 center 센서는 둔감하게 변하게
+    // 환경에 대한 observation 역할을 하는 나머지 센서는 민감하게 변하게 설정
     public float CalculateChangeRate()
     {
         // isSensor True (8 sensor)
@@ -97,6 +103,9 @@ public class ThermalSensing : MonoBehaviour
         return changeRate;
     }
 
+    // sensor 값이 점점 밤에서의 지형 온도에 수렴하도록 함
+    // 지형 온도가 극단적 (-50 미만이거나 50 초과)이면 10배 더 빠르게 변하도록 함
+    // 엄청 뜨거운 물건을 만지면 척수 반사 반응이 나오는 것과 비슷한 맥락
     public float CalculateThermalSenseNight()
     {
         if (thermalSense > nightAreaTemp)
@@ -138,6 +147,7 @@ public class ThermalSensing : MonoBehaviour
         return thermalSense;
     }
 
+    // sensor 값이 점점 낮의 지형 온도에 수렴하도록 함
     public float CalculateThermalSenseDay()
     {
         if (thermalSense < dayAreaTemp)

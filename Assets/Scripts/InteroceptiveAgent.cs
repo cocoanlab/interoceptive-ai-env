@@ -579,6 +579,8 @@ public class InteroceptiveAgent : Agent
         thermoSensorCenter.GetComponent<ThermalSensing>().CalculateThermalSense();
     }
 
+    // 온도에 대한 observation 값은 각 sensor에 입력되는 값과 중앙 sensor (agent의 체온)의 값의 차이를 받아옴
+    // 실제 생명체가 온도를 느낄 때 절대적인 온도를 감지하는 것이 아니라 체온과 비교한 상대적인 온도를 감지하기 때문임
     public float[] ThermalObserving()
     {
         thermoObservation[0] = thermoSensorForward.GetComponent<ThermalSensing>().GetThermalSense() - thermoSensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
@@ -595,6 +597,7 @@ public class InteroceptiveAgent : Agent
         return thermoObservation;
     }
 
+    // EV 간 상호작용을 고려한 업데이트
     public void FoodUpdate(float changeFood_0, float changeFood_1, float changeFood_2, float changeFood_3, float changeFood_4, float changeFood_5)
     {
         this.resourceLevels[0] = this.resourceLevels[0] +
