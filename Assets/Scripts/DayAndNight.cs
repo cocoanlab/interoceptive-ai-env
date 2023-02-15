@@ -13,7 +13,7 @@ public class DayAndNight : MonoBehaviour
 
     [Header("Observations")]
     // 현실 세계에서 1초가 지났을 때 게임 세계에서 몇 초가 지나도록 할 것인지 설정하기 위한 변수
-    private float dayNightSpeed = 0.0f;
+    public float dayNightSpeed = 0.0f; //원래 private 
     // fog 증감량 비율
     public float fogDensityCalc;
     // 낮 상태의 fog 밀도.
