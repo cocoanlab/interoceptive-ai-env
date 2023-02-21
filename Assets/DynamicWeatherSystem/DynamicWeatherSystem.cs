@@ -61,12 +61,12 @@ public class DynamicWeatherSystem : MonoBehaviour
         while (true)
         {
             Debug.Log(weatherState);
-            if (weatherState == WeatherState.Change) {SelectWeather(); }
+            // if (weatherState == WeatherState.Change) {SelectWeather(); }
             // else if (weatherState == WeatherState.Sun) {ActivedWeather("Sun"); }
-            else if (weatherState == WeatherState.Thunder) {ActivedWeather("Thunder"); }
+            // else if (weatherState == WeatherState.Thunder) {ActivedWeather("Thunder"); }
             // else if (weatherState == WeatherState.Mist) {ActivedWeather("Mist"); }
-            else if (weatherState == WeatherState.Rain) {ActivedWeather("Rain"); }
-            else if (weatherState == WeatherState.Snow) {ActivedWeather("Snow"); }
+            // else if (weatherState == WeatherState.Rain) {ActivedWeather("Rain"); }
+            if (weatherState == WeatherState.Snow) {ActivedWeather("Snow"); }
             yield return null; 
         }
     }
