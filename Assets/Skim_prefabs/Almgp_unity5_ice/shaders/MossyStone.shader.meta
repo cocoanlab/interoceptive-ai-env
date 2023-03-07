@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 716d96fedebac4049800780355346a40
+timeCreated: 1461099874
+licenseType: Store
+ShaderImporter:
+  defaultTextures:
+  - _Ambientocclusion: {fileID: 2800000, guid: 091f993aa47b1464293a6ef31003ac13, type: 3}
+  - _heights: {fileID: 2800000, guid: 625c2958269b5384ab11f31bfd360bd4, type: 3}
+  - _moss_albedo: {fileID: 2800000, guid: 951aab9a19f551f4385d0ceafdaf19b4, type: 3}
+  - _moss_normal: {fileID: 2800000, guid: be053ea3235ccb64a889bf0b15c2764b, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

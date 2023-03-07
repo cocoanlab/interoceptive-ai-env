@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 0c73fcd0c0f725e42bbb008fdfde64ca
+timeCreated: 1461037459
+licenseType: Store
+ShaderImporter:
+  defaultTextures:
+  - _cloudtexture: {fileID: 2800000, guid: 54c07289331fe1e438dc7409c85ba639, type: 3}
+  - _cloudgradient: {fileID: 2800000, guid: d61840569a2b46f45999072222eebdfc, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
