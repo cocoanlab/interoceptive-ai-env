@@ -554,7 +554,7 @@ public class InteroceptiveAgent : Agent
                 foreach (Collider other in olfactoryTargets)
                 {
                         ResourceProperty food = other.gameObject.GetComponent<ResourceProperty>();
-                        if (food.CompareTag("water") || food.CompareTag("food"))
+                        if (food.CompareTag("water") || food.CompareTag("food") || food.CompareTag("pond"))
                         {
                                 j += 1;
                                 float foodDistance = Vector3.Distance(SpherePos, food.transform.position);

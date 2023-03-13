@@ -673,10 +673,15 @@ PlayerSettings:
   vrEditorSettings: {}
   cloudServicesEnabled:
     Build: 0
-    Collab: 1
+    Collab: 0
     ErrorHub: 0
+    Game Performance: 0
     Hub: 0
+    Legacy Analytics: 0
+    Purchasing: 0
+    UDP: 0
     UNet: 1
+    Unity Ads: 0
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
@@ -690,11 +695,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
-  cloudProjectId: c6d56055-cf88-4d80-baf9-373657761010
+  cloudProjectId: 187bd180-94ed-45bd-8916-0fc130722d42
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: TwoResource3+
-  organizationId: unity_1fdreseshx8vsa
+  projectName: interoceptive-ai-env (3)
+  organizationId: sungwoo320
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 

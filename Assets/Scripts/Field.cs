@@ -65,7 +65,7 @@ public class Field : MonoBehaviour
                                         ResourceProperty f = Instantiate(type, new Vector3(Random.Range(-range, range), 0f, Random.Range(-range, range)) + transform.position,
                                         Quaternion.Euler(new Vector3(0f, 0f, 0f)));
                                         f.transform.parent = foodWater.transform;
-                                        f.InitializeProperties();
+                                        // f.InitializeProperties();
 
                                         f.name = "Pond" + (i + 1).ToString();
                                         pondResourcePositions[i] = f.transform.position;
@@ -76,7 +76,15 @@ public class Field : MonoBehaviour
                                                                         Quaternion.Euler(new Vector3(0f, 0f, 0f)));
 
                                         f.transform.parent = foodWater.transform;
-                                        f.InitializeProperties();
+                                        // f.InitializeProperties();
+                                        // f.gameObject.transform.GetChild(0).GetComponent<ResourceProperty>().InitializeProperties();
+
+                                        // Pond prefab does not contain collider, so olfactory sensor and eating area cannot detact it.
+                                        // Instead, PondWater, the child object of Pond, contains collider.
+                                        // So initializing resource properties of PondWater
+                                        ResourceProperty pondWater = f.gameObject.transform.GetChild(0).GetComponent<ResourceProperty>();
+                                        pondWater.InitializeProperties();
+                                        // pondWater.GetComponent<ResourceProperty>().InitializeProperties();
                                         f.name = "Pond" + (i + 1).ToString();
 
                                 }

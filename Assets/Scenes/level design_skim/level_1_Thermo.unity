@@ -26559,12 +26559,12 @@ PrefabInstance:
     - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: resources.Array.data[0].num
-      value: 50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: resources.Array.data[1].num
-      value: 50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
@@ -26587,7 +26587,7 @@ PrefabInstance:
         type: 3}
       propertyPath: resources.Array.data[2].prefab
       value: 
-      objectReference: {fileID: 2488311399056505899, guid: cfec8352ede464231813290e46051418,
+      objectReference: {fileID: 5662158292255786929, guid: cfec8352ede464231813290e46051418,
         type: 3}
     - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
@@ -26652,17 +26652,17 @@ PrefabInstance:
     - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: pondResourcePositions.Array.data[0].x
-      value: -12.3
+      value: -14
       objectReference: {fileID: 0}
     - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: pondResourcePositions.Array.data[0].y
-      value: -5.8
+      value: -5.82
       objectReference: {fileID: 0}
     - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: pondResourcePositions.Array.data[0].z
-      value: -14.9
+      value: 5.8
       objectReference: {fileID: 0}
     - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
