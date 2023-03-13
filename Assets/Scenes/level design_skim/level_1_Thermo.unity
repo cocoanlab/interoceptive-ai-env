@@ -10993,7 +10993,7 @@ PrefabInstance:
     - target: {fileID: 4124057714590759395, guid: 591a05153280f4d1bacdbcf58699ea0d,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4124057714590759396, guid: 591a05153280f4d1bacdbcf58699ea0d,
         type: 3}
@@ -26426,6 +26426,11 @@ PrefabInstance:
       propertyPath: TakeActionsBetweenDecisions
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4805768801126511269, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: m_BrainParameters.VectorObservationSize
+      value: 22
+      objectReference: {fileID: 0}
     - target: {fileID: 4806027653304860779, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: sun
@@ -26469,7 +26474,7 @@ PrefabInstance:
     - target: {fileID: 4806027653304860779, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: useOlfactoryObs
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4806027653304860779, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
@@ -26483,6 +26488,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4806027653304860779, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
+      propertyPath: changeThermoLevelRate
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4806027653304860779, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
       propertyPath: olfactorySensorLength
       value: 100
       objectReference: {fileID: 0}
@@ -26490,6 +26500,11 @@ PrefabInstance:
         type: 3}
       propertyPath: InitRandomAgentPosition
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4806027653304860779, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: initRandomAgentPosition
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4837328956473616459, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
@@ -26523,23 +26538,38 @@ PrefabInstance:
       objectReference: {fileID: 705507993}
     - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
-      propertyPath: resources.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
-        type: 3}
-      propertyPath: IsRandomResourcePosition
+      propertyPath: IsRandomFoodPosition
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
+      propertyPath: resources.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: IsRandomWaterPosition
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: IsRandomResourcePosition
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
       propertyPath: resources.Array.data[0].num
-      value: 10
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: resources.Array.data[1].num
-      value: 10
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: resources.Array.data[2].num
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
@@ -26555,8 +26585,24 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
+      propertyPath: resources.Array.data[2].prefab
+      value: 
+      objectReference: {fileID: 2488311399056505899, guid: cfec8352ede464231813290e46051418,
+        type: 3}
+    - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
       propertyPath: foodResourcePositions.Array.size
-      value: 2
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: pondResourcePositions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: waterResourcePositions.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
@@ -26603,6 +26649,51 @@ PrefabInstance:
       propertyPath: foodResourcePositions.Array.data[2].z
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: pondResourcePositions.Array.data[0].x
+      value: -12.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: pondResourcePositions.Array.data[0].y
+      value: -5.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: pondResourcePositions.Array.data[0].z
+      value: -14.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: waterResourcePositions.Array.data[0].x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: waterResourcePositions.Array.data[0].y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: waterResourcePositions.Array.data[0].z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: waterResourcePositions.Array.data[1].x
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: waterResourcePositions.Array.data[1].y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: waterResourcePositions.Array.data[1].z
+      value: -10
+      objectReference: {fileID: 0}
     - target: {fileID: 4839067235267387132, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: hotSpotCount
@@ -26618,6 +26709,11 @@ PrefabInstance:
       propertyPath: sun
       value: 
       objectReference: {fileID: 705507993}
+    - target: {fileID: 4839067235790823292, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: isSensor
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4839067236279858927, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: sun
