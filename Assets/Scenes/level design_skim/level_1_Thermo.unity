@@ -26559,7 +26559,7 @@ PrefabInstance:
     - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: resources.Array.data[0].num
-      value: 0
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
