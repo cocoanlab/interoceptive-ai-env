@@ -66,6 +66,8 @@ public class Field : MonoBehaviour
                                         Quaternion.Euler(new Vector3(0f, 0f, 0f)));
                                         f.transform.parent = foodWater.transform;
                                         // f.InitializeProperties();
+                                        ResourceProperty pondWater = f.gameObject.transform.GetChild(0).GetComponent<ResourceProperty>();
+                                        pondWater.InitializeProperties();
 
                                         f.name = "Pond" + (i + 1).ToString();
                                         pondResourcePositions[i] = f.transform.position;
@@ -100,24 +102,27 @@ public class Field : MonoBehaviour
                                         ResourceProperty f = Instantiate(type, new Vector3(Random.Range(-range, range), 1f, Random.Range(-range, range)) + transform.position,
                                                                         Quaternion.Euler(new Vector3(0f, Random.Range(0f, 360f), 90f)));
 
-                                        while (tooCloseToPond)
+                                        if (resources[2].num > 0)
                                         {
-                                                float distanceToPond = Vector3.Distance(pondResourcePositions[0], f.transform.position);
-
-                                                if (distanceToPond > 30)
+                                                while (tooCloseToPond)
                                                 {
-                                                        tooCloseToPond = false;
-                                                }
-                                                else
-                                                {
-                                                        f.transform.position = new Vector3(Random.Range(-range, range), 1f, Random.Range(-range, range)) + transform.position;
-                                                }
+                                                        float distanceToPond = Vector3.Distance(pondResourcePositions[0], f.transform.position);
 
-                                                tryCount += 1;
+                                                        if (distanceToPond > 30)
+                                                        {
+                                                                tooCloseToPond = false;
+                                                        }
+                                                        else
+                                                        {
+                                                                f.transform.position = new Vector3(Random.Range(-range, range), 1f, Random.Range(-range, range)) + transform.position;
+                                                        }
 
-                                                if (tryCount > 100)
-                                                {
-                                                        break;
+                                                        tryCount += 1;
+
+                                                        if (tryCount > 100)
+                                                        {
+                                                                break;
+                                                        }
                                                 }
                                         }
 
@@ -151,27 +156,29 @@ public class Field : MonoBehaviour
                                         ResourceProperty f = Instantiate(type, new Vector3(Random.Range(-range, range), 1f, Random.Range(-range, range)) + transform.position,
                                                                         Quaternion.Euler(new Vector3(0f, Random.Range(0f, 360f), 90f)));
 
-                                        while (tooCloseToPond)
+                                        if (resources[2].num > 0)
                                         {
-                                                float distanceToPond = Vector3.Distance(pondResourcePositions[0], f.transform.position);
-
-                                                if (distanceToPond > 30)
+                                                while (tooCloseToPond)
                                                 {
-                                                        tooCloseToPond = false;
-                                                }
-                                                else
-                                                {
-                                                        f.transform.position = new Vector3(Random.Range(-range, range), 1f, Random.Range(-range, range)) + transform.position;
-                                                }
+                                                        float distanceToPond = Vector3.Distance(pondResourcePositions[0], f.transform.position);
 
-                                                tryCount += 1;
+                                                        if (distanceToPond > 30)
+                                                        {
+                                                                tooCloseToPond = false;
+                                                        }
+                                                        else
+                                                        {
+                                                                f.transform.position = new Vector3(Random.Range(-range, range), 1f, Random.Range(-range, range)) + transform.position;
+                                                        }
 
-                                                if (tryCount > 100)
-                                                {
-                                                        break;
+                                                        tryCount += 1;
+
+                                                        if (tryCount > 100)
+                                                        {
+                                                                break;
+                                                        }
                                                 }
                                         }
-
                                         f.transform.parent = foodWater.transform;
                                         f.InitializeProperties();
 
@@ -202,27 +209,29 @@ public class Field : MonoBehaviour
                         bool tooCloseToPond = true;
                         int tryCount = 0;
 
-                        while (tooCloseToPond)
+                        if (resources[2].num > 0)
                         {
-                                float distanceToPond = Vector3.Distance(pondResourcePositions[0], resource.transform.position);
-
-                                if (distanceToPond > 30)
+                                while (tooCloseToPond)
                                 {
-                                        tooCloseToPond = false;
-                                }
-                                else
-                                {
-                                        resource.transform.position = new Vector3(Random.Range(-range, range), 1f, Random.Range(-range, range)) + transform.position;
-                                }
+                                        float distanceToPond = Vector3.Distance(pondResourcePositions[0], resource.transform.position);
 
-                                tryCount += 1;
+                                        if (distanceToPond > 30)
+                                        {
+                                                tooCloseToPond = false;
+                                        }
+                                        else
+                                        {
+                                                resource.transform.position = new Vector3(Random.Range(-range, range), 1f, Random.Range(-range, range)) + transform.position;
+                                        }
 
-                                if (tryCount > 100)
-                                {
-                                        break;
+                                        tryCount += 1;
+
+                                        if (tryCount > 100)
+                                        {
+                                                break;
+                                        }
                                 }
                         }
-
                         ResourceProperty f = resource.gameObject.GetComponent<ResourceProperty>();
                         f.InitializeProperties();
                 }
