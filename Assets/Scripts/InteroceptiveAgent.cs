@@ -640,5 +640,10 @@ public class InteroceptiveAgent : Agent
         public void Damage()
         {
                 resourceLevels[3] -= changeHP * Time.fixedDeltaTime;
+                // Debug.Log("Damage");
+                // Debug.Log("changeHP" + changeHP);
+                // Debug.Log("Time" + Time.fixedDeltaTime);
+
+
         }
 }

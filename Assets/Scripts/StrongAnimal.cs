@@ -68,9 +68,10 @@ public class StrongAnimal : Animal
         isRunning = false;
         anim.SetBool("Running", isRunning);
         nav.ResetPath();
+        Debug.Log("hahahahhhahahaahaahaahahahhaahahaha");
     }
 
-    protected IEnumerator AttackCoroutine()
+    public IEnumerator AttackCoroutine()
     {
         isAttacking = true;
         nav.ResetPath();

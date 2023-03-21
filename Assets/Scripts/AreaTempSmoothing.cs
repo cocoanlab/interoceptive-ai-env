@@ -15,6 +15,7 @@ using Unity.MLAgents;
 // http://nic-gamedev.blogspot.com/2013/02/simple-terrain-smoothing.html
 public class AreaTempSmoothing : MonoBehaviour
 {
+    public GameObject Cave;
     // Variables for code
     private EnvironmentParameters m_ResetParams;
     public float[,] areaTemp;
@@ -28,11 +29,14 @@ public class AreaTempSmoothing : MonoBehaviour
 
     [Header("Field Temperature parameters")]
     public float hotSpotCount = 300;
+    public float objectSpotCount = 1;
+
     public int smoothingRepetition = 10;
     public float hotSpotTempLow = 60.0f;
     public float hotSpotTempHigh = 60.0f;
     public float fieldDefaultTempLow = -60.0f;
     public float fieldDefaultTempHigh = -60.0f;
+    public float objectTemp = 80.0f;
 
 
     public void Awake()
@@ -50,7 +54,7 @@ public class AreaTempSmoothing : MonoBehaviour
         fieldDefaultTempHigh = m_ResetParams.GetWithDefault("fieldDefaultTempHigh", fieldDefaultTempHigh);
         hotSpotTempLow = m_ResetParams.GetWithDefault("hotSpotTempLow", hotSpotTempLow);
         hotSpotTempHigh = m_ResetParams.GetWithDefault("hotSpotTempHigh", hotSpotTempHigh);
-
+        objectTemp = m_ResetParams.GetWithDefault("objectTemp", objectTemp);
     }
 
     public void EpisodeAreaSmoothing()
@@ -127,6 +131,16 @@ public class AreaTempSmoothing : MonoBehaviour
         {
             MakeBonfire(Random.Range(2, 98), Random.Range(2, 98));
         }
+         
+        //object(cave)의 개수만큼 MakeObjectHotspot 메소드를 실행시켜줌
+        
+        for (int tempCount = 0; tempCount < objectSpotCount; ++tempCount)
+        {
+            if(objectSpotCount > 0) //objectSpotCount의 개수가 0이면 실행 안되게 해줌.
+            {
+                MakeObjectHotspot(Random.Range(2, 98), Random.Range(2, 98));
+            }
+        }
 
         areaWidth = 100;
         areaDepth = 100;
@@ -202,6 +216,31 @@ public class AreaTempSmoothing : MonoBehaviour
         areaTemp[x + 2, z] = hotSpotTemp;
         areaTemp[x + 2, z + 1] = hotSpotTemp;
         areaTemp[x + 2, z + 2] = hotSpotTemp;
+    }
+
+        //Game Object 영역의 온도를 올려주는 메소드
+    public void MakeObjectHotspot(int a, int b)
+    {   
+        //areaTemp의 x,z는 0~100으로 설정되어있는데, 실제 scene에서의 transform의 x좌표가 약 -70~30으로 지정되어있음.
+        //따라서 object의 transform을 받아와서 +70을 해줘야 areaTemp에서 위치가 알맞게 지정됨.
+
+        a = (int)Cave.transform.position.x + 70;
+        b = (int)Cave.transform.position.z;
+
+        // private float objectSpotTemp;
+        float objectSpotTemp = objectTemp;
+
+        // Making 10a10 sibe of objectSpot
+        if(objectSpotCount > 0)
+        {
+            for (int i = -5; i < 5; ++i)
+            {
+                for (int j = 0; j < 10; ++j)
+                {
+                    areaTemp[a + i, b + j] = objectSpotTemp;
+                }
+            } 
+        }
     }
 
     public float GetNormalizedAreaTemp(int x, int z)

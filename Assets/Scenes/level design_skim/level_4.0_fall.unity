@@ -31507,6 +31507,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839067235267387132, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
+      propertyPath: objectSpotCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839067235267387132, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
       propertyPath: fieldDefaultTempLow
       value: -60
       objectReference: {fileID: 0}

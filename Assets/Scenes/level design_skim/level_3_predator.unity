@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 1
+  m_Fog: 0
   m_FogColor: {r: 0, g: 0, b: 0, a: 0.33333334}
   m_FogMode: 3
   m_FogDensity: 0.01
@@ -30668,6 +30668,11 @@ PrefabInstance:
       objectReference: {fileID: 705507993}
     - target: {fileID: 4806027653304860779, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
+      propertyPath: checkHP
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4806027653304860779, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
       propertyPath: countEV
       value: 4
       objectReference: {fileID: 0}
@@ -30676,6 +30681,11 @@ PrefabInstance:
       propertyPath: heatMap
       value: 
       objectReference: {fileID: 1071050609}
+    - target: {fileID: 4806027653304860779, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: changeHP
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4806027653304860779, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: changeFood_4
@@ -30878,6 +30888,11 @@ PrefabInstance:
         type: 3}
       propertyPath: hotSpotCount
       value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839067235267387132, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: objectSpotCount
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4839067235566522410, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}

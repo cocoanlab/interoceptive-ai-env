@@ -15,9 +15,9 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 1
-  m_FogColor: {r: 0, g: 0, b: 0, a: 0.33333334}
+  m_FogColor: {r: 0.8584906, g: 0.8584906, b: 0.8584906, a: 0.33333334}
   m_FogMode: 3
-  m_FogDensity: 0.01
+  m_FogDensity: 0.04
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -147,7 +147,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!198 &47380121
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -6038,6 +6038,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4170393120997092, guid: 55e306fb876f33d4695c7992639230f0,
     type: 3}
   m_PrefabInstance: {fileID: 66983057}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &600510009 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6118940613433307357, guid: 6c97eab4d347c4fddb193666fb8a8bfd,
+    type: 3}
+  m_PrefabInstance: {fileID: 6118940613581128909}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &610678125
 PrefabInstance:
@@ -28715,6 +28721,11 @@ PrefabInstance:
       propertyPath: pondResourcePositions.Array.data[0].z
       value: -33
       objectReference: {fileID: 0}
+    - target: {fileID: 4839067235267387132, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: Cave
+      value: 
+      objectReference: {fileID: 600510009}
     - target: {fileID: 4839067235267387132, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: hotSpotCount
