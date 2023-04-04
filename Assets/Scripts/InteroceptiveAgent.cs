@@ -463,31 +463,6 @@ public class InteroceptiveAgent : Agent
                 }
         }
 
-        //
-        // public void ResetObject(ResourceProperty[] objects)
-        // {
-        //         foreach (var food in objects)
-        //         {
-        //                 // Area must be square!!
-        //                 float food_x = food.transform.position.x;
-        //                 float food_y = food.transform.position.y;
-        //                 float food_z = food.transform.position.z;
-
-        //                 float area_x = m_MyArea.transform.position.x;
-        //                 float area_y = m_MyArea.transform.position.y;
-        //                 float area_z = m_MyArea.transform.position.z;
-
-        //                 if (food_x > (-m_MyArea.range + area_x) && food_x < (m_MyArea.range + area_x)
-        //                     && food_y > area_y && food_y < m_MyArea.height + area_y
-        //                     && food_z > (-m_MyArea.range + area_z) && food_z < (m_MyArea.range + area_z))
-        //                 {
-        //                         food.transform.position = new Vector3(Random.Range(-m_MyArea.range, m_MyArea.range),
-        //                             m_MyArea.height, Random.Range(-m_MyArea.range, m_MyArea.range)) + m_MyArea.transform.position;
-        //                         food.InitializeProperties();
-        //                 }
-        //         }
-        // }
-
         public void MoveAgent(int action)
         {
                 var dirToGo = Vector3.zero;
@@ -546,7 +521,7 @@ public class InteroceptiveAgent : Agent
 
                 // agent 크기 바뀌면 z값 확인하기
                 Vector3 SpherePos = new Vector3(gameObject.transform.position.x,
-                    gameObject.transform.position.y, gameObject.transform.position.z + 0.5f);
+                                                gameObject.transform.position.y, gameObject.transform.position.z + 0.5f);
                 // Food layer
                 Collider[] olfactoryTargets = Physics.OverlapSphere(SpherePos, olfactorySensorLength, 1 << 8);
 

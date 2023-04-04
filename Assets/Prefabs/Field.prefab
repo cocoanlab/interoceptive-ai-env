@@ -464,6 +464,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 4806027653304860779}
   myArea: {fileID: 4839067235267387120}
+  isEaten: 0
 --- !u!1 &4626053816834686346
 GameObject:
   m_ObjectHideFlags: 0
@@ -631,14 +632,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foodWater: {fileID: 4839067235645850823}
   resources:
-  - prefab: {fileID: 5204920723700941091, guid: 350871b865967466daa1f596193cc22e,
+  - prefab: {fileID: 5662158292255786929, guid: cfec8352ede464231813290e46051418,
       type: 3}
     num: 0
+  - prefab: {fileID: 6951154961793241603, guid: 32aa6e4ae600f4453a340da4644477bb,
+      type: 3}
+    num: 0
+  - prefab: {fileID: 5204920723700941091, guid: 350871b865967466daa1f596193cc22e,
+      type: 3}
+    num: 50
   - prefab: {fileID: 8834216161069874123, guid: b59e4a7fd76af471cadd16e90133a084,
       type: 3}
     num: 0
-  range: 40
-  height: 2
+  randomResourceRange: 40
+  randomResourceHeight: 2
+  minDistFromPond: 30
+  maxDistFromTree: 3
+  maxTryNumSample: 1000
+  IsRandomFoodPosition: 0
+  foodResourcePositions: []
+  IsRandomWaterPosition: 0
+  waterResourcePositions: []
+  IsRandomPondPosition: 0
+  pondResourcePositions: []
+  IsRandomTreePosition: 0
+  treeResourcePositions: []
 --- !u!1 &4837682096371279209
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,6 +779,12 @@ MonoBehaviour:
   area: {fileID: 4837328956473616459}
   sun: {fileID: 6020930168887161815, guid: 03d4bb41328a54bad92e6825603dd1f6, type: 3}
   heatMap: {fileID: 6211308144292610838, guid: 248ca13a7c58b4da1a63e8547c21e00c, type: 3}
+  playRecorder: {fileID: 0}
+  foodEatRange: {fileID: 0}
+  singleTrial: 0
+  initRandomAgentPosition: 0
+  initAgentPosition: {x: 0, y: 0, z: 0}
+  initAgentAngle: {x: 0, y: 0, z: 0}
   moveSpeed: 6
   turnSpeed: 200
   eatingDistance: 1
@@ -786,17 +810,40 @@ MonoBehaviour:
   minFoodLevel: -15
   changeFoodLevelRate: 0.002
   resourceFoodValue: 3
+  startFoodLevel: 0
   maxWaterLevel: 15
   minWaterLevel: -15
   changeWaterLevelRate: 0.002
   resourceWaterValue: 3
+  startWaterLevel: 0
   maxThermoLevel: 15
   minThermoLevel: -15
   changeThermoLevelRate: 0.007
   thermoSensorChangeRate: 10
+  startThermoLevel: 0
   agentMerterial: {fileID: 2100000, guid: b0da1813c36914e678ba57f2790424e1, type: 2}
   redMaterial: {fileID: 2100000, guid: 88b9ae7af2c1748a0a1f63407587a601, type: 2}
   blueMaterial: {fileID: 2100000, guid: c9fa44c2c3f8ce74ca39a3355ea42631, type: 2}
+  changeFood_0: -0.02
+  changeFood_1: 0
+  changeFood_2: 0
+  changeFood_3: 0
+  changeFood_4: 0
+  changeWater_0: -0.04
+  changeWater_1: 0
+  changeWater_2: 0
+  changeWater_3: 0
+  changeWater_4: 0
+  changeBody_0: -0.01
+  changeBody_1: 0
+  changeBody_2: 0
+  changeBody_3: 0
+  changeBody_4: 0
+  maxHP: 100
+  minHP: 0
+  changeHP: 1
+  checkHP: 0
+  startHP: 100
 --- !u!114 &3459591984284049635
 MonoBehaviour:
   m_ObjectHideFlags: 0
