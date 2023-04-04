@@ -38,7 +38,7 @@ using UnityEngine;
      private void Spawn()
     {
         int selection = Random.Range(0, Tree.Length);
-        
+    
         GameObject selectedPrefab = Tree[selection];
         
         Vector3 spawnPos = GetRandomPosition();

@@ -33,6 +33,9 @@ public class Field : MonoBehaviour
         public bool IsRandomPondPosition;
         public Vector3[] pondResourcePositions;
 
+        public bool IsRandomTreePosition;
+        public Vector3[] treeResourcePositions;
+
         // range는 음식이 생성되는 범위의 가로와 세로 (정사각형), height은 음식이 떨어지는 높이
         public float range = 40;
         public float height = 1;
@@ -48,7 +51,8 @@ public class Field : MonoBehaviour
                 resources[0].num = (int)m_ResetParams.GetWithDefault("numResourceFood", resources[0].num);
                 resources[1].num = (int)m_ResetParams.GetWithDefault("numResourceWater", resources[1].num);
                 resources[2].num = (int)m_ResetParams.GetWithDefault("numResourcePond", resources[2].num);
-
+                resources[3].num = (int)m_ResetParams.GetWithDefault("numResourceTree", resources[3].num);
+                
                 // Debug.Log(resources[0].num);
                 // Debug.Log(IsRandomResourcePosition);
         }
@@ -91,6 +95,81 @@ public class Field : MonoBehaviour
 
                                 }
                         }
+                        /*else if (string.Equals(type.name, "Tree"))
+                        {
+                                if (IsRandomTreePosition)
+                                {
+                                        ResourceProperty f = Instantiate(type, new Vector3(Random.Range(-range, range), 0f, Random.Range(-range, range)) + transform.position,
+                                        Quaternion.Euler(new Vector3(0f, 0f, 0f)));
+                                        f.transform.parent = foodWater.transform;
+                                        // f.InitializeProperties();
+                                        ResourceProperty tree = f.gameObject.transform.GetChild(0).GetComponent<ResourceProperty>();
+                                        tree.InitializeProperties();
+
+                                        f.name = "Tree" + (i + 1).ToString();
+                                        treeResourcePositions[i] = f.transform.position;
+                                        Debug.Log("Tree build");
+                                }
+                                else
+                                {
+                                        ResourceProperty f = Instantiate(type, treeResourcePositions[i] + transform.position,
+                                                                        Quaternion.Euler(new Vector3(0f, 0f, 0f)));
+
+                                        f.transform.parent = foodWater.transform;
+                                        // f.InitializeProperties();
+                                        // f.gameObject.transform.GetChild(0).GetComponent<ResourceProperty>().InitializeProperties();
+
+                                        // Pond prefab does not contain collider, so olfactory sensor and eating area cannot detact it.
+                                        // Instead, PondWater, the child object of Pond, contains collider.
+                                        // So initializing resource properties of PondWater
+                                        ResourceProperty tree = f.gameObject.transform.GetChild(0).GetComponent<ResourceProperty>();
+                                        tree.InitializeProperties();
+                                        // pondWater.GetComponent<ResourceProperty>().InitializeProperties();
+                                        f.name = "Tree" + (i + 1).ToString();
+                                        Debug.Log("Tree build");
+                                }
+                        }*/
+                        else if (string.Equals(type.name, "Tree"))
+                        {
+                                if (IsRandomTreePosition)
+                                {
+                                        bool tooFarFromTree = true;
+                                        int tryCount = 0;
+                                        ResourceProperty f = Instantiate(type, new Vector3(Random.Range(-range, range), 0f, Random.Range(-range, range)) + transform.position,
+                                                                        Quaternion.Euler(new Vector3(0f, 0f, 0f)));
+                                        if (resources[3].num > 0)
+                                        {
+                                                while (tooFarFromTree)
+                                                {
+                                                        float distanceToTree = Vector3.Distance(treeResourcePositions[0], f.transform.position);
+                                                        if (distanceToTree < 30)
+                                                        {
+                                                                tooFarFromTree = false;
+                                                        }
+                                                        else
+                                                        {
+                                                                f.transform.position = new Vector3(Random.Range(-range, range), 1f, Random.Range(-range, range)) + transform.position;
+                                                        }
+                                                        tryCount += 1;
+                                                        if (tryCount > 100)
+                                                        {
+                                                                break;
+                                                        }
+                                                }
+                                        }
+                                        f.transform.parent = foodWater.transform;
+                                        f.InitializeProperties();
+                                        f.name = "Tree" + (i + 1).ToString();
+                                }
+                                else
+                                {
+                                        ResourceProperty f = Instantiate(type, foodResourcePositions[i] + transform.position,
+                                                                        Quaternion.Euler(new Vector3(0f, 0f, 90f)));
+                                        f.transform.parent = foodWater.transform;
+                                        f.InitializeProperties();
+                                        f.name = "Tree" + (i + 1).ToString();
+                                }
+                        }
 
                         else if (string.Equals(type.name, "Food"))
                         {
@@ -101,7 +180,10 @@ public class Field : MonoBehaviour
                                         int tryCount = 0;
                                         ResourceProperty f = Instantiate(type, new Vector3(Random.Range(-range, range), 1f, Random.Range(-range, range)) + transform.position,
                                                                         Quaternion.Euler(new Vector3(0f, Random.Range(0f, 360f), 90f)));
-
+                                        
+                                        bool tooFarFromTree = true;
+ 
+                                        
                                         if (resources[2].num > 0)
                                         {
                                                 while (tooCloseToPond)
@@ -126,6 +208,26 @@ public class Field : MonoBehaviour
                                                 }
                                         }
 
+                                        if (resources[3].num > 0)
+                                        {
+                                                while (tooFarFromTree)
+                                                {
+                                                        float distanceToTree = Vector3.Distance(treeResourcePositions[0], f.transform.position);
+                                                        if (distanceToTree < 1)
+                                                        {
+                                                                tooFarFromTree = false;
+                                                        }
+                                                        else
+                                                        {
+                                                                f.transform.position = new Vector3(Random.Range(-range, range), 1f, Random.Range(-range, range)) + transform.position;
+                                                        }
+                                                        tryCount += 1;
+                                                        if (tryCount > 100)
+                                                        {
+                                                                break;
+                                                        }
+                                                }
+                                        }
                                         f.transform.parent = foodWater.transform;
                                         f.InitializeProperties();
 
@@ -250,7 +352,7 @@ public class Field : MonoBehaviour
                 ClearObjects(GameObject.FindGameObjectsWithTag("food"));
                 ClearObjects(GameObject.FindGameObjectsWithTag("water"));
                 ClearObjects(GameObject.FindGameObjectsWithTag("pond"));
-
+                ClearObjects(GameObject.FindGameObjectsWithTag("tree"));
                 // foreach (GameObject agent in agents)
                 // {
                 if (agent.transform.parent == gameObject.transform)

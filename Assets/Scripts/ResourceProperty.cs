@@ -10,6 +10,7 @@ public class ResourceProperty : MonoBehaviour
         //easy
         private float[] FoodProperty = { 1f, 1f, 1f, 1f, 1f, 0f, 0f, 0f, 0f, 0f };
         private float[] WaterProperty = { 0f, 0f, 0f, 0f, 0f, 1f, 1f, 1f, 1f, 1f };
+        
 
         //mid
         //private float[] BlueProperty = { 9f, 8f, 7f, 6f, 5f, 0f, 0f, 0f, 0f, 0f };
