@@ -5607,6 +5607,26 @@ Light:
     type: 3}
   m_PrefabInstance: {fileID: 6020930169324077390}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &705507995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705507993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &782570909
 GameObject:
   m_ObjectHideFlags: 0
@@ -26518,6 +26538,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4837966319980654387, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4837966319980654387, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
@@ -26868,6 +26893,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f3704659ada5445c8dccfa232948820, type: 3}
+--- !u!1 &5331082243850555882 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5331082244738282597, guid: 6f3704659ada5445c8dccfa232948820,
+    type: 3}
+  m_PrefabInstance: {fileID: 5331082243850555881}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5331082243850555883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5331082243850555882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1001 &6020930169324077390
 PrefabInstance:
   m_ObjectHideFlags: 0

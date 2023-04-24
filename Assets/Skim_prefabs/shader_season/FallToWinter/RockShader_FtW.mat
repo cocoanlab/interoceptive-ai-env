@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: RockShader_f
+  m_Name: RockShader_FtW
   m_Shader: {fileID: -6465566751694194690, guid: 47fe89a2188ef47159690a583062a231,
     type: 3}
   m_ValidKeywords:
@@ -70,7 +70,7 @@ Material:
     - _ReceiveShadows: 1
     - _SrcBlend: 5
     - _Surface: 1
-    - _UpNode: 0.04
+    - _UpNode: 1.0199996
     - _WorkflowMode: 1
     - _ZTest: 4
     - _ZWrite: 0
