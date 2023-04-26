@@ -31264,7 +31264,6 @@ MonoBehaviour:
   sound_Normal: []
   sound_Hurt: {fileID: 0}
   sound_Dead: {fileID: 0}
-  attackDamage: 0
   agent: {fileID: 1464820312563697}
   attackDelay: 0
   attackDistance: 1
@@ -31798,6 +31797,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8539975194230353767, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: m_ClearFlags
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8539975194230353767, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: m_TargetTexture
+      value: 
+      objectReference: {fileID: 8400000, guid: 0e889d6e1e8d7422cbcd0092085d370a, type: 2}
+    - target: {fileID: 8565369854452674757, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8565369854452674757, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8565369854452674757, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4839067235267387135, guid: 1e67812e2873e4900a1d0e7a776304c7, type: 3}
     - {fileID: 1345279974522910089, guid: 1e67812e2873e4900a1d0e7a776304c7, type: 3}
@@ -31913,7 +31937,7 @@ PrefabInstance:
     - target: {fileID: 6020930168887161810, guid: 03d4bb41328a54bad92e6825603dd1f6,
         type: 3}
       propertyPath: dayNightSpeed
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6020930168887161810, guid: 03d4bb41328a54bad92e6825603dd1f6,
         type: 3}
