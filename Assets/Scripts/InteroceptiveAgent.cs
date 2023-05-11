@@ -226,7 +226,8 @@ public class InteroceptiveAgent : Agent
                         this.thermoObservation = new float[8];
 
                         // Reset area
-                        area.GetComponent<AreaTempSmoothing>().EpisodeAreaSmoothing();
+                        // area.GetComponent<AreaTempSmoothing>().EpisodeAreaSmoothing();
+                        area.GetComponent<FieldThermoGrid>().EpisodeAreaSmoothing();
 
                         // Reset heatmap
                         heatMap.GetComponent<HeatMap>().EpisodeHeatMap();
@@ -321,7 +322,7 @@ public class InteroceptiveAgent : Agent
                 if (useThermalObs)
                 {
                         // Reset area
-                        area.GetComponent<AreaTempSmoothing>().EpisodeAreaSmoothing();
+                        area.GetComponent<FieldThermoGrid>().EpisodeAreaSmoothing();
 
                         // Reset heatmap
                         heatMap.GetComponent<HeatMap>().EpisodeHeatMap();

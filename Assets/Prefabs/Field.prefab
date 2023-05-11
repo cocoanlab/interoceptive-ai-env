@@ -303,9 +303,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4843469549863117015}
-  - component: {fileID: 4839067235267387132}
-  - component: {fileID: 4839067235267387135}
   - component: {fileID: 4839067235267387120}
+  - component: {fileID: 426867827857983433}
   m_Layer: 3
   m_Name: Field
   m_TagString: Untagged
@@ -333,40 +332,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4839067235267387132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4837328956473616459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e528b8b4ba3e0ed498750493a69dda17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Cave: {fileID: 0}
-  hotSpotCount: 300
-  objectSpotCount: 1
-  smoothingRepetition: 10
-  hotSpotTempLow: 60
-  hotSpotTempHigh: 60
-  fieldDefaultTempLow: -60
-  fieldDefaultTempHigh: -60
-  objectTemp: 80
---- !u!114 &4839067235267387135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4837328956473616459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0c3cbfe7851c483c9f20175685fc625, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agent: {fileID: 4806027653304860779}
 --- !u!114 &4839067235267387120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,6 +360,36 @@ MonoBehaviour:
   pondResourcePositions: []
   range: 40
   height: 2
+--- !u!114 &426867827857983433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4837328956473616459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 072808d9f724c468da3e865a926cd878, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfCubeX: 25
+  numberOfCubeZ: 25
+  sizeOfCube: {x: 4, y: 5, z: 4}
+  positionOfCenter: {x: -25, y: 0, z: -25}
+  agent: {fileID: 4806027653304860779}
+  Cave: {fileID: 0}
+  hotSpotCount: 15
+  objectSpotCount: 0
+  smoothingRepetition: 10
+  hotSpotTempLow: 60
+  hotSpotTempHigh: 60
+  fieldDefaultTempLow: -60
+  fieldDefaultTempHigh: -60
+  objectTemp: 80
+  kernelSizeX: 5
+  kernelSizeY: 5
+  sigmaX: 10
+  sigmaY: 10
 --- !u!1 &4837682096371279209
 GameObject:
   m_ObjectHideFlags: 0
