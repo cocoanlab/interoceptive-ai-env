@@ -372,24 +372,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 072808d9f724c468da3e865a926cd878, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfCubeX: 25
-  numberOfCubeZ: 25
+  randomSeed: 1234
+  Floor: {fileID: 4837966319980654387}
+  numberOfCubeX: 26
+  numberOfCubeZ: 26
   sizeOfCube: {x: 4, y: 5, z: 4}
   positionOfCenter: {x: -25, y: 0, z: -25}
   agent: {fileID: 4806027653304860779}
   Cave: {fileID: 0}
-  hotSpotCount: 15
-  objectSpotCount: 0
-  smoothingRepetition: 10
-  hotSpotTempLow: 60
-  hotSpotTempHigh: 60
-  fieldDefaultTempLow: -60
-  fieldDefaultTempHigh: -60
-  objectTemp: 80
-  kernelSizeX: 5
-  kernelSizeY: 5
-  sigmaX: 10
-  sigmaY: 10
+  heatObjectList: []
+  useRandomHotSpot: 0
+  fieldDefaultTemp: -40
+  hotSpotCount: 1
+  hotSpotTemp: 60
+  heatMapMaxTemp: 40
+  heatMapMinTemp: -40
+  smoothingKernelSizeX: 7
+  smoothingKernelSizeY: 7
+  smoothingSigmaX: 2
+  smoothingSigmaY: 2
 --- !u!1 &4837682096371279209
 GameObject:
   m_ObjectHideFlags: 0
@@ -790,7 +791,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4839240800174131407
 Transform:
   m_ObjectHideFlags: 0

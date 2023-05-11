@@ -15,6 +15,7 @@ TagManager:
   - food_blue
   - rock
   - pond
+  - heatObject
   layers:
   - Default
   - TransparentFX

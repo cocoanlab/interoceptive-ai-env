@@ -8,54 +8,57 @@ using Unity.MLAgents;
 using System.Drawing;
 using OpenCvSharp;
 
-// GameObject인 FoodCollectorArea에 부착함
-// 그리드 역할을 할 cube를 100 x 100
-// 총 10000개 생성하고 각각에 좌표를 이용하여 명명함
+// GameObject인 Field 부착함
+// 그리드 역할을 할 cube를 numberOfCubeX x numberOfCubeZ
+// 생성하고 각각에 좌표를 이용하여 명명함
 // 별도로 Inspector 창에서 tag로 "cube" 추가해야 함
 public class FieldThermoGrid : MonoBehaviour
 {
-        public int numberOfCubeX = 100;
-        public int numberOfCubeZ = 100;
-        public Vector3 sizeOfCube = new Vector3(1, 5, 1);
-        public Vector3 positionOfCenter = new Vector3(0.0f, 0.0f, 0.0f);
+        public int randomSeed = 1234;
+        public GameObject Floor;
+        public int numberOfCubeX = 25;
+        public int numberOfCubeZ = 25;
+        public Vector3 sizeOfCube = new Vector3(4, 5, 4);
+        public Vector3 positionOfCenter = new Vector3(-25.0f, 0.0f, -25.0f);
 
-        // public bool useThermalObs = false;
+        public struct HeatGridCube
+        {
+                public GameObject gridCube;
+                public Vector2 arrayIndex;
+        }
+        private List<HeatGridCube> heatGridCubes = new List<HeatGridCube>();
+
         public InteroceptiveAgent agent;
 
+        public GameObject[] heatObjectList;
 
-        public GameObject Cave;
+
         // Variables for code
         private EnvironmentParameters m_ResetParams;
         public double[,] areaTemp;
-        private int areaWidth;
-        private int areaDepth;
-        private double oldLow;
-        private double oldHigh;
-        private double newLow;
-        private double newHigh;
         public double[,] normalizedAreaTemp;
 
         [Header("Field Temperature parameters")]
-        public float hotSpotCount = 300;
-        public float objectSpotCount = 1;
-        public int smoothingRepetition = 10;
-        public float hotSpotTempLow = 60.0f;
-        public float hotSpotTempHigh = 60.0f;
-        public float fieldDefaultTempLow = -60.0f;
-        public float fieldDefaultTempHigh = -60.0f;
-        public float objectTemp = 80.0f;
+        public bool useObjectHotSpot = true;
+        public bool useRandomHotSpot = true;
+        public float fieldDefaultTemp = -60.0f;
 
-        public int kernelSizeX = 7;
-        public int kernelSizeY = 7;
-        public float sigmaX = 10.0f;
-        public float sigmaY = 10.0f;
+        public float hotSpotCount = 15;
+        // public float objectSpotCount = 1;
+        public float hotSpotTemp = 60.0f;
+        // public float hotSpotTempHigh = 60.0f;
+        public float heatMapMaxTemp = 60.0f;
+        public float heatMapMinTemp = -60.0f;
+        // public float objectTemp = 80.0f;
 
-
-        private double[,] smoothed;
-        private double[,] normalizedSmoothed;
+        public int smoothingKernelSizeX = 5;
+        public int smoothingKernelSizeY = 5;
+        public float smoothingSigmaX = 10.0f;
+        public float smoothingSigmaY = 10.0f;
 
         public void Awake()
         {
+                Random.InitState(randomSeed);
                 Academy.Instance.OnEnvironmentReset += SetParameters;
 
                 Vector3 count = new Vector3(numberOfCubeX, 0.0f, numberOfCubeZ);
@@ -63,19 +66,21 @@ public class FieldThermoGrid : MonoBehaviour
                 {
                         generateCube(count, positionOfCenter);
                 }
+
+                heatObjectList = GameObject.FindGameObjectsWithTag("heatObject");
+                // Debug.Log(heatObjectList);
+                // Debug.Log("Number of heatObjects = " + heatObjectList.Length);
+                // Debug.Log(heatObjectList[0].GetComponent<ThermalObject>().temperature);
         }
 
         private void SetParameters()
         {
                 m_ResetParams = Academy.Instance.EnvironmentParameters;
                 hotSpotCount = m_ResetParams.GetWithDefault("hotSpotCount", hotSpotCount);
-                smoothingRepetition = System.Convert.ToInt32(m_ResetParams.GetWithDefault("smoothingRepetition", smoothingRepetition));
 
-                fieldDefaultTempLow = m_ResetParams.GetWithDefault("fieldDefaultTempLow", fieldDefaultTempLow);
-                fieldDefaultTempHigh = m_ResetParams.GetWithDefault("fieldDefaultTempHigh", fieldDefaultTempHigh);
-                hotSpotTempLow = m_ResetParams.GetWithDefault("hotSpotTempLow", hotSpotTempLow);
-                hotSpotTempHigh = m_ResetParams.GetWithDefault("hotSpotTempHigh", hotSpotTempHigh);
-                objectTemp = m_ResetParams.GetWithDefault("objectTemp", objectTemp);
+                fieldDefaultTemp = m_ResetParams.GetWithDefault("fieldDefaultTemp", fieldDefaultTemp);
+                hotSpotTemp = m_ResetParams.GetWithDefault("hotSpotTemp", hotSpotTemp);
+                // objectTemp = m_ResetParams.GetWithDefault("objectTemp", objectTemp);
         }
 
         private void generateCube(Vector3 count, Vector3 position)
@@ -90,10 +95,8 @@ public class FieldThermoGrid : MonoBehaviour
                         {
                                 // 게임 오브젝트 클래스에 내장되어 있는 CreatePrimitive 스태틱 함수를 이용하여 큐브 생성
                                 newCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                                // newCube.transform.localScale = sizeOfCube;
                                 newCube.transform.localScale = sizeOfCube;
                                 newCube.transform.position = new Vector3(x * sizeOfCube.x, 0.0f, z * sizeOfCube.z) + positionOfCenter;
-
 
                                 newCube.GetComponent<Renderer>().enabled = false;
 
@@ -104,6 +107,11 @@ public class FieldThermoGrid : MonoBehaviour
 
                                 Collider collider = newCube.GetComponent<Collider>();
                                 collider.isTrigger = true;
+
+                                HeatGridCube heatgridcube = new HeatGridCube();
+                                heatgridcube.gridCube = newCube;
+                                heatgridcube.arrayIndex = new Vector2(x, z);
+                                heatGridCubes.Add(heatgridcube);
                         }
                 }
 
@@ -117,49 +125,100 @@ public class FieldThermoGrid : MonoBehaviour
         {
                 areaTemp = new double[numberOfCubeX, numberOfCubeZ];
 
+                // Setting default temperature
                 for (int x = 0; x < numberOfCubeX; ++x)
                 {
                         for (int z = 0; z < numberOfCubeZ; ++z)
                         {
-                                areaTemp[x, z] = Random.Range(fieldDefaultTempLow, fieldDefaultTempHigh);
+                                areaTemp[x, z] = fieldDefaultTemp;
                         }
                 }
 
-                for (int tempCount = 0; tempCount < hotSpotCount; ++tempCount)
+                if (useRandomHotSpot)
                 {
-                        MakeBonfire(Random.Range(2, numberOfCubeX - 2), Random.Range(2, numberOfCubeZ - 2));
-                }
-
-                //object(cave)의 개수만큼 MakeObjectHotspot 메소드를 실행시켜줌
-
-                for (int tempCount = 0; tempCount < objectSpotCount; ++tempCount)
-                {
-                        if (objectSpotCount > 0) //objectSpotCount의 개수가 0이면 실행 안되게 해줌.
+                        // Placing random position for hot spot
+                        for (int hotSpotCount = 0; hotSpotCount < this.hotSpotCount; ++hotSpotCount)
                         {
-                                MakeObjectHotspot(Random.Range(2, numberOfCubeX - 2), Random.Range(2, numberOfCubeZ - 2));
+                                int x = Random.Range(0, numberOfCubeX);
+                                int z = Random.Range(0, numberOfCubeZ);
+                                areaTemp[x, z] = hotSpotTemp;
                         }
                 }
 
-                areaWidth = numberOfCubeX;
-                areaDepth = numberOfCubeZ;
-                // SmoothingAreaTemp(smoothingRepetition, areaTemp, areaWidth, areaDepth);
-                SmoothingAreaTemp();
+                // Adding temperature where Heat objects are located
+                if (useObjectHotSpot)
+                {
+                        if (heatObjectList.Length > 0)
+                        {
+                                for (int objectCount = 0; objectCount < heatObjectList.Length; ++objectCount)
+                                {
+                                        Vector2 cubeIndex = FindCloseGridCube(heatObjectList[objectCount], heatGridCubes);
+                                        float temperature = heatObjectList[objectCount].GetComponent<ThermalObject>().temperature;
+
+                                        Vector3 sizeOfObject = heatObjectList[objectCount].transform.lossyScale;
+                                        Vector3 sizeOfGridCube = heatGridCubes[0].gridCube.transform.lossyScale;
+
+                                        int relativeSizeX = (int)Mathf.Ceil(sizeOfObject.x / sizeOfGridCube.x);
+                                        int relativeSizeZ = (int)Mathf.Ceil(sizeOfObject.z / sizeOfGridCube.z);
+
+                                        // areaTemp[(int)cubeIndex.x, (int)cubeIndex.y] += temperature;
+
+                                        int startIndexI = Mathf.Max((int)cubeIndex.x - (int)relativeSizeX / 2, 0);
+                                        int startIndexJ = Mathf.Max((int)cubeIndex.y - (int)relativeSizeZ / 2, 0);
+                                        int endIndexI = Mathf.Min((int)cubeIndex.x + (int)relativeSizeX / 2, numberOfCubeX);
+                                        int endIndexJ = Mathf.Min((int)cubeIndex.y + (int)relativeSizeZ / 2, numberOfCubeZ);
+
+                                        for (int i = startIndexI; i < endIndexI; i++)
+                                        {
+                                                for (int j = startIndexJ; j < endIndexJ; j++)
+                                                {
+                                                        areaTemp[i, j] += temperature;
+                                                }
+                                        }
+
+                                }
+                        }
+                }
+                areaTemp = GaussianSmoothingAreaTemp(areaTemp);
 
                 // 지형 온도의 정규화를 구현함
                 // 0~1의 값으로 적외선 카메라 화면처럼 HeatMap을 구현하기 위함임
                 normalizedAreaTemp = new double[numberOfCubeX, numberOfCubeZ];
-                oldLow = areaTemp.Cast<double>().Min();
-                oldHigh = areaTemp.Cast<double>().Max();
-                newLow = 0.0f;
-                newHigh = 1.0f;
                 for (int x = 0; x < numberOfCubeX; ++x)
                 {
                         for (int z = 0; z < numberOfCubeZ; ++z)
                         {
-                                normalizedAreaTemp[x, z] = Remap(areaTemp[x, z], oldLow, oldHigh, newLow, newHigh);
+                                normalizedAreaTemp[x, z] = (areaTemp[x, z] - heatMapMinTemp) / (heatMapMaxTemp - heatMapMinTemp);
+                        }
+                }
+        }
+
+        public double[,] GaussianSmoothingAreaTemp(double[,] areaTempMatrix)
+        {
+
+                var mat = new Mat(numberOfCubeX, numberOfCubeZ, MatType.CV_64FC1);
+                for (int i = 0; i < numberOfCubeX; i++)
+                {
+                        for (int j = 0; j < numberOfCubeZ; j++)
+                        {
+                                mat.Set<double>(i, j, areaTempMatrix[i, j]);
                         }
                 }
 
+                // BorderType reference: https://docs.opencv.org/3.4/d2/de8/group__core__array.html#ga209f2f4869e304c82d07739337eae7c5
+                Cv2.GaussianBlur(mat, mat, new OpenCvSharp.Size(smoothingKernelSizeX, smoothingKernelSizeX), sigmaX: smoothingSigmaX, sigmaY: smoothingSigmaY, borderType: OpenCvSharp.BorderTypes.Reflect101);
+
+
+                // Convert the smoothed Mat object back to a 2D array
+                for (int i = 0; i < numberOfCubeX; i++)
+                {
+                        for (int j = 0; j < numberOfCubeZ; j++)
+                        {
+                                areaTempMatrix[i, j] = mat.At<double>(i, j);
+                        }
+                }
+
+                return areaTempMatrix;
         }
 
         public double GetAreaTemp(int x, int z)
@@ -178,86 +237,41 @@ public class FieldThermoGrid : MonoBehaviour
                 }
         }
 
-        // hotSpot은 100 x 100 그리드에서 5 x 5 그리드만큼 차지하게 됨
-        public void MakeBonfire(int x, int z)
-        {
-                // private float bonfireTemp;
-                float hotSpotTemp = Random.Range(hotSpotTempLow, hotSpotTempHigh);
-
-                for (int i = x - 2; i < x + 3; ++i)
-                {
-                        for (int j = z - 2; j < z + 3; ++j)
-                        {
-                                areaTemp[i, j] = hotSpotTemp;
-                        }
-                }
-        }
-
-        //Game Object 영역의 온도를 올려주는 메소드
-        public void MakeObjectHotspot(int a, int b)
-        {
-                //areaTemp의 x,z는 0~100으로 설정되어있는데, 실제 scene에서의 transform의 x좌표가 약 -70~30으로 지정되어있음.
-                //따라서 object의 transform을 받아와서 +70을 해줘야 areaTemp에서 위치가 알맞게 지정됨.
-
-                a = (int)Cave.transform.position.x + 70;
-                b = (int)Cave.transform.position.z;
-
-                // private float objectSpotTemp;
-                float objectSpotTemp = objectTemp;
-
-                // Making 10a10 sibe of objectSpot
-                if (objectSpotCount > 0)
-                {
-                        for (int i = -5; i < 5; ++i)
-                        {
-                                for (int j = 0; j < 10; ++j)
-                                {
-                                        areaTemp[a + i, b + j] = objectSpotTemp;
-                                }
-                        }
-                }
-        }
-
         public double GetNormalizedAreaTemp(int x, int z)
         {
                 return normalizedAreaTemp[x, z];
         }
 
-        public double GetNormalizedGuassian(int x, int z)
+        public Vector2 FindCloseGridCube(GameObject heatobject, List<HeatGridCube> heatGridCubes)
         {
-                return normalizedSmoothed[x, z];
-        }
+                float minDistance = Mathf.Infinity;
+                int minDistCubeIndex = 0;
 
-        public static double Remap(double input, double oldLow, double oldHigh, double newLow, double newHigh)
-        {
-                double t = Mathf.InverseLerp((float)oldLow, (float)oldHigh, (float)input);
-                return Mathf.Lerp((float)newLow, (float)newHigh, (float)t);
-        }
-
-        public void SmoothingAreaTemp()
-        {
-
-                var mat = new Mat(numberOfCubeX, numberOfCubeZ, MatType.CV_64FC1);
-                for (int i = 0; i < numberOfCubeX; i++)
+                for (int i = 0; i < heatGridCubes.Count; ++i)
                 {
-                        for (int j = 0; j < numberOfCubeZ; j++)
+                        float distance = Vector3.Distance(heatobject.gameObject.transform.position, heatGridCubes[i].gridCube.transform.position);
+                        if (distance < minDistance)
                         {
-                                mat.Set<double>(i, j, areaTemp[i, j]);
+                                minDistance = distance;
+                                minDistCubeIndex = i;
                         }
                 }
 
-                Cv2.GaussianBlur(mat, mat, new OpenCvSharp.Size(kernelSizeX, kernelSizeX), sigmaX: sigmaX, sigmaY: sigmaY);
+                return heatGridCubes[minDistCubeIndex].arrayIndex;
+        }
 
-
-                // Convert the smoothed Mat object back to a 2D array
-                // smoothed = new double[100, 100];
-                for (int i = 0; i < numberOfCubeX; i++)
+        private GameObject FindChildObjectWithName(GameObject parentObject, string childName)
+        {
+                for (int i = 0; i < parentObject.transform.childCount; i++)
                 {
-                        for (int j = 0; j < numberOfCubeZ; j++)
+                        if (parentObject.transform.GetChild(i).name == childName)
                         {
-                                areaTemp[i, j] = mat.At<double>(i, j);
+                                return parentObject.transform.GetChild(i).gameObject;
                         }
                 }
+
+                return null;
+
         }
 
 }
