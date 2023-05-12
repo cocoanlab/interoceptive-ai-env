@@ -44,9 +44,17 @@ public class InteroceptiveAgent : Agent
         public float turnSpeed = 200.0f;
         public float eatingDistance = 1.0f;
         public bool autoEat = false;
+
+        // private Rigidbody rb;
+        // public float agentVelocity;
+        public Vector3 agentRotation;
+        public Vector3 agentPosition;
         // public bool IsAutoEat { get { return this.autoEat; } set { this.autoEat = value; } }
 
         [Header("Observations")]
+        public bool useTouchObs;
+        public float touchObservation;
+        public bool isTouched;
         public bool useOlfactoryObs;
         public float olfactorySensorLength = 100f;
         public int olfactoryFeatureSize = 10;
@@ -166,6 +174,8 @@ public class InteroceptiveAgent : Agent
                 changeWaterLevelRate = m_ResetParams.GetWithDefault("changeWaterLevelRate", changeWaterLevelRate);
                 startWaterLevel = m_ResetParams.GetWithDefault("startWaterLevel", startWaterLevel);
 
+                useTouchObs = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("useTouchObs", System.Convert.ToSingle(useTouchObs)));
+
                 useOlfactoryObs = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("useOlfactoryObs", System.Convert.ToSingle(useOlfactoryObs)));
                 olfactorySensorLength = m_ResetParams.GetWithDefault("olfactorySensorLength", olfactorySensorLength);
 
@@ -208,6 +218,10 @@ public class InteroceptiveAgent : Agent
                 m_MyArea = area.GetComponent<Field>();
                 eatenResource = false;
 
+                // this.rb = this.gameObject.GetComponent<Rigidbody>();
+                this.agentPosition = this.transform.position;
+                this.agentRotation = this.transform.eulerAngles;
+
                 this.resourceLevels = new float[this.countEV];
                 this.oldResourceLevels = new float[this.countEV];
 
@@ -225,6 +239,10 @@ public class InteroceptiveAgent : Agent
 
                         // Reset heatmap
                         heatMap.GetComponent<HeatMap>().EpisodeHeatMap();
+                }
+                if (this.useTouchObs)
+                {
+                        this.touchObservation = 0.0f;
                 }
 
                 // m_pig = GetComponent<Rigidbody>();
@@ -297,15 +315,16 @@ public class InteroceptiveAgent : Agent
                         thermoSensorForwardRight.GetComponent<ThermalSensing>().SetThermalSense(0);
                         thermoSensorBackwardLeft.GetComponent<ThermalSensing>().SetThermalSense(0);
                         thermoSensorBackwardRight.GetComponent<ThermalSensing>().SetThermalSense(0);
-                }
-
-                if (useThermalObs)
-                {
                         // Reset area
                         area.GetComponent<FieldThermoGrid>().EpisodeAreaSmoothing();
 
                         // Reset heatmap
                         heatMap.GetComponent<HeatMap>().EpisodeHeatMap();
+                }
+
+                if (useTouchObs)
+                {
+                        this.touchObservation = 0.0f;
                 }
 
                 // Reset pig
@@ -328,6 +347,12 @@ public class InteroceptiveAgent : Agent
                 {
                         sensor.AddObservation(thermoObservation);
                 }
+                if (useTouchObs)
+                {
+                        sensor.AddObservation(touchObservation);
+                }
+                sensor.AddObservation(agentPosition);
+                sensor.AddObservation(agentRotation);
         }
 
         //브레인(정책)으로 부터 전달 받은 행동을 실행하는 메소드
@@ -337,6 +362,9 @@ public class InteroceptiveAgent : Agent
                 {
                         playRecorder.GetComponent<CaptureScreenShot>().CaptureImage();
                 }
+
+                this.agentPosition = this.transform.position;
+                this.agentRotation = this.transform.eulerAngles;
 
                 if (eatenResource)
                 {
@@ -375,6 +403,12 @@ public class InteroceptiveAgent : Agent
                 {
                         ThermalChanging();
                         ThermalObserving();
+                }
+
+                if (this.useTouchObs)
+                {
+                        TouchObserving();
+                        Debug.Log("Touch Obs: " + touchObservation);
                 }
 
                 // EV의 상한이나 하한을 넘어가는지 확인
@@ -524,6 +558,19 @@ public class InteroceptiveAgent : Agent
                 bodyTemp = thermoSensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
 
                 return thermoObservation;
+        }
+
+        public void TouchObserving()
+        {
+                if (isTouched)
+                {
+                        touchObservation = 1.0f;
+                        isTouched = false;
+                }
+                else
+                {
+                        touchObservation = 0.0f;
+                }
         }
 
         // EV 간 상호작용을 고려한 업데이트

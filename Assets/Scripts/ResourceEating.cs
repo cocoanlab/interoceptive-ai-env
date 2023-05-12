@@ -13,6 +13,12 @@ public class ResourceEating : MonoBehaviour
         // Agent의 앞쪽에 sphere collider가 있는데 그것의 isTrigger가 켜져있고 다른 collider가 들어왔는지 감지함
         public void OnTriggerStay(Collider other)
         {
+
+                if (other.CompareTag("food") || other.CompareTag("water") || other.CompareTag("pond"))
+                {
+                        agent.isTouched = true;
+                }
+
                 isEaten = false;
                 if (agent.autoEat || agent.IsAgentActionEat)
                 {
