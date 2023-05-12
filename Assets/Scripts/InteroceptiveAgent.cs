@@ -32,8 +32,6 @@ public class InteroceptiveAgent : Agent
         public GameObject heatMap;
         public GameObject playRecorder;
         public GameObject foodEatRange;
-        // public bool recordEnable;
-        // public int seed = 8217;
 
         [Header("Environment settings")]
         public bool singleTrial = false;
@@ -177,7 +175,6 @@ public class InteroceptiveAgent : Agent
                 changeThermoLevelRate = m_ResetParams.GetWithDefault("changeThermoLevelRate", changeThermoLevelRate);
                 thermoSensorChangeRate = (int)m_ResetParams.GetWithDefault("thermoSensorChangeRate", thermoSensorChangeRate);
                 startThermoLevel = m_ResetParams.GetWithDefault("startThermoLevel", startThermoLevel);
-                // recordEnable = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("recordEnable", 0));
 
                 changeFood_0 = m_ResetParams.GetWithDefault("changeFood_0", changeFood_0);
                 changeFood_1 = m_ResetParams.GetWithDefault("changeFood_1", changeFood_1);
@@ -210,8 +207,6 @@ public class InteroceptiveAgent : Agent
                 m_AgentRb = GetComponent<Rigidbody>();
                 m_MyArea = area.GetComponent<Field>();
                 eatenResource = false;
-                // m_SceneInitialization = area.GetComponent<SceneInitialization>();
-                // m_SceneInitialization = FindObjectOfType<SceneInitialization>();
 
                 this.resourceLevels = new float[this.countEV];
                 this.oldResourceLevels = new float[this.countEV];
@@ -226,7 +221,6 @@ public class InteroceptiveAgent : Agent
                         this.thermoObservation = new float[8];
 
                         // Reset area
-                        // area.GetComponent<AreaTempSmoothing>().EpisodeAreaSmoothing();
                         area.GetComponent<FieldThermoGrid>().EpisodeAreaSmoothing();
 
                         // Reset heatmap
@@ -246,22 +240,8 @@ public class InteroceptiveAgent : Agent
 
                 m_MyArea.ResetResourceArea(this.gameObject);
                 eatenResource = false;
-                // if (InitRandomAgentPosition)
-                // {
-                //         transform.position = new Vector3(Random.Range(-m_MyArea.range, m_MyArea.range), 2f, Random.Range(-m_MyArea.range, m_MyArea.range)) + area.transform.position;
-                //         transform.rotation = Quaternion.Euler(new Vector3(0f, Random.Range(0, 360)));
-                // }
-                // else
-                // {
-                //         transform.position = InitAgentPosition + area.transform.position;
-                //         transform.rotation = Quaternion.Euler(InitAgentAngle);
-                // }
 
                 SetResetParameters();
-
-                // Reset cubes
-                // FoodObjects = FindObjectsOfType(typeof(ResourceProperty)) as ResourceProperty[];
-                // ResetObject(FoodObjects);
 
                 // Reset DayAndNight (지금은 DayAndNight가 에피소드 시작할 때 초기화되지 않는데 필요하면 추가)
 
@@ -353,33 +333,19 @@ public class InteroceptiveAgent : Agent
         //브레인(정책)으로 부터 전달 받은 행동을 실행하는 메소드
         public override void OnActionReceived(ActionBuffers actions)
         {
-                // Debug.Log("OnActionReceived");
-                //Unity.Recorder is only available in Unity Editor not in builds
-                // #if UNITY_EDITOR
-
-                //                 if (playRecorder.GetComponent<CaptureScreenShot>().recordEnable)
-                //                 {
-                //                         playRecorder.GetComponent<CaptureScreenShot>().CaptureImage();
-                //                 }
-                // #endif
                 if (playRecorder.GetComponent<CaptureScreenShot>().recordEnable)
                 {
                         playRecorder.GetComponent<CaptureScreenShot>().CaptureImage();
                 }
 
-                // this.resourceLevels[0] -= this.changeFoodLevelRate * Time.fixedDeltaTime;
-                // this.resourceLevels[1] -= this.changeWaterLevelRate * Time.fixedDeltaTime;
-
                 if (eatenResource)
                 {
                         if (eatenResourceTag.ToLower() == "food")
                         {
-                                // this.resourceLevels[0] += this.resourceFoodValue;
                                 changeFood_5 = 1.0f;
                         }
                         if (eatenResourceTag.ToLower() == "water" || eatenResourceTag.ToLower() == "pond")
                         {
-                                // this.resourceLevels[1] += this.resourceWaterValue;
                                 changeWater_5 = 1.0f;
                         }
 
@@ -464,31 +430,6 @@ public class InteroceptiveAgent : Agent
                 }
         }
 
-        //
-        // public void ResetObject(ResourceProperty[] objects)
-        // {
-        //         foreach (var food in objects)
-        //         {
-        //                 // Area must be square!!
-        //                 float food_x = food.transform.position.x;
-        //                 float food_y = food.transform.position.y;
-        //                 float food_z = food.transform.position.z;
-
-        //                 float area_x = m_MyArea.transform.position.x;
-        //                 float area_y = m_MyArea.transform.position.y;
-        //                 float area_z = m_MyArea.transform.position.z;
-
-        //                 if (food_x > (-m_MyArea.range + area_x) && food_x < (m_MyArea.range + area_x)
-        //                     && food_y > area_y && food_y < m_MyArea.height + area_y
-        //                     && food_z > (-m_MyArea.range + area_z) && food_z < (m_MyArea.range + area_z))
-        //                 {
-        //                         food.transform.position = new Vector3(Random.Range(-m_MyArea.range, m_MyArea.range),
-        //                             m_MyArea.height, Random.Range(-m_MyArea.range, m_MyArea.range)) + m_MyArea.transform.position;
-        //                         food.InitializeProperties();
-        //                 }
-        //         }
-        // }
-
         public void MoveAgent(int action)
         {
                 var dirToGo = Vector3.zero;
@@ -524,19 +465,6 @@ public class InteroceptiveAgent : Agent
                                 break;
                 }
         }
-
-
-        // public void IncreaseLevel(string tag)
-        // {
-        //         if (tag.ToLower() == "food")
-        //         {
-        //                 this.resourceLevels[0] += this.resourceFoodValue;
-        //         }
-        //         if (tag.ToLower() == "water")
-        //         {
-        //                 this.resourceLevels[1] += this.resourceWaterValue;
-        //         }
-        // }
 
         private void OlfactoryObserving()
         {
@@ -641,10 +569,5 @@ public class InteroceptiveAgent : Agent
         public void Damage()
         {
                 resourceLevels[3] -= changeHP * Time.fixedDeltaTime;
-                // Debug.Log("Damage");
-                // Debug.Log("changeHP" + changeHP);
-                // Debug.Log("Time" + Time.fixedDeltaTime);
-
-
         }
 }
