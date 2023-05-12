@@ -14,8 +14,6 @@ using OpenCvSharp;
 // 별도로 Inspector 창에서 tag로 "cube" 추가해야 함
 public class FieldThermoGrid : MonoBehaviour
 {
-        public int randomSeed = 1234;
-        public GameObject Floor;
         public int numberOfCubeX = 25;
         public int numberOfCubeZ = 25;
         public Vector3 sizeOfCube = new Vector3(4, 5, 4);
@@ -58,7 +56,6 @@ public class FieldThermoGrid : MonoBehaviour
 
         public void Awake()
         {
-                Random.InitState(randomSeed);
                 Academy.Instance.OnEnvironmentReset += SetParameters;
 
                 Vector3 count = new Vector3(numberOfCubeX, 0.0f, numberOfCubeZ);

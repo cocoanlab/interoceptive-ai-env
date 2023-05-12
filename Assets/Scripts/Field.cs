@@ -19,6 +19,7 @@ public class Field : MonoBehaviour
 {
         // MLAgent 내장 클래스
         EnvironmentParameters m_ResetParams;
+        public int randomSeed = 1234;
         public GameObject foodWater;
 
         // Food 클래스의 리스트 foods
@@ -37,6 +38,12 @@ public class Field : MonoBehaviour
         public float range = 40;
         public float height = 1;
 
+        public void Awake()
+        {
+                Random.InitState(randomSeed);
+        }
+
+
         // 음식의 생성 개수 조절
         void SetResourceSize()
         {
@@ -44,7 +51,7 @@ public class Field : MonoBehaviour
                 m_ResetParams = Academy.Instance.EnvironmentParameters;
                 // float numResourceFood = m_ResetParams.GetWithDefault("numResourceFood", 50.0f);
                 // float numResourceWater = m_ResetParams.GetWithDefault("numResourceWater", 50.0f);
-
+                randomSeed = (int)m_ResetParams.GetWithDefault("randomSeed", randomSeed);
                 resources[0].num = (int)m_ResetParams.GetWithDefault("numResourceFood", resources[0].num);
                 resources[1].num = (int)m_ResetParams.GetWithDefault("numResourceWater", resources[1].num);
                 resources[2].num = (int)m_ResetParams.GetWithDefault("numResourcePond", resources[2].num);

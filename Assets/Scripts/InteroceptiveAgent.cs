@@ -408,7 +408,7 @@ public class InteroceptiveAgent : Agent
                 if (this.useTouchObs)
                 {
                         TouchObserving();
-                        Debug.Log("Touch Obs: " + touchObservation);
+                        // Debug.Log("Touch Obs: " + touchObservation);
                 }
 
                 // EV의 상한이나 하한을 넘어가는지 확인
