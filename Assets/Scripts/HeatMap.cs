@@ -25,8 +25,8 @@ public class HeatMap : MonoBehaviour
 
         void Awake()
         {
-                numberOfCubeX = area.GetComponent<FieldThermoGrid>().numberOfCubeX;
-                numberOfCubeZ = area.GetComponent<FieldThermoGrid>().numberOfCubeZ;
+                numberOfCubeX = area.GetComponent<FieldThermoGrid>().numberOfGridCubeX;
+                numberOfCubeZ = area.GetComponent<FieldThermoGrid>().numberOfGridCubeZ;
                 if (agent.useThermalObs)
                 {
                         mapTexture = new Texture2D(numberOfCubeX, numberOfCubeZ);

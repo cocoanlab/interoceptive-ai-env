@@ -26363,18 +26363,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4839067236102175384}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4688212691442256
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1819750871847635}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0c3cbfe7851c483c9f20175685fc625, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114176228070079219 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4806027653304860779, guid: 1e67812e2873e4900a1d0e7a776304c7,
@@ -26521,12 +26509,12 @@ PrefabInstance:
     - target: {fileID: 426867827857983433, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: hotSpotTemp
-      value: 150
+      value: 350
       objectReference: {fileID: 0}
     - target: {fileID: 426867827857983433, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: hotSpotCount
-      value: 3200
+      value: 1700
       objectReference: {fileID: 0}
     - target: {fileID: 426867827857983433, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
@@ -26550,6 +26538,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 426867827857983433, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
+      propertyPath: smoothingSigma
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 426867827857983433, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
       propertyPath: objectSpotCount
       value: 0
       objectReference: {fileID: 0}
@@ -26566,7 +26559,17 @@ PrefabInstance:
     - target: {fileID: 426867827857983433, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: fieldDefaultTemp
-      value: -60
+      value: -70
+      objectReference: {fileID: 0}
+    - target: {fileID: 426867827857983433, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: sizeOfGridCube.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 426867827857983433, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: sizeOfGridCube.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 426867827857983433, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
@@ -26577,6 +26580,21 @@ PrefabInstance:
         type: 3}
       propertyPath: useRandomHotSpot
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 426867827857983433, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: numberOfGridCubeX
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 426867827857983433, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: numberOfGridCubeZ
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 426867827857983433, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: smoothingKernelSize
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 426867827857983433, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
@@ -26731,7 +26749,12 @@ PrefabInstance:
     - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: randomSeed
-      value: 1235
+      value: 1234
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: minDistanceToPond
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
@@ -26742,6 +26765,11 @@ PrefabInstance:
         type: 3}
       propertyPath: IsRandomPondPosition
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: randomPositionMaxTry
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
@@ -26859,7 +26887,7 @@ PrefabInstance:
     - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: pondResourcePositions.Array.data[0].y
-      value: -9.5
+      value: -9.7
       objectReference: {fileID: 0}
     - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}

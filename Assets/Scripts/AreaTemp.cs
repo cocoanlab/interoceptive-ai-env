@@ -55,8 +55,8 @@ public class AreaTemp : MonoBehaviour
         public void Awake()
         {
                 Academy.Instance.OnEnvironmentReset += SetParameters;
-                numberOfCubeX = Field.GetComponent<FieldThermoGrid>().numberOfCubeX;
-                numberOfCubeZ = Field.GetComponent<FieldThermoGrid>().numberOfCubeZ;
+                numberOfCubeX = Field.GetComponent<FieldThermoGrid>().numberOfGridCubeX;
+                numberOfCubeZ = Field.GetComponent<FieldThermoGrid>().numberOfGridCubeZ;
         }
 
         private void SetParameters()

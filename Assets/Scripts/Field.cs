@@ -26,6 +26,8 @@ public class Field : MonoBehaviour
         public Resource[] resources;
 
         public bool IsRandomFoodPosition;
+        public float minDistanceToPond = 50;
+        public int randomPositionMaxTry = 100;
         public Vector3[] foodResourcePositions;
 
         public bool IsRandomWaterPosition;
@@ -55,6 +57,17 @@ public class Field : MonoBehaviour
                 resources[0].num = (int)m_ResetParams.GetWithDefault("numResourceFood", resources[0].num);
                 resources[1].num = (int)m_ResetParams.GetWithDefault("numResourceWater", resources[1].num);
                 resources[2].num = (int)m_ResetParams.GetWithDefault("numResourcePond", resources[2].num);
+
+                IsRandomFoodPosition = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("IsRandomFoodPosition", System.Convert.ToSingle(IsRandomFoodPosition)));
+                IsRandomWaterPosition = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("IsRandomWaterPosition", System.Convert.ToSingle(IsRandomWaterPosition)));
+                IsRandomPondPosition = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("IsRandomPondPosition", System.Convert.ToSingle(IsRandomPondPosition)));
+
+                pondResourcePositions[0].x = m_ResetParams.GetWithDefault("pondResourcePositionsX", pondResourcePositions[0].x);
+                pondResourcePositions[0].y = m_ResetParams.GetWithDefault("pondResourcePositionsY", pondResourcePositions[0].y);
+                pondResourcePositions[0].z = m_ResetParams.GetWithDefault("pondResourcePositionsZ", pondResourcePositions[0].z);
+
+                minDistanceToPond = m_ResetParams.GetWithDefault("minDistanceToPond", minDistanceToPond);
+                randomPositionMaxTry = (int)m_ResetParams.GetWithDefault("randomPositionMaxTry", randomPositionMaxTry);
 
                 // Debug.Log(resources[0].num);
                 // Debug.Log(IsRandomResourcePosition);
@@ -115,7 +128,7 @@ public class Field : MonoBehaviour
                                                 {
                                                         float distanceToPond = Vector3.Distance(pondResourcePositions[0], f.transform.position);
 
-                                                        if (distanceToPond > 30)
+                                                        if (distanceToPond > minDistanceToPond)
                                                         {
                                                                 tooCloseToPond = false;
                                                         }
@@ -126,7 +139,7 @@ public class Field : MonoBehaviour
 
                                                         tryCount += 1;
 
-                                                        if (tryCount > 100)
+                                                        if (tryCount > randomPositionMaxTry)
                                                         {
                                                                 break;
                                                         }
@@ -169,7 +182,7 @@ public class Field : MonoBehaviour
                                                 {
                                                         float distanceToPond = Vector3.Distance(pondResourcePositions[0], f.transform.position);
 
-                                                        if (distanceToPond > 30)
+                                                        if (distanceToPond > minDistanceToPond)
                                                         {
                                                                 tooCloseToPond = false;
                                                         }
@@ -180,7 +193,7 @@ public class Field : MonoBehaviour
 
                                                         tryCount += 1;
 
-                                                        if (tryCount > 100)
+                                                        if (tryCount > randomPositionMaxTry)
                                                         {
                                                                 break;
                                                         }
@@ -222,7 +235,7 @@ public class Field : MonoBehaviour
                                 {
                                         float distanceToPond = Vector3.Distance(pondResourcePositions[0], resource.transform.position);
 
-                                        if (distanceToPond > 30)
+                                        if (distanceToPond > minDistanceToPond)
                                         {
                                                 tooCloseToPond = false;
                                         }
@@ -233,7 +246,7 @@ public class Field : MonoBehaviour
 
                                         tryCount += 1;
 
-                                        if (tryCount > 100)
+                                        if (tryCount > randomPositionMaxTry)
                                         {
                                                 break;
                                         }
