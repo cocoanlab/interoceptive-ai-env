@@ -324,6 +324,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9721f13751a624790a679048373d2b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  property:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 10
+  - 10
+  - 10
+  - 10
+  - 10
 --- !u!1 &4124057714736267499
 GameObject:
   m_ObjectHideFlags: 0
@@ -999,6 +1010,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Constraints
       value: 126
+      objectReference: {fileID: 0}
+    - target: {fileID: 8834216161069874123, guid: b59e4a7fd76af471cadd16e90133a084,
+        type: 3}
+      propertyPath: property.Array.data[5]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8834216161069874123, guid: b59e4a7fd76af471cadd16e90133a084,
+        type: 3}
+      propertyPath: property.Array.data[6]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8834216161069874123, guid: b59e4a7fd76af471cadd16e90133a084,
+        type: 3}
+      propertyPath: property.Array.data[7]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8834216161069874123, guid: b59e4a7fd76af471cadd16e90133a084,
+        type: 3}
+      propertyPath: property.Array.data[8]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8834216161069874123, guid: b59e4a7fd76af471cadd16e90133a084,
+        type: 3}
+      propertyPath: property.Array.data[9]
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b59e4a7fd76af471cadd16e90133a084, type: 3}

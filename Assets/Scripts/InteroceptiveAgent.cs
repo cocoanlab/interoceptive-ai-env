@@ -510,20 +510,20 @@ public class InteroceptiveAgent : Agent
                 // agent 크기 바뀌면 z값 확인하기
                 Vector3 SpherePos = new Vector3(gameObject.transform.position.x,
                     gameObject.transform.position.y, gameObject.transform.position.z + 0.5f);
-                // Food layer
+                // Detect layer number 8
                 Collider[] olfactoryTargets = Physics.OverlapSphere(SpherePos, olfactorySensorLength, 1 << 8);
 
                 int j = 0;
                 foreach (Collider other in olfactoryTargets)
                 {
-                        ResourceProperty food = other.gameObject.GetComponent<ResourceProperty>();
-                        if (food.CompareTag("water") || food.CompareTag("food") || food.CompareTag("pond"))
+                        ResourceProperty resource = other.gameObject.GetComponent<ResourceProperty>();
+                        if (resource.CompareTag("pond") || resource.CompareTag("water") || resource.CompareTag("food"))
                         {
                                 j += 1;
-                                float foodDistance = Vector3.Distance(SpherePos, food.transform.position);
+                                float resourceDistance = Vector3.Distance(SpherePos, resource.transform.position);
                                 for (int i = 0; i < olfactoryFeatureSize; i++)
                                 {
-                                        olfactoryObservation[i] += food.ResourceP[i] * (1 / foodDistance);
+                                        olfactoryObservation[i] += resource.ResourceP[i] * (1 / resourceDistance);
                                 }
                         }
                 }

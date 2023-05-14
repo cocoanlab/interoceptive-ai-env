@@ -6,7 +6,7 @@ using MathNet.Numerics;
 public class ResourceProperty : MonoBehaviour
 {
         int VectorSize = 10;
-
+        public float[] property = { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f };
         //easy
         private float[] FoodProperty = { 1f, 1f, 1f, 1f, 1f, 0f, 0f, 0f, 0f, 0f };
         private float[] WaterProperty = { 0f, 0f, 0f, 0f, 0f, 1f, 1f, 1f, 1f, 1f };
@@ -26,15 +26,18 @@ public class ResourceProperty : MonoBehaviour
         {
                 if (gameObject.CompareTag("food"))
                 {
-                        ResourceP = AddNoise(FoodProperty);
+                        // ResourceP = AddNoise(FoodProperty);
+                        ResourceP = AddNoise(property);
                 }
                 else if (gameObject.CompareTag("water"))
                 {
-                        ResourceP = AddNoise(WaterProperty);
+                        // ResourceP = AddNoise(WaterProperty);
+                        ResourceP = AddNoise(property);
                 }
                 else if (gameObject.CompareTag("pond"))
                 {
-                        ResourceP = AddNoise(WaterProperty);
+                        // ResourceP = AddNoise(WaterProperty);
+                        ResourceP = AddNoise(property);
                 }
 
         }
@@ -48,8 +51,8 @@ public class ResourceProperty : MonoBehaviour
                         property[i] += 0f;
 
                         // Gaussian
-                        float noise = (float)Generate.Normal(1, 0, 0.1)[0];
-                        property[i] += noise;
+                        // float noise = (float)Generate.Normal(1, 0, 0.1)[0];
+                        // property[i] += noise;
 
                         // Uniform(0~1)
                         //System.Random r = new System.Random();
