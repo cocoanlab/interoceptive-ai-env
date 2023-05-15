@@ -76,9 +76,11 @@ public class Field : MonoBehaviour
         // 음식 생성 함수
         void CreateResource(int num, ResourceProperty type)
         {
+
                 for (int i = 0; i < num; i++)
                 {
-                        if (string.Equals(type.name, "Pond"))
+                        // if (string.Equals(type.name, "Pond"))
+                        if (type.gameObject.CompareTag("pond"))
                         {
                                 if (IsRandomPondPosition)
                                 {
@@ -112,7 +114,8 @@ public class Field : MonoBehaviour
                                 }
                         }
 
-                        else if (string.Equals(type.name, "Food"))
+                        // else if (string.Equals(type.name, "Food"))
+                        else if (type.gameObject.CompareTag("food"))
                         {
 
                                 if (IsRandomFoodPosition)
@@ -164,7 +167,8 @@ public class Field : MonoBehaviour
                                 }
 
                         }
-                        else if (string.Equals(type.name, "Water"))
+                        // else if (string.Equals(type.name, "Water"))
+                        else if (type.gameObject.CompareTag("water"))
                         {
                                 if (IsRandomWaterPosition)
                                 {
