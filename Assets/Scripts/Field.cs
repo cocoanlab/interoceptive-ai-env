@@ -281,8 +281,35 @@ public class Field : MonoBehaviour
                 {
                         if (agent.GetComponent<InteroceptiveAgent>().initRandomAgentPosition)
                         {
+                                bool tooCloseToPond = true;
+                                int tryCount = 0;
+
                                 agent.transform.position = new Vector3(Random.Range(-range, range), 1f, Random.Range(-range, range)) + transform.position;
                                 agent.transform.rotation = Quaternion.Euler(new Vector3(0f, Random.Range(0, 360)));
+
+                                if (resources[2].num > 0)
+                                {
+                                        while (tooCloseToPond)
+                                        {
+                                                float distanceToPond = Vector3.Distance(pondResourcePositions[0], agent.transform.position);
+
+                                                if (distanceToPond > minDistanceToPond)
+                                                {
+                                                        tooCloseToPond = false;
+                                                }
+                                                else
+                                                {
+                                                        agent.transform.position = new Vector3(Random.Range(-range, range), 1f, Random.Range(-range, range)) + transform.position;
+                                                }
+
+                                                tryCount += 1;
+
+                                                if (tryCount > randomPositionMaxTry)
+                                                {
+                                                        break;
+                                                }
+                                        }
+                                }
                         }
                         else
                         {
