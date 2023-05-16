@@ -43,6 +43,27 @@ If you launch the environment directly from the executable or through the `play.
 
 사용된 코드 링크 달아서 표로 정리해도 좋을 듯 
 
-## Unity Assets Souce
+## Unity Assets Sources
+[Field Material 1]([https://assetstore.unity.com/packages/3d/environments/landscapes/mountain-terrain-rock-tree-97905](https://assetstore.unity.com/packages/3d/environments/landscapes/mountain-terrain-rock-tree-97905))
 
-사용된 에셋들 링크 달아서 정리 (노션에 있음)
+[Field Material 2]([https://assetstore.unity.com/packages/2d/textures-materials/floors/yughues-free-ground-materials-13001#content](https://assetstore.unity.com/packages/2d/textures-materials/floors/yughues-free-ground-materials-13001#content))
+
+[Field Material 3]([https://assetstore.unity.com/packages/2d/textures-materials/nature/snow-cliff-materials-137086#content](https://assetstore.unity.com/packages/2d/textures-materials/nature/snow-cliff-materials-137086#content))
+
+[Pond Rock]([https://assetstore.unity.com/packages/3d/props/exterior/rock-and-boulders-2-6947#content](https://assetstore.unity.com/packages/3d/props/exterior/rock-and-boulders-2-6947#content))
+
+[Water Material for Pond]([https://assetstore.unity.com/packages/2d/textures-materials/water/stylize-water-texture-153577#content](https://assetstore.unity.com/packages/2d/textures-materials/water/stylize-water-texture-153577#content))
+
+[Rock]([https://assetstore.unity.com/packages/3d/environments/landscapes/rocky-hills-environment-light-pack-89939#content](https://assetstore.unity.com/packages/3d/environments/landscapes/rocky-hills-environment-light-pack-89939#content))
+
+[Bush]([https://assetstore.unity.com/packages/3d/vegetation/plants/yughues-free-bushes-13168#content](https://assetstore.unity.com/packages/3d/vegetation/plants/yughues-free-bushes-13168#content))
+
+[Tree]([https://assetstore.unity.com/packages/3d/vegetation/trees/2022-pbr-xfrogplants-sampler-229007#content](https://assetstore.unity.com/packages/3d/vegetation/trees/2022-pbr-xfrogplants-sampler-229007#content))
+
+[Hill]([https://assetstore.unity.com/packages/3d/environments/landscapes/autumn-mountain-52251#content](https://assetstore.unity.com/packages/3d/environments/landscapes/autumn-mountain-52251#content))
+
+[Flower]([https://assetstore.unity.com/packages/3d/environments/fantasy-landscape-103573#content](https://assetstore.unity.com/packages/3d/environments/fantasy-landscape-103573#content))
+
+[Snowman]([https://assetstore.unity.com/packages/3d/props/free-snowman-105123#content](https://assetstore.unity.com/packages/3d/props/free-snowman-105123#content))
+
+[Snow Material]([https://assetstore.unity.com/packages/2d/textures-materials/water/stylize-snow-texture-153579#content](https://assetstore.unity.com/packages/2d/textures-materials/water/stylize-snow-texture-153579#content))
