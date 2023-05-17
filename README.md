@@ -2,7 +2,8 @@
 
 EVAAA will provide a mechanism to freely choose a goal across different surrounding conditions and keep a more stable reward function, which are the key to build and test autonomous and adaptive RL agents. We provide a 3D virtual environment platform that requires RL agents in the Unity environment. It is designed to facilitate testing RL agent.
 
-우리 연구 이미지 or gif 첨부
+![agent](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/0a0d4f79-cd21-4439-9a03-f581541d7177)
+
 
 ## Install and Setting
 
