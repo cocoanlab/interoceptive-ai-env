@@ -11,7 +11,7 @@ using System.Linq;
 public class InteroceptiveAgent : Agent
 {
         // Variables for script
-        protected Field m_MyArea;
+        // protected Field m_MyArea;
         protected SceneInitialization m_SceneInitialization;
         protected EnvironmentParameters m_ResetParams;
         protected ResourceProperty[] FoodObjects;
@@ -27,7 +27,7 @@ public class InteroceptiveAgent : Agent
 
 
         [Header("Game Ojects for script")]
-        public GameObject area;
+        public GameObject field;
         public GameObject sun;
         public GameObject heatMap;
         public GameObject playRecorder;
@@ -40,8 +40,8 @@ public class InteroceptiveAgent : Agent
         public Vector3 initAgentAngle;
 
         [Header("Actions")]
-        public float moveSpeed = 6.0f;
-        public float turnSpeed = 200.0f;
+        public float moveSpeed = 12.0f;
+        public float turnSpeed = 800.0f;
         public float eatingDistance = 1.0f;
         public bool autoEat = false;
 
@@ -150,72 +150,13 @@ public class InteroceptiveAgent : Agent
         // public GameObject Pig;
         // Rigidbody m_pig;
         //초기화 작업을 위해 한번 호출되는 메소드
-        public void SetResetParameters()
-        {
-                singleTrial = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("singleTrial", System.Convert.ToSingle(singleTrial)));
-                initRandomAgentPosition = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("initRandomAgentPosition", System.Convert.ToSingle(initRandomAgentPosition)));
-
-                moveSpeed = m_ResetParams.GetWithDefault("moveSpeed", moveSpeed);
-                turnSpeed = m_ResetParams.GetWithDefault("turnSpeed", turnSpeed);
-                autoEat = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("autoEat", System.Convert.ToSingle(autoEat)));
-                eatingDistance = m_ResetParams.GetWithDefault("eatingDistance", eatingDistance);
-
-                countEV = System.Convert.ToInt32(m_ResetParams.GetWithDefault("countEV", countEV));
-
-                maxFoodLevel = m_ResetParams.GetWithDefault("maxFoodLevel", maxFoodLevel);
-                minFoodLevel = m_ResetParams.GetWithDefault("minFoodLevel", minFoodLevel);
-                resourceFoodValue = m_ResetParams.GetWithDefault("resourceFoodValue", resourceFoodValue);
-                changeFoodLevelRate = m_ResetParams.GetWithDefault("changeFoodLevelRate", changeFoodLevelRate);
-                startFoodLevel = m_ResetParams.GetWithDefault("startFoodLevel", startFoodLevel);
-
-                maxWaterLevel = m_ResetParams.GetWithDefault("maxWaterLevel", maxWaterLevel);
-                minWaterLevel = m_ResetParams.GetWithDefault("minWaterLevel", minWaterLevel);
-                resourceWaterValue = m_ResetParams.GetWithDefault("resourceWaterValue", resourceWaterValue);
-                changeWaterLevelRate = m_ResetParams.GetWithDefault("changeWaterLevelRate", changeWaterLevelRate);
-                startWaterLevel = m_ResetParams.GetWithDefault("startWaterLevel", startWaterLevel);
-
-                useTouchObs = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("useTouchObs", System.Convert.ToSingle(useTouchObs)));
-
-                useOlfactoryObs = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("useOlfactoryObs", System.Convert.ToSingle(useOlfactoryObs)));
-                olfactorySensorLength = m_ResetParams.GetWithDefault("olfactorySensorLength", olfactorySensorLength);
-
-                useThermalObs = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("useThermalObs", System.Convert.ToSingle(useThermalObs)));
-                maxThermoLevel = m_ResetParams.GetWithDefault("maxThermoLevel", maxThermoLevel);
-                minThermoLevel = m_ResetParams.GetWithDefault("minThermoLevel", minThermoLevel);
-                changeThermoLevelRate = m_ResetParams.GetWithDefault("changeThermoLevelRate", changeThermoLevelRate);
-                thermoSensorChangeRate = (int)m_ResetParams.GetWithDefault("thermoSensorChangeRate", thermoSensorChangeRate);
-                startThermoLevel = m_ResetParams.GetWithDefault("startThermoLevel", startThermoLevel);
-
-                changeFood_0 = m_ResetParams.GetWithDefault("changeFood_0", changeFood_0);
-                changeFood_1 = m_ResetParams.GetWithDefault("changeFood_1", changeFood_1);
-                changeFood_2 = m_ResetParams.GetWithDefault("changeFood_2", changeFood_2);
-                changeFood_3 = m_ResetParams.GetWithDefault("changeFood_3", changeFood_3);
-                changeFood_3 = m_ResetParams.GetWithDefault("changeFood_4", changeFood_4);
-
-                changeWater_0 = m_ResetParams.GetWithDefault("changeWater_0", changeWater_0);
-                changeWater_1 = m_ResetParams.GetWithDefault("changeWater_1", changeWater_1);
-                changeWater_2 = m_ResetParams.GetWithDefault("changeWater_2", changeWater_2);
-                changeWater_3 = m_ResetParams.GetWithDefault("changeWater_3", changeWater_3);
-                changeWater_3 = m_ResetParams.GetWithDefault("changeWater_4", changeWater_4);
-
-                changeBody_0 = m_ResetParams.GetWithDefault("changeBody_0", changeBody_0);
-                changeBody_1 = m_ResetParams.GetWithDefault("changeBody_1", changeBody_1);
-                changeBody_2 = m_ResetParams.GetWithDefault("changeBody_2", changeBody_2);
-                changeBody_3 = m_ResetParams.GetWithDefault("changeBody_3", changeBody_3);
-                changeBody_3 = m_ResetParams.GetWithDefault("changeBody_4", changeBody_4);
-
-                maxHP = m_ResetParams.GetWithDefault("maxHP", maxHP);
-                minHP = m_ResetParams.GetWithDefault("minHP", minHP);
-                changeHP = m_ResetParams.GetWithDefault("changeHP", changeHP);
-                startHP = m_ResetParams.GetWithDefault("startHP", startHP);
-        }
         public override void Initialize()
         {
                 m_ResetParams = Academy.Instance.EnvironmentParameters;
                 SetResetParameters();
 
                 m_AgentRb = GetComponent<Rigidbody>();
-                m_MyArea = area.GetComponent<Field>();
+                // m_MyArea = field.GetComponent<Field>();
                 eatenResource = false;
 
                 // this.rb = this.gameObject.GetComponent<Rigidbody>();
@@ -235,7 +176,7 @@ public class InteroceptiveAgent : Agent
                         this.thermoObservation = new float[8];
 
                         // Reset area
-                        area.GetComponent<FieldThermoGrid>().EpisodeAreaSmoothing();
+                        field.GetComponent<FieldThermoGrid>().EpisodeAreaSmoothing();
 
                         // Reset heatmap
                         heatMap.GetComponent<HeatMap>().EpisodeHeatMap();
@@ -255,8 +196,8 @@ public class InteroceptiveAgent : Agent
 
                 // Reset agent
                 m_AgentRb.velocity = Vector3.zero;
-
-                m_MyArea.ResetResourceArea(this.gameObject);
+                field.GetComponent<Field>().ResetResourceArea(this.gameObject);
+                // m_MyArea.ResetResourceArea(this.gameObject);
                 eatenResource = false;
 
                 SetResetParameters();
@@ -316,7 +257,7 @@ public class InteroceptiveAgent : Agent
                         thermoSensorBackwardLeft.GetComponent<ThermalSensing>().SetThermalSense(0);
                         thermoSensorBackwardRight.GetComponent<ThermalSensing>().SetThermalSense(0);
                         // Reset area
-                        area.GetComponent<FieldThermoGrid>().EpisodeAreaSmoothing();
+                        field.GetComponent<FieldThermoGrid>().EpisodeAreaSmoothing();
 
                         // Reset heatmap
                         heatMap.GetComponent<HeatMap>().EpisodeHeatMap();
@@ -430,9 +371,9 @@ public class InteroceptiveAgent : Agent
                 int action = actions.DiscreteActions[0];
                 MoveAgent(action);
 
+                // Reset eating state as default
                 eatenResource = false;
                 eatenResourceTag = "none";
-
                 changeFood_5 = 0.0f;
                 changeWater_5 = 0.0f;
 
@@ -628,5 +569,65 @@ public class InteroceptiveAgent : Agent
         public void Damage()
         {
                 resourceLevels[3] -= changeHP * Time.fixedDeltaTime;
+        }
+
+        public void SetResetParameters()
+        {
+                singleTrial = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("singleTrial", System.Convert.ToSingle(singleTrial)));
+                initRandomAgentPosition = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("initRandomAgentPosition", System.Convert.ToSingle(initRandomAgentPosition)));
+
+                moveSpeed = m_ResetParams.GetWithDefault("moveSpeed", moveSpeed);
+                turnSpeed = m_ResetParams.GetWithDefault("turnSpeed", turnSpeed);
+                autoEat = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("autoEat", System.Convert.ToSingle(autoEat)));
+                eatingDistance = m_ResetParams.GetWithDefault("eatingDistance", eatingDistance);
+
+                countEV = System.Convert.ToInt32(m_ResetParams.GetWithDefault("countEV", countEV));
+
+                maxFoodLevel = m_ResetParams.GetWithDefault("maxFoodLevel", maxFoodLevel);
+                minFoodLevel = m_ResetParams.GetWithDefault("minFoodLevel", minFoodLevel);
+                resourceFoodValue = m_ResetParams.GetWithDefault("resourceFoodValue", resourceFoodValue);
+                changeFoodLevelRate = m_ResetParams.GetWithDefault("changeFoodLevelRate", changeFoodLevelRate);
+                startFoodLevel = m_ResetParams.GetWithDefault("startFoodLevel", startFoodLevel);
+
+                maxWaterLevel = m_ResetParams.GetWithDefault("maxWaterLevel", maxWaterLevel);
+                minWaterLevel = m_ResetParams.GetWithDefault("minWaterLevel", minWaterLevel);
+                resourceWaterValue = m_ResetParams.GetWithDefault("resourceWaterValue", resourceWaterValue);
+                changeWaterLevelRate = m_ResetParams.GetWithDefault("changeWaterLevelRate", changeWaterLevelRate);
+                startWaterLevel = m_ResetParams.GetWithDefault("startWaterLevel", startWaterLevel);
+
+                useTouchObs = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("useTouchObs", System.Convert.ToSingle(useTouchObs)));
+
+                useOlfactoryObs = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("useOlfactoryObs", System.Convert.ToSingle(useOlfactoryObs)));
+                olfactorySensorLength = m_ResetParams.GetWithDefault("olfactorySensorLength", olfactorySensorLength);
+
+                useThermalObs = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("useThermalObs", System.Convert.ToSingle(useThermalObs)));
+                maxThermoLevel = m_ResetParams.GetWithDefault("maxThermoLevel", maxThermoLevel);
+                minThermoLevel = m_ResetParams.GetWithDefault("minThermoLevel", minThermoLevel);
+                changeThermoLevelRate = m_ResetParams.GetWithDefault("changeThermoLevelRate", changeThermoLevelRate);
+                thermoSensorChangeRate = (int)m_ResetParams.GetWithDefault("thermoSensorChangeRate", thermoSensorChangeRate);
+                startThermoLevel = m_ResetParams.GetWithDefault("startThermoLevel", startThermoLevel);
+
+                changeFood_0 = m_ResetParams.GetWithDefault("changeFood_0", changeFood_0);
+                changeFood_1 = m_ResetParams.GetWithDefault("changeFood_1", changeFood_1);
+                changeFood_2 = m_ResetParams.GetWithDefault("changeFood_2", changeFood_2);
+                changeFood_3 = m_ResetParams.GetWithDefault("changeFood_3", changeFood_3);
+                changeFood_3 = m_ResetParams.GetWithDefault("changeFood_4", changeFood_4);
+
+                changeWater_0 = m_ResetParams.GetWithDefault("changeWater_0", changeWater_0);
+                changeWater_1 = m_ResetParams.GetWithDefault("changeWater_1", changeWater_1);
+                changeWater_2 = m_ResetParams.GetWithDefault("changeWater_2", changeWater_2);
+                changeWater_3 = m_ResetParams.GetWithDefault("changeWater_3", changeWater_3);
+                changeWater_3 = m_ResetParams.GetWithDefault("changeWater_4", changeWater_4);
+
+                changeBody_0 = m_ResetParams.GetWithDefault("changeBody_0", changeBody_0);
+                changeBody_1 = m_ResetParams.GetWithDefault("changeBody_1", changeBody_1);
+                changeBody_2 = m_ResetParams.GetWithDefault("changeBody_2", changeBody_2);
+                changeBody_3 = m_ResetParams.GetWithDefault("changeBody_3", changeBody_3);
+                changeBody_3 = m_ResetParams.GetWithDefault("changeBody_4", changeBody_4);
+
+                maxHP = m_ResetParams.GetWithDefault("maxHP", maxHP);
+                minHP = m_ResetParams.GetWithDefault("minHP", minHP);
+                changeHP = m_ResetParams.GetWithDefault("changeHP", changeHP);
+                startHP = m_ResetParams.GetWithDefault("startHP", startHP);
         }
 }

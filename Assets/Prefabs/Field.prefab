@@ -344,6 +344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 895a12126c849448597a02e309fb6025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  randomSeed: 1234
   foodWater: {fileID: 4839067235645850823}
   resources:
   - prefab: {fileID: 5204920723700941091, guid: 350871b865967466daa1f596193cc22e,
@@ -353,6 +354,8 @@ MonoBehaviour:
       type: 3}
     num: 0
   IsRandomFoodPosition: 0
+  minDistanceToPond: 50
+  randomPositionMaxTry: 100
   foodResourcePositions: []
   IsRandomWaterPosition: 0
   waterResourcePositions: []
@@ -372,25 +375,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 072808d9f724c468da3e865a926cd878, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randomSeed: 1234
-  Floor: {fileID: 4837966319980654387}
-  numberOfCubeX: 26
-  numberOfCubeZ: 26
-  sizeOfCube: {x: 4, y: 5, z: 4}
-  positionOfCenter: {x: -25, y: 0, z: -25}
+  numberOfGridCubeX: 100
+  numberOfGridCubeZ: 100
+  sizeOfGridCube: {x: 4, y: 5, z: 4}
+  positionOfGridCenter: {x: -25, y: 0, z: -25}
   agent: {fileID: 4806027653304860779}
-  Cave: {fileID: 0}
   heatObjectList: []
+  useObjectHotSpot: 1
   useRandomHotSpot: 0
   fieldDefaultTemp: -40
   hotSpotCount: 1
   hotSpotTemp: 60
   heatMapMaxTemp: 40
   heatMapMinTemp: -40
-  smoothingKernelSizeX: 7
-  smoothingKernelSizeY: 7
-  smoothingSigmaX: 2
-  smoothingSigmaY: 2
+  smoothingSigma: 1
 --- !u!1 &4837682096371279209
 GameObject:
   m_ObjectHideFlags: 0
@@ -511,7 +509,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  area: {fileID: 4837328956473616459}
+  field: {fileID: 4837328956473616459}
   sun: {fileID: 6020930168887161815, guid: 03d4bb41328a54bad92e6825603dd1f6, type: 3}
   heatMap: {fileID: 6211308144292610838, guid: 248ca13a7c58b4da1a63e8547c21e00c, type: 3}
   playRecorder: {fileID: 0}
@@ -524,6 +522,11 @@ MonoBehaviour:
   turnSpeed: 200
   eatingDistance: 1
   autoEat: 0
+  agentRotation: {x: 0, y: 0, z: 0}
+  agentPosition: {x: 0, y: 0, z: 0}
+  useTouchObs: 0
+  touchObservation: 0
+  isTouched: 0
   useOlfactoryObs: 1
   olfactorySensorLength: 0.1
   olfactoryFeatureSize: 10

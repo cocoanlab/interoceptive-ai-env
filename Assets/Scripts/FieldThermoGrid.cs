@@ -108,7 +108,7 @@ public class FieldThermoGrid : MonoBehaviour
                                 newCube.name = string.Format("{0},0,{1}", x, z);
                                 newCube.transform.SetParent(parent);
                                 // newCube.layer = layer;
-                                newCube.tag = "cube";
+                                newCube.tag = "thermalGridCube";
 
                                 Collider collider = newCube.GetComponent<Collider>();
                                 collider.isTrigger = true;

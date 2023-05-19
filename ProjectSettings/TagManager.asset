@@ -16,6 +16,10 @@ TagManager:
   - rock
   - pond
   - heatObject
+  - symbol_O
+  - target
+  - symbol_X
+  - thermalGridCube
   layers:
   - Default
   - TransparentFX

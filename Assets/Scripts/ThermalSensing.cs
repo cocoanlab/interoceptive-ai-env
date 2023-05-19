@@ -37,7 +37,7 @@ public class ThermalSensing : MonoBehaviour
         {
                 if (Agent.useThermalObs)
                 {
-                        if (other.tag == "cube")
+                        if (other.tag == "thermalGridCube")
                         {
                                 cubeName = other.gameObject.name;
                                 index = cubeName.Split(',');
