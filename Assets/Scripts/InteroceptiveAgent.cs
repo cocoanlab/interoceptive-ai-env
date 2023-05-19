@@ -341,6 +341,7 @@ public class InteroceptiveAgent : Agent
                 sensor.AddObservation(resourceLevels);
                 if (useOlfactoryObs)
                 {
+                        OlfactorySensingRangeVisualize();
                         sensor.AddObservation(olfactoryObservation);
                 }
                 if (useThermalObs)
@@ -527,6 +528,13 @@ public class InteroceptiveAgent : Agent
                                 }
                         }
                 }
+        }
+
+        private void OlfactorySensingRangeVisualize()
+        {
+                GameObject olfactorySensingRange = this.transform.Find("SensingRange").gameObject;
+                Vector3 newScale = new Vector3(this.olfactorySensorLength, this.olfactorySensorLength, this.olfactorySensorLength);
+                olfactorySensingRange.transform.localScale = newScale;
         }
 
         public void ThermalChanging()
