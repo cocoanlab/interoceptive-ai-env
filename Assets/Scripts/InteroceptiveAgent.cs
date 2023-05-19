@@ -484,6 +484,7 @@ public class InteroceptiveAgent : Agent
                 switch (action)
                 {
                         case 0:
+                                m_AgentRb.velocity = Vector3.zero;
                                 break;
                         case 1:
                                 dirToGo = transform.forward;
@@ -491,12 +492,15 @@ public class InteroceptiveAgent : Agent
                                 break;
                         case 2:
                                 transform.Rotate(-transform.up, Time.fixedDeltaTime * turnSpeed);
+                                m_AgentRb.velocity = Vector3.zero;
                                 break;
                         case 3:
                                 transform.Rotate(transform.up, Time.fixedDeltaTime * turnSpeed);
+                                m_AgentRb.velocity = Vector3.zero;
                                 break;
                         case 4:
                                 this.isAgentActionEat = true;
+                                m_AgentRb.velocity = Vector3.zero;
                                 break;
                 }
         }
