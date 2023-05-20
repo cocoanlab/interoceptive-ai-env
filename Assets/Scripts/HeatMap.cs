@@ -42,6 +42,7 @@ public class HeatMap : MonoBehaviour
         {
 
                 ModifyPixels();
+                Debug.Log("Modified Heat map");
 
                 // count += 1;
                 // Debug.Log("Episode : " + count.ToString());

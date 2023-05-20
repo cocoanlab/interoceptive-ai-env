@@ -41,7 +41,6 @@ public class ThermalSensing : MonoBehaviour
 
                                 fieldTemp = agent.GetComponent<InteroceptiveAgent>().field.GetComponent<FieldThermoGrid>().GetAreaTemp(x, z);
                                 SetThermalSense(fieldTemp);
-
                         }
                 }
         }
