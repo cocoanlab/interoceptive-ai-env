@@ -60,6 +60,7 @@ public class InteroceptiveAgent : Agent
         public int olfactoryFeatureSize = 10;
         public float[] olfactoryObservation;
         public bool useThermalObs;
+        public bool relativeThermalObs;
         public float[] thermoObservation;
         public GameObject thermoSensorCenter;
         public GameObject thermoSensorForward;
@@ -81,7 +82,7 @@ public class InteroceptiveAgent : Agent
         [Header("Food")]
         public float maxFoodLevel = 15.0f;
         public float minFoodLevel = -15.0f;
-        public float changeFoodLevelRate = 0.002f;
+        // public float changeFoodLevelRate = 0.002f;
         public float resourceFoodValue = 3.0f;
         public float startFoodLevel = 0.0f;
 
@@ -89,7 +90,7 @@ public class InteroceptiveAgent : Agent
         [Header("Water")]
         public float maxWaterLevel = 15.0f;
         public float minWaterLevel = -15.0f;
-        public float changeWaterLevelRate = 0.002f;
+        // public float changeWaterLevelRate = 0.002f;
         public float resourceWaterValue = 3.0f;
         public float startWaterLevel = 0.0f;
 
@@ -97,8 +98,8 @@ public class InteroceptiveAgent : Agent
         [Header("Temperature")]
         public float maxThermoLevel = 15.0f;
         public float minThermoLevel = -15.0f;
-        public float changeThermoLevelRate = 0.005f;
-        public int thermoSensorChangeRate = 10;
+        // public float changeThermoLevelRate = 0.005f;
+        // public int thermoSensorChangeRate = 10;
         public float startThermoLevel = 0.0f;
 
         [Header("Merterials")]
@@ -247,7 +248,7 @@ public class InteroceptiveAgent : Agent
 
                         bodyTemp = 0;
 
-                        thermoSensorCenter.GetComponent<ThermalSensing>().SetThermalSense(0);
+                        // thermoSensorCenter.GetComponent<ThermalSensing>().SetThermalSense(0);
                         thermoSensorForward.GetComponent<ThermalSensing>().SetThermalSense(0);
                         thermoSensorBackward.GetComponent<ThermalSensing>().SetThermalSense(0);
                         thermoSensorLeft.GetComponent<ThermalSensing>().SetThermalSense(0);
@@ -328,10 +329,10 @@ public class InteroceptiveAgent : Agent
                 // EV (Food, Water, Thermo) Update
                 FoodUpdate(changeFood_0, changeFood_1, changeFood_2, changeFood_3, changeFood_4, changeFood_5);
                 WaterUpdate(changeWater_0, changeWater_1, changeWater_2, changeWater_3, changeWater_4, changeWater_5);
-                if (this.useThermalObs)
-                {
-                        ThermoUpdate(changeBody_0, changeBody_1, changeBody_2, changeBody_3, changeBody_4);
-                }
+                // if (this.useThermalObs)
+                // {
+
+                // }
 
                 // Olfactory Observation
                 if (this.useOlfactoryObs)
@@ -343,13 +344,14 @@ public class InteroceptiveAgent : Agent
                 // ThermalObserving() : 반영된 thermalSense를 다시 가져와 observation에 추가가
                 if (this.useThermalObs)
                 {
-                        ThermalChanging();
+                        // ThermalChanging();
                         ThermalObserving();
                 }
 
                 if (this.useTouchObs)
                 {
                         TouchObserving();
+                        ThermoUpdate(changeBody_0, changeBody_1, changeBody_2, changeBody_3, changeBody_4);
                         // Debug.Log("Touch Obs: " + touchObservation);
                 }
 
@@ -482,33 +484,55 @@ public class InteroceptiveAgent : Agent
                 olfactorySensingRange.transform.localScale = newScale;
         }
 
-        public void ThermalChanging()
-        {
-                thermoSensorForward.GetComponent<ThermalSensing>().CalculateThermalSense();
-                thermoSensorBackward.GetComponent<ThermalSensing>().CalculateThermalSense();
-                thermoSensorLeft.GetComponent<ThermalSensing>().CalculateThermalSense();
-                thermoSensorRight.GetComponent<ThermalSensing>().CalculateThermalSense();
-                thermoSensorForwardLeft.GetComponent<ThermalSensing>().CalculateThermalSense();
-                thermoSensorForwardRight.GetComponent<ThermalSensing>().CalculateThermalSense();
-                thermoSensorBackwardLeft.GetComponent<ThermalSensing>().CalculateThermalSense();
-                thermoSensorBackwardRight.GetComponent<ThermalSensing>().CalculateThermalSense();
-                thermoSensorCenter.GetComponent<ThermalSensing>().CalculateThermalSense();
-        }
+        // public void ThermalChanging()
+        // {
+        //         thermoSensorForward.GetComponent<ThermalSensing>().CalculateThermalSense();
+        //         thermoSensorBackward.GetComponent<ThermalSensing>().CalculateThermalSense();
+        //         thermoSensorLeft.GetComponent<ThermalSensing>().CalculateThermalSense();
+        //         thermoSensorRight.GetComponent<ThermalSensing>().CalculateThermalSense();
+        //         thermoSensorForwardLeft.GetComponent<ThermalSensing>().CalculateThermalSense();
+        //         thermoSensorForwardRight.GetComponent<ThermalSensing>().CalculateThermalSense();
+        //         thermoSensorBackwardLeft.GetComponent<ThermalSensing>().CalculateThermalSense();
+        //         thermoSensorBackwardRight.GetComponent<ThermalSensing>().CalculateThermalSense();
+        //         thermoSensorCenter.GetComponent<ThermalSensing>().CalculateThermalSense();
+        // }
 
         // 온도에 대한 observation 값은 각 sensor에 입력되는 값과 중앙 sensor (agent의 체온)의 값의 차이를 받아옴
         // 실제 생명체가 온도를 느낄 때 절대적인 온도를 감지하는 것이 아니라 체온과 비교한 상대적인 온도를 감지하기 때문임
         public float[] ThermalObserving()
         {
-                thermoObservation[0] = thermoSensorForward.GetComponent<ThermalSensing>().GetThermalSense() - thermoSensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
-                thermoObservation[1] = thermoSensorBackward.GetComponent<ThermalSensing>().GetThermalSense() - thermoSensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
-                thermoObservation[2] = thermoSensorLeft.GetComponent<ThermalSensing>().GetThermalSense() - thermoSensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
-                thermoObservation[3] = thermoSensorRight.GetComponent<ThermalSensing>().GetThermalSense() - thermoSensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
-                thermoObservation[4] = thermoSensorForwardLeft.GetComponent<ThermalSensing>().GetThermalSense() - thermoSensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
-                thermoObservation[5] = thermoSensorForwardRight.GetComponent<ThermalSensing>().GetThermalSense() - thermoSensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
-                thermoObservation[6] = thermoSensorBackwardLeft.GetComponent<ThermalSensing>().GetThermalSense() - thermoSensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
-                thermoObservation[7] = thermoSensorBackwardRight.GetComponent<ThermalSensing>().GetThermalSense() - thermoSensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
+                // thermoObservation[0] = thermoSensorForward.GetComponent<ThermalSensing>().GetThermalSense() - thermoSensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
+                // thermoObservation[1] = thermoSensorBackward.GetComponent<ThermalSensing>().GetThermalSense() - thermoSensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
+                // thermoObservation[2] = thermoSensorLeft.GetComponent<ThermalSensing>().GetThermalSense() - thermoSensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
+                // thermoObservation[3] = thermoSensorRight.GetComponent<ThermalSensing>().GetThermalSense() - thermoSensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
+                // thermoObservation[4] = thermoSensorForwardLeft.GetComponent<ThermalSensing>().GetThermalSense() - thermoSensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
+                // thermoObservation[5] = thermoSensorForwardRight.GetComponent<ThermalSensing>().GetThermalSense() - thermoSensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
+                // thermoObservation[6] = thermoSensorBackwardLeft.GetComponent<ThermalSensing>().GetThermalSense() - thermoSensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
+                // thermoObservation[7] = thermoSensorBackwardRight.GetComponent<ThermalSensing>().GetThermalSense() - thermoSensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
 
-                bodyTemp = thermoSensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
+                if (relativeThermalObs)
+                {
+                        thermoObservation[0] = thermoSensorForward.GetComponent<ThermalSensing>().GetThermalSense() - this.resourceLevels[2];
+                        thermoObservation[1] = thermoSensorBackward.GetComponent<ThermalSensing>().GetThermalSense() - this.resourceLevels[2];
+                        thermoObservation[2] = thermoSensorLeft.GetComponent<ThermalSensing>().GetThermalSense() - this.resourceLevels[2];
+                        thermoObservation[3] = thermoSensorRight.GetComponent<ThermalSensing>().GetThermalSense() - this.resourceLevels[2];
+                        thermoObservation[4] = thermoSensorForwardLeft.GetComponent<ThermalSensing>().GetThermalSense() - this.resourceLevels[2];
+                        thermoObservation[5] = thermoSensorForwardRight.GetComponent<ThermalSensing>().GetThermalSense() - this.resourceLevels[2];
+                        thermoObservation[6] = thermoSensorBackwardLeft.GetComponent<ThermalSensing>().GetThermalSense() - this.resourceLevels[2];
+                        thermoObservation[7] = thermoSensorBackwardRight.GetComponent<ThermalSensing>().GetThermalSense() - this.resourceLevels[2];
+                }
+                else
+                {
+                        thermoObservation[0] = thermoSensorForward.GetComponent<ThermalSensing>().GetThermalSense();
+                        thermoObservation[1] = thermoSensorBackward.GetComponent<ThermalSensing>().GetThermalSense();
+                        thermoObservation[2] = thermoSensorLeft.GetComponent<ThermalSensing>().GetThermalSense();
+                        thermoObservation[3] = thermoSensorRight.GetComponent<ThermalSensing>().GetThermalSense();
+                        thermoObservation[4] = thermoSensorForwardLeft.GetComponent<ThermalSensing>().GetThermalSense();
+                        thermoObservation[5] = thermoSensorForwardRight.GetComponent<ThermalSensing>().GetThermalSense();
+                        thermoObservation[6] = thermoSensorBackwardLeft.GetComponent<ThermalSensing>().GetThermalSense();
+                        thermoObservation[7] = thermoSensorBackwardRight.GetComponent<ThermalSensing>().GetThermalSense();
+                }
+                // bodyTemp = thermoSensorCenter.GetComponent<ThermalSensing>().GetThermalSense();
 
                 return thermoObservation;
         }
@@ -551,13 +575,25 @@ public class InteroceptiveAgent : Agent
 
         public void ThermoUpdate(float changeBody_0, float changeBody_1, float changeBody_2, float changeBody_3, float changeBody_4)
         {
+                float surroundTemp = 0.0f;
+                for (int i = 0; i < thermoObservation.Length; i++)
+                {
+                        if (relativeThermalObs)
+                        { surroundTemp += thermoObservation[i]; }
+                        else
+                        { surroundTemp += thermoObservation[i] - this.resourceLevels[2]; }
+
+                }
+                // Debug.Log("surroundTemp: " + surroundTemp);
+                // Debug.Log("Temp Update1: " + changeBody_0 * surroundTemp * Time.fixedDeltaTime);
+
                 bodyTemp = this.bodyTemp +
-                            changeBody_0 * maxThermoLevel * Time.fixedDeltaTime +
+                            changeBody_0 * surroundTemp * Time.fixedDeltaTime +
                             changeBody_1 * (this.oldResourceLevels[0] + 15) * Time.fixedDeltaTime +
                             changeBody_2 * (this.oldResourceLevels[1] + 15) * Time.fixedDeltaTime +
                             changeBody_3 * (this.oldResourceLevels[2] + 15) * Time.fixedDeltaTime +
                             changeBody_4 * (CalculateInteraction(oldResourceLevels[0], oldResourceLevels[1], oldResourceLevels[2])) * Time.fixedDeltaTime;
-                thermoSensorCenter.GetComponent<ThermalSensing>().SetThermalSense(bodyTemp);
+                // thermoSensorCenter.GetComponent<ThermalSensing>().SetThermalSense(bodyTemp);
                 this.resourceLevels[2] = this.bodyTemp;
         }
 
@@ -586,13 +622,13 @@ public class InteroceptiveAgent : Agent
                 maxFoodLevel = m_ResetParams.GetWithDefault("maxFoodLevel", maxFoodLevel);
                 minFoodLevel = m_ResetParams.GetWithDefault("minFoodLevel", minFoodLevel);
                 resourceFoodValue = m_ResetParams.GetWithDefault("resourceFoodValue", resourceFoodValue);
-                changeFoodLevelRate = m_ResetParams.GetWithDefault("changeFoodLevelRate", changeFoodLevelRate);
+                // changeFoodLevelRate = m_ResetParams.GetWithDefault("changeFoodLevelRate", changeFoodLevelRate);
                 startFoodLevel = m_ResetParams.GetWithDefault("startFoodLevel", startFoodLevel);
 
                 maxWaterLevel = m_ResetParams.GetWithDefault("maxWaterLevel", maxWaterLevel);
                 minWaterLevel = m_ResetParams.GetWithDefault("minWaterLevel", minWaterLevel);
                 resourceWaterValue = m_ResetParams.GetWithDefault("resourceWaterValue", resourceWaterValue);
-                changeWaterLevelRate = m_ResetParams.GetWithDefault("changeWaterLevelRate", changeWaterLevelRate);
+                // changeWaterLevelRate = m_ResetParams.GetWithDefault("changeWaterLevelRate", changeWaterLevelRate);
                 startWaterLevel = m_ResetParams.GetWithDefault("startWaterLevel", startWaterLevel);
 
                 useTouchObs = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("useTouchObs", System.Convert.ToSingle(useTouchObs)));
@@ -603,8 +639,8 @@ public class InteroceptiveAgent : Agent
                 useThermalObs = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("useThermalObs", System.Convert.ToSingle(useThermalObs)));
                 maxThermoLevel = m_ResetParams.GetWithDefault("maxThermoLevel", maxThermoLevel);
                 minThermoLevel = m_ResetParams.GetWithDefault("minThermoLevel", minThermoLevel);
-                changeThermoLevelRate = m_ResetParams.GetWithDefault("changeThermoLevelRate", changeThermoLevelRate);
-                thermoSensorChangeRate = (int)m_ResetParams.GetWithDefault("thermoSensorChangeRate", thermoSensorChangeRate);
+                // changeThermoLevelRate = m_ResetParams.GetWithDefault("changeThermoLevelRate", changeThermoLevelRate);
+                // thermoSensorChangeRate = (int)m_ResetParams.GetWithDefault("thermoSensorChangeRate", thermoSensorChangeRate);
                 startThermoLevel = m_ResetParams.GetWithDefault("startThermoLevel", startThermoLevel);
 
                 changeFood_0 = m_ResetParams.GetWithDefault("changeFood_0", changeFood_0);

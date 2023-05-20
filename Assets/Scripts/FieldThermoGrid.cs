@@ -34,18 +34,19 @@ public class FieldThermoGrid : MonoBehaviour
         // Variables for code
         private EnvironmentParameters m_ResetParams;
         public float[,] areaTemp;
-        public double[,] normalizedAreaTemp;
+        public float[,] normalizedAreaTemp;
 
         [Header("Field Temperature parameters")]
         public bool useObjectHotSpot = true;
         public bool useRandomHotSpot = true;
         public float fieldDefaultTemp = -60.0f;
-
-        public float hotSpotCount = 3200;
         public float hotSpotTemp = 150.0f;
+        public float hotSpotCount = 3200;
+        public float hotSpotSize = 0.2f;
+        public float smoothingSigma = 1.0f;
         public float heatMapMaxTemp = 40.0f;
         public float heatMapMinTemp = -40.0f;
-        public float smoothingSigma = 1.0f;
+
 
         public void Awake()
         {
@@ -147,7 +148,21 @@ public class FieldThermoGrid : MonoBehaviour
                         {
                                 int x = Random.Range(0, numberOfGridCubeX);
                                 int z = Random.Range(0, numberOfGridCubeZ);
-                                areaTemp[x, z] = hotSpotTemp;
+
+                                int startIndexI = Mathf.Max(x - (int)hotSpotSize / 2, 0);
+                                int startIndexJ = Mathf.Max(z - (int)hotSpotSize / 2, 0);
+                                int endIndexI = Mathf.Min((x + (int)hotSpotSize / 2), numberOfGridCubeX);
+                                int endIndexJ = Mathf.Min((z + (int)hotSpotSize / 2), numberOfGridCubeZ);
+
+                                for (int i = startIndexI; i < endIndexI; i++)
+                                {
+                                        for (int j = startIndexJ; j < endIndexJ; j++)
+                                        {
+                                                areaTemp[i, j] = hotSpotTemp;
+                                        }
+                                }
+
+                                // areaTemp[x, z] = hotSpotTemp;
                         }
                 }
 
@@ -178,7 +193,7 @@ public class FieldThermoGrid : MonoBehaviour
                                         {
                                                 for (int j = startIndexJ; j < endIndexJ; j++)
                                                 {
-                                                        areaTemp[i, j] += temperature;
+                                                        areaTemp[i, j] = temperature;
                                                 }
                                         }
 
@@ -187,12 +202,15 @@ public class FieldThermoGrid : MonoBehaviour
                 }
                 // areaTemp = GaussianSmoothingAreaTemp(areaTemp);
                 // float sigma = 1.0f;
-                float[,] smoothedMatrix = GaussianSmoothing.Smooth(areaTemp, smoothingSigma);
-                areaTemp = smoothedMatrix;
+                if (smoothingSigma > 0)
+                {
+                        float[,] smoothedMatrix = GaussianSmoothing.Smooth(areaTemp, smoothingSigma);
+                        areaTemp = smoothedMatrix;
+                }
 
                 // 지형 온도의 정규화를 구현함
                 // 0~1의 값으로 적외선 카메라 화면처럼 HeatMap을 구현하기 위함임
-                normalizedAreaTemp = new double[numberOfGridCubeX, numberOfGridCubeZ];
+                normalizedAreaTemp = new float[numberOfGridCubeX, numberOfGridCubeZ];
                 for (int x = 0; x < numberOfGridCubeX; ++x)
                 {
                         for (int z = 0; z < numberOfGridCubeZ; ++z)
@@ -201,9 +219,18 @@ public class FieldThermoGrid : MonoBehaviour
                         }
                 }
 
+                // For Debugging
+                // for (int x = 0; x < numberOfGridCubeX; ++x)
+                // {
+                //         for (int z = 0; z < numberOfGridCubeZ; ++z)
+                //         {
+                //                 Debug.Log("Temp" + x + "," + z + ": " + areaTemp[x, z]);
+                //         }
+                // }
+
         }
 
-        public double GetAreaTemp(int x, int z)
+        public float GetAreaTemp(int x, int z)
         {
                 return areaTemp[x, z];
         }
