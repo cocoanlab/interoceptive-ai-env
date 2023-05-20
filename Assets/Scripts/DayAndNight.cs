@@ -14,8 +14,10 @@ public class DayAndNight : MonoBehaviour
         [Header("Observations")]
         // 현실 세계에서 1초가 지났을 때 게임 세계에서 몇 초가 지나도록 할 것인지 설정하기 위한 변수
         public float eulerAnglesSun;
-        public float dayNightSpeed = 0.0f; //원래 private 
-                                           // fog 증감량 비율
+        // public float dayNightSpeed = 0.0f; //원래 private 
+        //                                    // fog 증감량 비율
+        public float daySpeed;
+        public float nightSpeed;
         public float fogChangeSpeed;
         // 낮 상태의 fog 밀도.
         public float dayFogDensity;
@@ -23,8 +25,8 @@ public class DayAndNight : MonoBehaviour
         public float nightFogDensity;
         // 계산
         public float currentFogDensity;
-        public float dayTemperatureVariance = 0.0f;
-        public float nightTemperatureVariance = -20.0f;
+        // public float dayTemperatureVariance = 0.0f;
+        // public float nightTemperatureVariance = -20.0f;
 
         public void Awake()
         {
@@ -46,9 +48,11 @@ public class DayAndNight : MonoBehaviour
         {
                 // Setting parameters from python
                 m_ResetParams = Academy.Instance.EnvironmentParameters;
-                dayNightSpeed = m_ResetParams.GetWithDefault("dayNightSpeed", dayNightSpeed);
-                dayTemperatureVariance = m_ResetParams.GetWithDefault("dayTemperatureVariance", dayTemperatureVariance);
-                nightTemperatureVariance = m_ResetParams.GetWithDefault("nightTemperatureVariance", nightTemperatureVariance);
+                // dayNightSpeed = m_ResetParams.GetWithDefault("dayNightSpeed", dayNightSpeed);
+                daySpeed = m_ResetParams.GetWithDefault("daySpeed", daySpeed);
+                nightSpeed = m_ResetParams.GetWithDefault("nightSpeed", nightSpeed);
+                // dayTemperatureVariance = m_ResetParams.GetWithDefault("dayTemperatureVariance", dayTemperatureVariance);
+                // nightTemperatureVariance = m_ResetParams.GetWithDefault("nightTemperatureVariance", nightTemperatureVariance);
         }
 
 
@@ -58,13 +62,19 @@ public class DayAndNight : MonoBehaviour
                 eulerAnglesSun = transform.eulerAngles.x;
                 // GameObject인 Sun을 회전시키기 위한 함수
                 // transform.Rotate(Vector3.right, 0.1f * dayNightSpeed * Time.deltaTime);
-                transform.Rotate(Vector3.right, dayNightSpeed * Time.deltaTime);
+                // transform.Rotate(Vector3.right, dayNightSpeed * Time.deltaTime);
 
                 // GameObject인 Sun의 오일러 각도를 기준으로 낮과 밤을 나눔
                 if (eulerAnglesSun >= 170)
+                {
                         isNight = true;
+                        transform.Rotate(Vector3.right, nightSpeed * Time.deltaTime);
+                }
                 else if (eulerAnglesSun >= -10)
+                {
                         isNight = false;
+                        transform.Rotate(Vector3.right, daySpeed * Time.deltaTime);
+                }
 
                 if (isNight)
                 {

@@ -352,6 +352,7 @@ public class InteroceptiveAgent : Agent
                 {
                         TouchObserving();
                         ThermoUpdate(changeBody_0, changeBody_1, changeBody_2, changeBody_3, changeBody_4);
+                        field.GetComponent<FieldThermoGrid>().SetDayNightTemperature();
                         // Debug.Log("Touch Obs: " + touchObservation);
                 }
 

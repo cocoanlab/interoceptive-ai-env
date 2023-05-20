@@ -380,15 +380,20 @@ MonoBehaviour:
   sizeOfGridCube: {x: 4, y: 5, z: 4}
   positionOfGridCenter: {x: -25, y: 0, z: -25}
   agent: {fileID: 4806027653304860779}
+  heatMap: {fileID: 0}
+  sun: {fileID: 6020930168887161810, guid: 03d4bb41328a54bad92e6825603dd1f6, type: 3}
+  dayTemperatureVariance: 0
+  nightTemperatureVariance: -20
   heatObjectList: []
   useObjectHotSpot: 1
   useRandomHotSpot: 0
   fieldDefaultTemp: -40
-  hotSpotCount: 1
   hotSpotTemp: 60
+  hotSpotCount: 1
+  hotSpotSize: 0.2
+  smoothingSigma: 1
   heatMapMaxTemp: 40
   heatMapMinTemp: -40
-  smoothingSigma: 1
 --- !u!1 &4837682096371279209
 GameObject:
   m_ObjectHideFlags: 0
@@ -532,6 +537,7 @@ MonoBehaviour:
   olfactoryFeatureSize: 10
   olfactoryObservation: []
   useThermalObs: 1
+  relativeThermalObs: 0
   thermoObservation: []
   thermoSensorCenter: {fileID: 4839067235790823290}
   thermoSensorForward: {fileID: 4839067236718282345}
@@ -546,18 +552,14 @@ MonoBehaviour:
   resourceLevels: []
   maxFoodLevel: 15
   minFoodLevel: -15
-  changeFoodLevelRate: 0.002
   resourceFoodValue: 3
   startFoodLevel: 0
   maxWaterLevel: 15
   minWaterLevel: -15
-  changeWaterLevelRate: 0.002
   resourceWaterValue: 3
   startWaterLevel: 0
   maxThermoLevel: 15
   minThermoLevel: -15
-  changeThermoLevelRate: 0.007
-  thermoSensorChangeRate: 10
   startThermoLevel: 0
   agentMerterial: {fileID: 2100000, guid: b0da1813c36914e678ba57f2790424e1, type: 2}
   redMaterial: {fileID: 2100000, guid: 88b9ae7af2c1748a0a1f63407587a601, type: 2}
@@ -944,6 +946,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 0}
   area: {fileID: 4837328956473616459}
+  field: {fileID: 0}
   agent: {fileID: 4837682096371279209}
   Agent: {fileID: 4806027653304860779}
   isSensor: 1
@@ -1007,6 +1010,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 0}
   area: {fileID: 4837328956473616459}
+  field: {fileID: 0}
   agent: {fileID: 4837682096371279209}
   Agent: {fileID: 4806027653304860779}
   isSensor: 1
@@ -1070,6 +1074,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 0}
   area: {fileID: 4837328956473616459}
+  field: {fileID: 0}
   agent: {fileID: 4837682096371279209}
   Agent: {fileID: 4806027653304860779}
   isSensor: 1
@@ -1164,6 +1169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 0}
   area: {fileID: 4837328956473616459}
+  field: {fileID: 0}
   agent: {fileID: 4837682096371279209}
   Agent: {fileID: 4806027653304860779}
   isSensor: 0
@@ -1227,6 +1233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 0}
   area: {fileID: 4837328956473616459}
+  field: {fileID: 0}
   agent: {fileID: 4837682096371279209}
   Agent: {fileID: 4806027653304860779}
   isSensor: 1
@@ -1290,6 +1297,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 0}
   area: {fileID: 4837328956473616459}
+  field: {fileID: 0}
   agent: {fileID: 4837682096371279209}
   Agent: {fileID: 4806027653304860779}
   isSensor: 1
@@ -1353,6 +1361,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 0}
   area: {fileID: 4837328956473616459}
+  field: {fileID: 0}
   agent: {fileID: 4837682096371279209}
   Agent: {fileID: 4806027653304860779}
   isSensor: 1
@@ -1416,6 +1425,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 0}
   area: {fileID: 4837328956473616459}
+  field: {fileID: 0}
   agent: {fileID: 4837682096371279209}
   Agent: {fileID: 4806027653304860779}
   isSensor: 1
@@ -1479,6 +1489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sun: {fileID: 0}
   area: {fileID: 4837328956473616459}
+  field: {fileID: 0}
   agent: {fileID: 4837682096371279209}
   Agent: {fileID: 4806027653304860779}
   isSensor: 1

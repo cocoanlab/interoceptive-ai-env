@@ -27,6 +27,11 @@ public class FieldThermoGrid : MonoBehaviour
         private List<HeatGridCube> heatGridCubes = new List<HeatGridCube>();
 
         public InteroceptiveAgent agent;
+        public GameObject heatMap;
+        public DayAndNight sun;
+        public float dayTemperatureVariance = 0.0f;
+        public float nightTemperatureVariance = -20.0f;
+        private bool isNight;
 
         public GameObject[] heatObjectList;
 
@@ -62,6 +67,8 @@ public class FieldThermoGrid : MonoBehaviour
                 // Debug.Log(heatObjectList);
                 // Debug.Log("Number of heatObjects = " + heatObjectList.Length);
                 // Debug.Log(heatObjectList[0].GetComponent<ThermalObject>().temperature);
+
+                isNight = sun.GetIsNight();
         }
 
         private void SetParameters()
@@ -75,6 +82,9 @@ public class FieldThermoGrid : MonoBehaviour
                 positionOfGridCenter.x = m_ResetParams.GetWithDefault("positionOfGridCenterX", positionOfGridCenter.x);
                 positionOfGridCenter.y = m_ResetParams.GetWithDefault("positionOfGridCenterY", positionOfGridCenter.y);
                 positionOfGridCenter.z = m_ResetParams.GetWithDefault("positionOfGridCenterZ", positionOfGridCenter.z);
+
+                dayTemperatureVariance = m_ResetParams.GetWithDefault("dayTemperatureVariance", dayTemperatureVariance);
+                nightTemperatureVariance = m_ResetParams.GetWithDefault("nightTemperatureVariance", nightTemperatureVariance);
 
                 useObjectHotSpot = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("useObjectHotSpot", System.Convert.ToSingle(useObjectHotSpot)));
                 useRandomHotSpot = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("useRandomHotSpot", System.Convert.ToSingle(useRandomHotSpot)));
@@ -208,16 +218,17 @@ public class FieldThermoGrid : MonoBehaviour
                         areaTemp = smoothedMatrix;
                 }
 
-                // 지형 온도의 정규화를 구현함
-                // 0~1의 값으로 적외선 카메라 화면처럼 HeatMap을 구현하기 위함임
-                normalizedAreaTemp = new float[numberOfGridCubeX, numberOfGridCubeZ];
-                for (int x = 0; x < numberOfGridCubeX; ++x)
-                {
-                        for (int z = 0; z < numberOfGridCubeZ; ++z)
-                        {
-                                normalizedAreaTemp[x, z] = (areaTemp[x, z] - heatMapMinTemp) / (heatMapMaxTemp - heatMapMinTemp);
-                        }
-                }
+                // // 지형 온도의 정규화를 구현함
+                // // 0~1의 값으로 적외선 카메라 화면처럼 HeatMap을 구현하기 위함임
+                // normalizedAreaTemp = new float[numberOfGridCubeX, numberOfGridCubeZ];
+                // for (int x = 0; x < numberOfGridCubeX; ++x)
+                // {
+                //         for (int z = 0; z < numberOfGridCubeZ; ++z)
+                //         {
+                //                 normalizedAreaTemp[x, z] = (areaTemp[x, z] - heatMapMinTemp) / (heatMapMaxTemp - heatMapMinTemp);
+                //         }
+                // }
+                SetNormalizedAreaTemp();
 
                 // For Debugging
                 // for (int x = 0; x < numberOfGridCubeX; ++x)
@@ -242,6 +253,20 @@ public class FieldThermoGrid : MonoBehaviour
                         for (int z = 0; z < numberOfGridCubeZ; ++z)
                         {
                                 areaTemp[x, z] = areaTemp[x, z] + temp;
+                        }
+                }
+        }
+
+        public void SetNormalizedAreaTemp()
+        {
+                // 지형 온도의 정규화를 구현함
+                // 0~1의 값으로 적외선 카메라 화면처럼 HeatMap을 구현하기 위함임
+                normalizedAreaTemp = new float[numberOfGridCubeX, numberOfGridCubeZ];
+                for (int x = 0; x < numberOfGridCubeX; ++x)
+                {
+                        for (int z = 0; z < numberOfGridCubeZ; ++z)
+                        {
+                                normalizedAreaTemp[x, z] = (areaTemp[x, z] - heatMapMinTemp) / (heatMapMaxTemp - heatMapMinTemp);
                         }
                 }
         }
@@ -282,5 +307,32 @@ public class FieldThermoGrid : MonoBehaviour
                 return null;
 
         }
+
+        public void SetDayNightTemperature()
+        {
+                bool currentIsNight = sun.GetIsNight();
+                if (!isNight == currentIsNight)
+                {
+                        for (int x = 0; x < numberOfGridCubeX; ++x)
+                        {
+                                for (int z = 0; z < numberOfGridCubeZ; ++z)
+                                {
+                                        if (currentIsNight)
+                                        {
+                                                areaTemp[x, z] += nightTemperatureVariance - dayTemperatureVariance;
+                                        }
+                                        else
+                                        {
+                                                areaTemp[x, z] += dayTemperatureVariance - nightTemperatureVariance;
+                                        }
+                                }
+                        }
+
+                        SetNormalizedAreaTemp();
+                        heatMap.GetComponent<HeatMap>().EpisodeHeatMap();
+                        isNight = currentIsNight;
+                }
+        }
+
 
 }
