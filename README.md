@@ -5,24 +5,46 @@ EVAAA will provide a mechanism to freely choose a goal across different surround
 ![agent](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/3ad778d8-38cd-4cb1-843b-9fa58947d6e3)
 
 ## Install and Setting
-*see [here](docs/installationGuide.md) for a more detailed installation guide, including information on Python/pip/conda and using the command line during installation*
+See here for a more detailed installation guide, including information on Python/pip/conda and using the command line during installation.
 
-To get started you will need to:
-1. Clone this repo.
-2. **Install the animalai python package** and requirements by running `pip install -e animalai` from the root folder.
-3. **Download the environment** for your system:
+The setting process required to run this project is as follows.
 
-| OS | Environment link |
-| --- | --- |
-| Linux |  [v3.0.1](https://kv301.user.srcf.net/wp-content/uploads/2022/04/AAI_v3.0.1_build_linux_090422.zip) |
-| Mac | [v3.0.1](https://kv301.user.srcf.net/wp-content/uploads/2022/04/AAI_v3.0.1_build_macOS_090422.zip) |
-| Windows | [v3.0.1](https://kv301.user.srcf.net/wp-content/uploads/2022/04/AAI_v3.0.1_build_windows_090422.zip) |
+1. Clone EVAAA repository.
+2. Install dependencies, which are the packages required for execution EVAAA, by running pip install -e EVAAA from the root folder.
+The required packages and each version: Python, Python packages
+3. Download the environment for your system
+4. Open at Unity Hub : Editor version “2021.3.1f1” should be installed.
 
-(Old v2.x versions can be found [here](docs/oldVersions.md))
+### Detailed Installation Guide
+This is a more detailed step-by-step installation guide for EVAAA, written for users who don't have lots of experience with python dependencies, Github repositories, and/or Unity -- or in case you run into trouble with the installation.
+Here we provide instructions for the installation required for the project. Make sure to follow all the necessary commands, configurations, and any additional setup required.
 
-Unzip the **entire content** of the archive to the (initially empty) `env` folder. On linux you may have to make the file executable by running `chmod +x env/AnimalAI.x86_64`. Note that the env folder should contain the AnimalAI.exe/.x86_84/.app depending on your system and *any other folders* in the same directory in the zip file.
+### Step 1. Clone EVAAA Repository
+Here we provide the command to clone the main repository from GitHub to the local machine. We recommend creating a ‘root’ folder so that you can also keep your own training scripts, a Python virtual environment, and any other external EVAAA-related work in the same location.
+Cloning this repository can be done either by:
+- Downloading the .zip directly and extracting it into your 'root' folder
+- Cloning using GitHub's command line interface
+
+### Step 2. Install Dependencies
+To run the project after replicating the repo, you must download the necessary packages in the following ways. You can install these via pip or conda, with or without a virtual environment created -- if you're more familiar with a particular method here it's probably best to stick to it.
+In EVAAA, the implementation of environment and agent on Unity is based on C# and training is based on python. The way to download and set the packages needed are written at the below.
+
+a. Python
+따로 설치해야 할 python version이 존재하는지
+- Download
+b. Visual Studio Code
+c. Unity
+
+### Step 3. Download environment
+
+### Step 4. Open at Unity Hub
+Editor version: 2021.3.1f1
+After all the packages are ready, then you can run EVAAA project at Unity. 
+
 
 ## Manual Control 
+When you run this project on Unity, it will proceed with an agent view (a first-person perspective). Here you can control the agent with the following:
+<!-- 
 
 If you launch the environment directly from the executable or through the `play.py` script it will launch in player mode. Here you can control the agent with the following:
 
@@ -33,7 +55,7 @@ If you launch the environment directly from the executable or through the `play.
 | A   | turn agent left     |
 | D   | turn agent right    |
 | C   | switch camera       |
-| R   | reset environment   |
+| R   | reset environment   | -->
 
 ## Unity Environment
 We have a dynamically changing environment, and there are 5 levels in total. 
@@ -71,11 +93,9 @@ You can also set temperature changes based on the weather, with rain or snow obs
 
 ### Level 5. Four seasons.
 ![season](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/d3bff940-96c9-4ce6-ad04-e5858dd7a95d)
+
 In level 5, we combine all challenges from lower level environments, e.g., day/night cycle and weather changes, with seasonal variations– spring, summer, fall, and winter.
 Each season is characterized by a number of unique features with varying colors, which can disrupt the agent’s vision for navigating and detecting resources.
-
-
-
 
 ## Unity Script Overview
 
