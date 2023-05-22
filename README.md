@@ -42,11 +42,38 @@ We have a dynamically changing environment, and there are 5 levels in total.
 ![스크린샷 2023-05-22 오전 11 17 51](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/bf056b30-339c-4064-bd7d-96968b743c62)
 
 At level 1, the environment is simple, featuring only the fundamental resources, that is, food, water (i.e., a pond), and temperature
+- The food is organized into cubes and possesses the ability to undergo color changes over time.
+- The water is arranged in the form of a pond. 
+- The temperature is randomized based on the specified parameters and is regenerated whenever the agent dies.
+  - The temperature can be directly modified through the "Field Temperature parameters".
+
 
 ### Level 2. Obstacles.
+![image](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/befa3f25-bf09-4179-a678-7b8f30df8d82)
+
+The agent needs to leverage the knowledge acquired from the previous level to successfully adapt to a more complex environmental setting. 
+At level 2, we adds natural objects, such as trees, rocks, and bushes, which act as obstacles that hinder the agent’s vision
+
 ### Level 3. Day/night cycle.
+![dayandhignt](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/f41d31a3-2180-437d-9c29-478a4e5c6b37)
+
+In level 3, we implemented the day/night cycle using a sun game object that rotates at a predefined degree over time.
+
+At night, the overall temperature is lower and the agent's vision is darker, so it receives less visual input. 
+
 ### Level 4. Weather changes.
+![weather](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/1bd12896-3bbe-4b4b-ad54-0ebe251f26e3)
+
+In level 4, we implemented the weather changes. We incorporated two weather variations into EVAAA: rain and snow, drawing inspiration from nature.
+
+Weather options can be selected as a parameter in Unity itself, and can be applied to any scene. 
+You can also set temperature changes based on the weather, with rain or snow obstructing the agent's view. 
+
 ### Level 5. Four seasons.
+![season](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/d3bff940-96c9-4ce6-ad04-e5858dd7a95d)
+In level 5, we combine all challenges from lower level environments, e.g., day/night cycle and weather changes, with seasonal variations– spring, summer, fall, and winter.
+Each season is characterized by a number of unique features with varying colors, which can disrupt the agent’s vision for navigating and detecting resources.
+
 
 
 
