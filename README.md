@@ -79,6 +79,8 @@ Each season is characterized by a number of unique features with varying colors,
 
 ## Unity Script Overview
 
+EVAAA environment consists of four large categories of scripts.
+
 + Agent
     + [InteroceptiveAgent](https://github.com/cocoanlab/interoceptive-ai-env/blob/2dfe4d8842bde685f6d2fea5f07070c5c37aada1/Assets/Scripts/InteroceptiveAgent.cs)
 	
@@ -90,8 +92,9 @@ Each season is characterized by a number of unique features with varying colors,
     + [WeakAnimal](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/WeakAnimal.cs)
 	
 + Environment
+    + [Field](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/Field.cs)
+    + [WeatherManager](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/WeatherManager.cs)
     + [AreaTemp](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/AreaTemp.cs)
-    + [cave2](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/cave2.cs)
     + [DayAndNight](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/DayAndNight.cs)
     + [ObjectiveTemp](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/ObjectTemp.cs)
     + [PondBuild](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/PondBuild.cs)
@@ -102,8 +105,7 @@ Each season is characterized by a number of unique features with varying colors,
     + [HeatMap](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/HeatMap.cs)
     + [FieldThermoGrid](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/FieldThermoGrid.cs)
     + [skybox](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/skybox.cs)
-    + [WeatherManager](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/WeatherManager.cs)
-    + [Field](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/Field.cs)
+    + [cave2](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/cave2.cs)
 	
 + Resource
     + [ResourceEating](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/ResourceEating.cs)
@@ -120,7 +122,7 @@ Each season is characterized by a number of unique features with varying colors,
 
 ## Unity Assets Sources
 
-EVAAA environments are built using the following assets.
+EVAAA environments are built using the following assets. (All assets are free assets from Unity Asset Store.)
 
 + [Field Material 1](https://assetstore.unity.com/packages/3d/environments/landscapes/mountain-terrain-rock-tree-97905)
 + [Field Material 2](https://assetstore.unity.com/packages/2d/textures-materials/floors/yughues-free-ground-materials-13001#content)
