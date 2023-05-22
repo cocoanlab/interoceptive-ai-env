@@ -2,7 +2,7 @@
 
 EVAAA will provide a mechanism to freely choose a goal across different surrounding conditions and keep a more stable reward function, which are the key to build and test autonomous and adaptive RL agents. We provide a 3D virtual environment platform that requires RL agents in the Unity environment. It is designed to facilitate testing RL agent.
 
-우리 연구 이미지 or gif 첨부 
+![agent](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/3ad778d8-38cd-4cb1-843b-9fa58947d6e3)
 
 ## Install and Setting
 *see [here](docs/installationGuide.md) for a more detailed installation guide, including information on Python/pip/conda and using the command line during installation*
@@ -36,8 +36,19 @@ If you launch the environment directly from the executable or through the `play.
 | R   | reset environment   |
 
 ## Unity Environment
+We have a dynamically changing environment, and there are 5 levels in total. 
 
-각 레벨 별 구체적인 설명
+### Level 1. Basic setup: Food, water, and temperature.
+![스크린샷 2023-05-22 오전 11 17 51](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/bf056b30-339c-4064-bd7d-96968b743c62)
+
+At level 1, the environment is simple, featuring only the fundamental resources, that is, food, water (i.e., a pond), and temperature
+
+### Level 2. Obstacles.
+### Level 3. Day/night cycle.
+### Level 4. Weather changes.
+### Level 5. Four seasons.
+
+
 
 ## Unity Script Overview
 
