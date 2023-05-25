@@ -1,1 +1,19 @@
+# Detailed Installation Guide
+This is a more detailed step-by-step installation guide for EVAAA, written for users who don't have lots of experience with python dependencies, Github repositories, and/or Unity -- or in case you run into trouble with the installation.
+Here we provide instructions for the installation required for the project. Make sure to follow all the necessary commands, configurations, and any additional setup required.
+
+## Step 1. Clone EVAAA Repository
+Here we provide the command to clone the main repository from GitHub to the local machine. We recommend creating a ‘root’ folder so that you can also keep your own training scripts, a Python virtual environment, and any other external EVAAA-related work in the same location.
+Cloning this repository can be done either by:
+- Downloading the .zip directly and extracting it into your 'root' folder
+- Cloning using GitHub's command line interface
+
+## Step 2. Install Dependencies
+To run the project after replicating the repo, you must download the necessary packages in the following ways. You can install these via pip or conda, with or without a virtual environment created -- if you're more familiar with a particular method here it's probably best to stick to it.
+In EVAAA, the implementation of environment and agent on Unity is based on C# and training is based on python. The way to download and set the packages needed are written at the below.
+
+## Step 3. Download environment
+You should download appropriate unity environment at this interoceptive-ai-env page.
+## Step 4. Open at Unity Hub
+To open your environment, you need to set Unity Editor version to ‘2021.3.1f1’. After all the packages are ready, then you can run EVAAA project at Unity.
 

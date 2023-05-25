@@ -5,57 +5,25 @@ EVAAA will provide a mechanism to freely choose a goal across different surround
 ![agent](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/3ad778d8-38cd-4cb1-843b-9fa58947d6e3)
 
 ## Install and Setting
-See here for a more detailed installation guide, including information on Python/pip/conda and using the command line during installation.
-
+See [here](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/docs/install) for a more detailed installation guide, including information on python/pip/conda and using the command line during installation.
 The setting process required to run this project is as follows.
-
 1. Clone EVAAA repository.
 2. Install dependencies, which are the packages required for execution EVAAA, by running pip install -e EVAAA from the root folder.
-The required packages and each version: Python, Python packages
+The required packages and each version:
 3. Download the environment for your system
-4. Open at Unity Hub : Editor version “2021.3.1f1” should be installed.
-
-### Detailed Installation Guide
-This is a more detailed step-by-step installation guide for EVAAA, written for users who don't have lots of experience with python dependencies, Github repositories, and/or Unity -- or in case you run into trouble with the installation.
-Here we provide instructions for the installation required for the project. Make sure to follow all the necessary commands, configurations, and any additional setup required.
-
-### Step 1. Clone EVAAA Repository
-Here we provide the command to clone the main repository from GitHub to the local machine. We recommend creating a ‘root’ folder so that you can also keep your own training scripts, a Python virtual environment, and any other external EVAAA-related work in the same location.
-Cloning this repository can be done either by:
-- Downloading the .zip directly and extracting it into your 'root' folder
-- Cloning using GitHub's command line interface
-
-### Step 2. Install Dependencies
-To run the project after replicating the repo, you must download the necessary packages in the following ways. You can install these via pip or conda, with or without a virtual environment created -- if you're more familiar with a particular method here it's probably best to stick to it.
-In EVAAA, the implementation of environment and agent on Unity is based on C# and training is based on python. The way to download and set the packages needed are written at the below.
-
-a. Python
-따로 설치해야 할 python version이 존재하는지
-- Download
-b. Visual Studio Code
-c. Unity
-
-### Step 3. Download environment
-
-### Step 4. Open at Unity Hub
-Editor version: 2021.3.1f1
-After all the packages are ready, then you can run EVAAA project at Unity. 
+4. Open at Unity Hub
+Editor version “2021.3.1f1” should be installed.
 
 
 ## Manual Control 
 When you run this project on Unity, it will proceed with an agent view (a first-person perspective). Here you can control the agent with the following:
-<!-- 
-
-If you launch the environment directly from the executable or through the `play.py` script it will launch in player mode. Here you can control the agent with the following:
-
 | Keyboard Key  | Action    |
 | --- | --- |
 | W   | move agent forwards |
 | S   | move agent backwards|
 | A   | turn agent left     |
 | D   | turn agent right    |
-| C   | switch camera       |
-| R   | reset environment   | -->
+
 
 ## Unity Environment
 We have a dynamically changing environment, and there are 5 levels in total. 
@@ -156,3 +124,65 @@ EVAAA environments are built using the following assets. (All assets are free as
 + [Flower](https://assetstore.unity.com/packages/3d/environments/fantasy-landscape-103573#content)
 + [Snowman](https://assetstore.unity.com/packages/3d/props/free-snowman-105123#content)
 + [Snow Material](https://assetstore.unity.com/packages/2d/textures-materials/water/stylize-snow-texture-153579#content)
+
+# Parameters
+
+See [here](https://github.com/cocoanlab/interoceptive-ai/blob/dev-sw-0.1.0/config/config.yaml) for a more detailed parameter setting and temporary setting value.
+
+You can set some parameters important for implementing the environment at Unity.
+
+Here, () means a list of words located in the corresponding place.
+For example, numResource(Food, Water, Pond) means numResourceFood, numResourceWater, numResourcePond.
+
+## Environment parameters
+This is a part that defines parameters necessary to implement the environment on Unity.
+
+### Resources
+Set the number and position of each food and water cube, and pond.
+- numResource(Food, Water, Pond): The generation number of resources.
+- resource(Food, Water)Value: The decreasing and increasing amounts for each resource at the food, water bar of agent.
+- IsRandom(Food, Water, Pond)Position: As a Boolean variable, it sets whether the generation location of resources is random.
+
+Set the pond and food cubes’ position. The food cube creation method is to pull out a new location every time and if the location is too close to the pond, then pull the location again. These parameters below are related to this function. You can see ([here](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.13.1/Assets/Scripts/Field.cs)) for the detailed implementation.
+- pondReourcePosition(X, Y, Z): The x, y, and z-axis positions of the center of the pond on the field of unity.
+- minDistanceToPond: Minimum distance the food cube should stay away from the pond. This prevents food cubes from forming on or near the pond.
+- randomPositionMaxTry: When algorithm pull out new location, it uses while loop. So, if there’re no exact spawn position, the code will be repeated forever. To prevent this severe problem, we have limited the maximum number of pull-out attempts.
+  
+### Fieldtemperature
+We set field temperature as the portion of cubes acting as a grid. Therefore, in this part, important features of grid cube each representing temperature of ground are set. You can check these parameters in these codes([Field](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/Field.cs),
+[HeatMap](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.13.1/Assets/Scripts/HeatMap.cs),
+[ThermalSensing](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.13.1/Assets/Scripts/ThermalSensing.cs)).
+- numberOfGrideCube(X, Z): The number of cubes which set the temperature of the ground.
+- sizeOfGridCube(X, Y, Z): The size of 3D grid cube corresponds to temperature.
+- positionOfGridCenter(X, Y, Z): The x, y, and z-axis position of the center of grid cubes.
+
+Settings of temperature and heat map of environment’s ground. Hotspot sets the temperature of certain spots of the terrain to vary the temperature of each area.
+- useObjectHotSpot: Set the hotspot of selected game objects such as trees, caves, and ponds.
+- useRandomHotSpot: Select a random cube among grid cubes each representing temperature regardless of the game objects and designate them as a hotspot.
+- hotspot(Count, Temp): The number of hotspot cubes and their temperature.
+- fieldDefaultTemp: Default temperature of cubes representing field’s temperature.
+- heatMap(Max, Min)Temp: Implementation of heat map located on the lower right side of Screen. Set of maximum and minimum temperature of heatmap.
+- smoothingSigma: We perform smoothing of the temperature assigned to the cube from the center to the edge. This is used as a temperature smoothing factor.
+- dayNightSpeed: Set how many seconds to pass in the game world after one second in the real world. Features of sky in unity environment like color changes as the time flows at a set speed.
+- (day, night)TemperatureVariance: Temperature changing variance of day and night.
+  
+### Action
+Set agent’s speed including moving and eating.
+- (move, turn)Speed: Speed of agent’s about moving and turning.
+- autoEat: As a Boolean variable, justifying whether to eat automatically if the agent encounter or hit the food and water cube.
+- eatingDistance: Distance between cube and agent that agent can eat. 
+
+### ev
+This part relates to the agent's interoceptive bar including **Food, Water, Thermo** located in the upper middle of the unity screen.
+- (max, min, start)(Food, Water, Thermo)Level: Maximum and minimum from the defined starting level of each variable.
+- change(Food, Water, Thermo)(_0, LevelRate): 
+  
+### Visual, Olfactory, Thermo Sensor
+Sensory inputs including visual, olfactory, and thermo that go into the agent.
+Each sensory inputs can be detected by agent through grid cubes around agent.
+- use(Visual, Olfactory, Thermo): As a Boolean variable, set whether to use each sensory input.
+- visual(Hight, Width): 
+- olfactorySensor(Length, Size):
+- thermoSensor(ChangeRate, Size):
+### touchSensor
+- useTouchObs:
