@@ -129,7 +129,7 @@ public class Animal : MonoBehaviour
             }
             // PlaySE(sound_Hurt);
             anim.SetTrigger("Hurt");
-         }
+        }
     }
 
     protected void Dead()

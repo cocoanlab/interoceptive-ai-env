@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1699568242032636
+--- !u!1 &1853821981215314
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,62 +8,62 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4317744128851916}
-  - component: {fileID: 33865088620820440}
-  - component: {fileID: -6984766193560543651}
-  - component: {fileID: 23208712281262040}
-  - component: {fileID: 54759831802293544}
-  - component: {fileID: 8834216161069874123}
+  - component: {fileID: 4094284922894548}
+  - component: {fileID: 33861055306973786}
+  - component: {fileID: -1685706729478905828}
+  - component: {fileID: 23534414619488192}
+  - component: {fileID: 54488530251212230}
+  - component: {fileID: 5204920723700941091}
   m_Layer: 8
-  m_Name: Water
-  m_TagString: water
+  m_Name: Food
+  m_TagString: food
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4317744128851916
+--- !u!4 &4094284922894548
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1699568242032636}
+  m_GameObject: {fileID: 1853821981215314}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -32.01, y: 2, z: -9.559753}
+  m_LocalPosition: {x: -32.01, y: 2, z: -12.46}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &33865088620820440
+--- !u!33 &33861055306973786
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1699568242032636}
+  m_GameObject: {fileID: 1853821981215314}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &-6984766193560543651
+--- !u!65 &-1685706729478905828
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1699568242032636}
+  m_GameObject: {fileID: 1853821981215314}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &23208712281262040
+--- !u!23 &23534414619488192
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1699568242032636}
+  m_GameObject: {fileID: 1853821981215314}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -77,7 +77,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 88b9ae7af2c1748a0a1f63407587a601, type: 2}
+  - {fileID: 2100002, guid: 6c49dbcb1d596a6468a1990cf081b3a0, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -99,13 +99,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!54 &54759831802293544
+--- !u!54 &54488530251212230
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1699568242032636}
+  m_GameObject: {fileID: 1853821981215314}
   serializedVersion: 2
   m_Mass: 50
   m_Drag: 0.5
@@ -115,26 +115,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8834216161069874123
+--- !u!114 &5204920723700941091
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1699568242032636}
+  m_GameObject: {fileID: 1853821981215314}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9721f13751a624790a679048373d2b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   property:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
   - 0.1
   - 0.1
   - 0.1
   - 0.1
   - 0.1
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
