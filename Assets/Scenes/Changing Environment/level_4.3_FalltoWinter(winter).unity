@@ -5719,6 +5719,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mountain
       objectReference: {fileID: 0}
+    - target: {fileID: 162790, guid: 97978387d041db2429e6dabd7b1c4f8f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400386, guid: 97978387d041db2429e6dabd7b1c4f8f, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -9752,6 +9756,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rock2
       objectReference: {fileID: 0}
+    - target: {fileID: 1000011205016464, guid: b12c8b6046ef0604b96e60fe14b9c16e, type: 3}
+      propertyPath: m_TagString
+      value: rock
+      objectReference: {fileID: 0}
     - target: {fileID: 4000010140763972, guid: b12c8b6046ef0604b96e60fe14b9c16e, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -9830,7 +9838,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &724068267
 Transform:
   m_ObjectHideFlags: 0
@@ -17807,6 +17815,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1250718905}
   m_Mesh: {fileID: -5981167532931969384, guid: d8db3992cd81f9949bc1b37ef9d21266, type: 3}
+--- !u!4 &1256049530 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4839067235645850872, guid: 1e67812e2873e4900a1d0e7a776304c7,
+    type: 3}
+  m_PrefabInstance: {fileID: 4839067236102175384}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1272356304
 GameObject:
   m_ObjectHideFlags: 0
@@ -18262,6 +18276,51 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1374270751
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1374270752}
+  - component: {fileID: 1374270753}
+  m_Layer: 3
+  m_Name: GameObject
+  m_TagString: heatObject
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1374270752
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374270751}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1256049530}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1374270753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374270751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bdfca8e2197241b596bb7945028116f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  temperature: 200
 --- !u!4 &1390450317 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4000011207167760, guid: ff421997f346e314c82e73610f419ac1,
@@ -28863,7 +28922,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1690586499}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.3, y: 0, z: -0.3}
+  m_LocalPosition: {x: -0.3, y: 2.4, z: -0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -38773,7 +38832,7 @@ GameObject:
   - component: {fileID: 1818410629}
   m_Layer: 0
   m_Name: Rock
-  m_TagString: Untagged
+  m_TagString: rock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39257,6 +39316,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: cave
       objectReference: {fileID: 0}
+    - target: {fileID: 6118940613433307357, guid: 6c97eab4d347c4fddb193666fb8a8bfd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c97eab4d347c4fddb193666fb8a8bfd, type: 3}
 --- !u!1 &1922862910
@@ -39316,6 +39380,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rock3
       objectReference: {fileID: 0}
+    - target: {fileID: 1000010357584986, guid: ff421997f346e314c82e73610f419ac1, type: 3}
+      propertyPath: m_TagString
+      value: rock
+      objectReference: {fileID: 0}
     - target: {fileID: 4000011207167760, guid: ff421997f346e314c82e73610f419ac1, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -39334,15 +39402,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4000011207167760, guid: ff421997f346e314c82e73610f419ac1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.3
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 4000011207167760, guid: ff421997f346e314c82e73610f419ac1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.5
+      value: 2.1
       objectReference: {fileID: 0}
     - target: {fileID: 4000011207167760, guid: ff421997f346e314c82e73610f419ac1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 42.1
+      value: 23.5
       objectReference: {fileID: 0}
     - target: {fileID: 4000011207167760, guid: ff421997f346e314c82e73610f419ac1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -40404,6 +40472,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rock1
       objectReference: {fileID: 0}
+    - target: {fileID: 1000010357584986, guid: ff421997f346e314c82e73610f419ac1, type: 3}
+      propertyPath: m_TagString
+      value: rock
+      objectReference: {fileID: 0}
     - target: {fileID: 4000011207167760, guid: ff421997f346e314c82e73610f419ac1, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -41269,11 +41341,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0c3cbfe7851c483c9f20175685fc625, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfCubeX: 100
-  numberOfCubeZ: 100
-  sizeOfCube: {x: 1, y: 5, z: 1}
-  positionOfCenter: {x: 0, y: 0, z: 0}
-  agent: {fileID: 114176228070079219}
 --- !u!114 &114176228070079219 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4806027653304860779, guid: 1e67812e2873e4900a1d0e7a776304c7,
@@ -41440,6 +41507,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 426867827857983433, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: hotSpotSize
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 426867827857983433, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: hotSpotTemp
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 426867827857983433, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: hotSpotCount
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 426867827857983433, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: fieldDefaultTemp
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 426867827857983433, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: useRandomHotSpot
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1345279974522910089, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: m_Enabled
@@ -41711,7 +41803,7 @@ PrefabInstance:
     - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: pondResourcePositions.Array.data[0].y
-      value: -9.54
+      value: -5.7
       objectReference: {fileID: 0}
     - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
@@ -42062,6 +42154,21 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &4839067236102175397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1464820312563697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09434ee4e065b4c97b95519a260a80bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewDistance: 10
+  objectsToTarget:
+  - rock
 --- !u!1001 &5331082243850555881
 PrefabInstance:
   m_ObjectHideFlags: 0
