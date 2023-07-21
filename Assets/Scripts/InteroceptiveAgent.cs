@@ -72,6 +72,10 @@ public class InteroceptiveAgent : Agent
         public GameObject thermoSensorBackwardLeft;
         public GameObject thermoSensorBackwardRight;
 
+        public GameObject WeatherSystem;
+        public WeatherState weatherState;
+
+
         [Header("Essential variables (EV)")]
         public int countEV = 4;
         public float[] resourceLevels;
@@ -305,9 +309,28 @@ public class InteroceptiveAgent : Agent
                 {
                         playRecorder.GetComponent<CaptureScreenShot>().CaptureImage();
                 }
-
+                
                 this.agentPosition = this.transform.position;
                 this.agentRotation = this.transform.eulerAngles;
+
+                if(WeatherSystem.activeSelf == true)  //WeatherSystem.enabled == true
+                {
+                        if (weatherState == WeatherState.Rain)
+                        {   
+                        olfactorySensorLength = 50f;
+                        }
+
+                        if (weatherState == WeatherState.Thunder)
+                        {   
+                        olfactorySensorLength = 30f;
+                        }
+
+                        if (weatherState == WeatherState.Snow)
+                        {   
+                        olfactorySensorLength = 20f;
+                        }
+                        
+                } 
 
                 if (eatenResource)
                 {
