@@ -2,27 +2,49 @@
 
 EVAAA will provide a mechanism to freely choose a goal across different surrounding conditions and keep a more stable reward function, which are the key to build and test autonomous and adaptive RL agents. We provide a 3D virtual environment platform that requires RL agents in the Unity environment. It is designed to facilitate testing RL agent.
 
-우리 연구 이미지 or gif 첨부 
+![agent](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/3ad778d8-38cd-4cb1-843b-9fa58947d6e3)
 
 ## Install and Setting
-*see [here](docs/installationGuide.md) for a more detailed installation guide, including information on Python/pip/conda and using the command line during installation*
+See here for a more detailed installation guide, including information on Python/pip/conda and using the command line during installation.
 
-To get started you will need to:
-1. Clone this repo.
-2. **Install the animalai python package** and requirements by running `pip install -e animalai` from the root folder.
-3. **Download the environment** for your system:
+The setting process required to run this project is as follows.
 
-| OS | Environment link |
-| --- | --- |
-| Linux |  [v3.0.1](https://kv301.user.srcf.net/wp-content/uploads/2022/04/AAI_v3.0.1_build_linux_090422.zip) |
-| Mac | [v3.0.1](https://kv301.user.srcf.net/wp-content/uploads/2022/04/AAI_v3.0.1_build_macOS_090422.zip) |
-| Windows | [v3.0.1](https://kv301.user.srcf.net/wp-content/uploads/2022/04/AAI_v3.0.1_build_windows_090422.zip) |
+1. Clone EVAAA repository.
+2. Install dependencies, which are the packages required for execution EVAAA, by running pip install -e EVAAA from the root folder.
+The required packages and each version: Python, Python packages
+3. Download the environment for your system
+4. Open at Unity Hub : Editor version “2021.3.1f1” should be installed.
 
-(Old v2.x versions can be found [here](docs/oldVersions.md))
+### Detailed Installation Guide
+This is a more detailed step-by-step installation guide for EVAAA, written for users who don't have lots of experience with python dependencies, Github repositories, and/or Unity -- or in case you run into trouble with the installation.
+Here we provide instructions for the installation required for the project. Make sure to follow all the necessary commands, configurations, and any additional setup required.
 
-Unzip the **entire content** of the archive to the (initially empty) `env` folder. On linux you may have to make the file executable by running `chmod +x env/AnimalAI.x86_64`. Note that the env folder should contain the AnimalAI.exe/.x86_84/.app depending on your system and *any other folders* in the same directory in the zip file.
+### Step 1. Clone EVAAA Repository
+Here we provide the command to clone the main repository from GitHub to the local machine. We recommend creating a ‘root’ folder so that you can also keep your own training scripts, a Python virtual environment, and any other external EVAAA-related work in the same location.
+Cloning this repository can be done either by:
+- Downloading the .zip directly and extracting it into your 'root' folder
+- Cloning using GitHub's command line interface
+
+### Step 2. Install Dependencies
+To run the project after replicating the repo, you must download the necessary packages in the following ways. You can install these via pip or conda, with or without a virtual environment created -- if you're more familiar with a particular method here it's probably best to stick to it.
+In EVAAA, the implementation of environment and agent on Unity is based on C# and training is based on python. The way to download and set the packages needed are written at the below.
+
+a. Python
+따로 설치해야 할 python version이 존재하는지
+- Download
+b. Visual Studio Code
+c. Unity
+
+### Step 3. Download environment
+
+### Step 4. Open at Unity Hub
+Editor version: 2021.3.1f1
+After all the packages are ready, then you can run EVAAA project at Unity. 
+
 
 ## Manual Control 
+When you run this project on Unity, it will proceed with an agent view (a first-person perspective). Here you can control the agent with the following:
+<!-- 
 
 If you launch the environment directly from the executable or through the `play.py` script it will launch in player mode. Here you can control the agent with the following:
 
@@ -33,13 +55,51 @@ If you launch the environment directly from the executable or through the `play.
 | A   | turn agent left     |
 | D   | turn agent right    |
 | C   | switch camera       |
-| R   | reset environment   |
+| R   | reset environment   | -->
 
 ## Unity Environment
+We have a dynamically changing environment, and there are 5 levels in total. 
 
-각 레벨 별 구체적인 설명
+### Level 1. Basic setup: Food, water, and temperature.
+![스크린샷 2023-05-22 오전 11 17 51](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/bf056b30-339c-4064-bd7d-96968b743c62)
+
+At level 1, the environment is simple, featuring only the fundamental resources, that is, food, water (i.e., a pond), and temperature
+- The food is organized into cubes and possesses the ability to undergo color changes over time.
+- The water is arranged in the form of a pond. 
+- The temperature is randomized based on the specified parameters and is regenerated whenever the agent dies.
+  - The temperature can be directly modified through the "Field Temperature parameters".
+
+
+### Level 2. Obstacles.
+![image](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/befa3f25-bf09-4179-a678-7b8f30df8d82)
+
+The agent needs to leverage the knowledge acquired from the previous level to successfully adapt to a more complex environmental setting. 
+At level 2, we adds natural objects, such as trees, rocks, and bushes, which act as obstacles that hinder the agent’s vision
+
+### Level 3. Day/night cycle.
+![dayandhignt](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/f41d31a3-2180-437d-9c29-478a4e5c6b37)
+
+In level 3, we implemented the day/night cycle using a sun game object that rotates at a predefined degree over time.
+
+At night, the overall temperature is lower and the agent's vision is darker, so it receives less visual input. 
+
+### Level 4. Weather changes.
+![weather](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/1bd12896-3bbe-4b4b-ad54-0ebe251f26e3)
+
+In level 4, we implemented the weather changes. We incorporated two weather variations into EVAAA: rain and snow, drawing inspiration from nature.
+
+Weather options can be selected as a parameter in Unity itself, and can be applied to any scene. 
+You can also set temperature changes based on the weather, with rain or snow obstructing the agent's view. 
+
+### Level 5. Four seasons.
+![season](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/d3bff940-96c9-4ce6-ad04-e5858dd7a95d)
+
+In level 5, we combine all challenges from lower level environments, e.g., day/night cycle and weather changes, with seasonal variations– spring, summer, fall, and winter.
+Each season is characterized by a number of unique features with varying colors, which can disrupt the agent’s vision for navigating and detecting resources.
 
 ## Unity Script Overview
+
+EVAAA environment consists of four large categories of scripts.
 
 + Agent
     + [InteroceptiveAgent](https://github.com/cocoanlab/interoceptive-ai-env/blob/2dfe4d8842bde685f6d2fea5f07070c5c37aada1/Assets/Scripts/InteroceptiveAgent.cs)
@@ -52,8 +112,9 @@ If you launch the environment directly from the executable or through the `play.
     + [WeakAnimal](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/WeakAnimal.cs)
 	
 + Environment
+    + [Field](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/Field.cs)
+    + [WeatherManager](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/WeatherManager.cs)
     + [AreaTemp](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/AreaTemp.cs)
-    + [cave2](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/cave2.cs)
     + [DayAndNight](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/DayAndNight.cs)
     + [ObjectiveTemp](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/ObjectTemp.cs)
     + [PondBuild](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/PondBuild.cs)
@@ -64,8 +125,7 @@ If you launch the environment directly from the executable or through the `play.
     + [HeatMap](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/HeatMap.cs)
     + [FieldThermoGrid](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/FieldThermoGrid.cs)
     + [skybox](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/skybox.cs)
-    + [WeatherManager](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/WeatherManager.cs)
-    + [Field](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/Field.cs)
+    + [cave2](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/cave2.cs)
 	
 + Resource
     + [ResourceEating](https://github.com/cocoanlab/interoceptive-ai-env/blob/r0.12.3/Assets/Scripts/ResourceEating.cs)
@@ -82,7 +142,7 @@ If you launch the environment directly from the executable or through the `play.
 
 ## Unity Assets Sources
 
-EVAAA environments are built using the following assets.
+EVAAA environments are built using the following assets. (All assets are free assets from Unity Asset Store.)
 
 + [Field Material 1](https://assetstore.unity.com/packages/3d/environments/landscapes/mountain-terrain-rock-tree-97905)
 + [Field Material 2](https://assetstore.unity.com/packages/2d/textures-materials/floors/yughues-free-ground-materials-13001#content)
