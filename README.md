@@ -6,13 +6,13 @@ EVAAA will provide a mechanism to freely choose a goal across different surround
 
 ## Install and Setting
 See here for a more detailed installation guide.
-
 The setting process required to run this project is as follows.
 
-1. Download interoceptive AI environment from our [google drive](https://drive.google.com/drive/folders/1OnsRKaeks3kpiVeBAEh47NpcbOHIqfW2?usp=sharing)
-2. Install [ml-agents](https://github.com/Unity-Technologies/ml-agents)
-3. Follow example python code ("python_code_example.py") in Example folder of this repository
-
+1. Clone this repository
+2. Download interoceptive AI environment from our [google drive](https://drive.google.com/drive/folders/1OnsRKaeks3kpiVeBAEh47NpcbOHIqfW2?usp=sharing)
+3. Unzip environment files in the Example folder of this repository
+4. Install [ml-agents](https://github.com/Unity-Technologies/ml-agents)
+5. Follow example python code ("python_code_example.py") in Example folder of this repository
 
 ## Requirements
 | Software | Version |
