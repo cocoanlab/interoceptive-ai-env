@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44021598, g: 0.48875326, b: 0.5689334, a: 1}
+  m_IndirectSpecularColor: {r: 0.44021598, g: 0.48875344, b: 0.5689334, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -59813,6 +59813,7 @@ GameObject:
   - component: {fileID: 1826095210}
   - component: {fileID: 1826095209}
   - component: {fileID: 1826095208}
+  - component: {fileID: 1826095212}
   m_Layer: 0
   m_Name: WeatherSystem
   m_TagString: Untagged
@@ -60069,6 +60070,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1826095212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826095207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &1874983833
 GameObject:
   m_ObjectHideFlags: 0
@@ -61690,6 +61711,11 @@ PrefabInstance:
       propertyPath: playRecorder
       value: 
       objectReference: {fileID: 79528128}
+    - target: {fileID: 4806027653304860779, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: WeatherSystem
+      value: 
+      objectReference: {fileID: 1826095207}
     - target: {fileID: 4806027653304860779, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: changeWater_0
