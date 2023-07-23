@@ -21,9 +21,10 @@ The setting process required to run this project is as follows.
 | Window |                                                                                              |
 
 ## Requirements
-| Software | Version |
-| -------- | ------- |
-| python   | 3.9.13  |
+| Software                | Version    |
+| ----------------------- | ---------- |
+| python                  | 3.9.13     |
+| Unity editor (optional) | 2021.3.1f1 |
 
 | Package       | Version |
 | ------------- | ------- |
