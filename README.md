@@ -12,7 +12,7 @@ The setting process required to run this project is as follows.
 1. Download interoceptive AI environment from our [google drive](https://drive.google.com/drive/folders/1OnsRKaeks3kpiVeBAEh47NpcbOHIqfW2?usp=sharing)
 2. Unzip environments with same folder of your python codes
 3. Install [ml-agents](https://github.com/Unity-Technologies/ml-agents)
-
+4. Follow [python_code_example.py](https://github.com/cocoanlab/interoceptive-ai-env/Example/python_code_example.py) code in [Example](https://github.com/cocoanlab/interoceptive-ai-env/Example)
 
 <!-- ### Detailed Installation Guide
 This is a more detailed step-by-step installation guide for EVAAA, written for users who don't have lots of experience with python dependencies, Github repositories, and/or Unity -- or in case you run into trouble with the installation.
