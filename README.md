@@ -9,10 +9,16 @@ See here for a more detailed installation guide.
 The setting process required to run this project is as follows.
 
 1. Clone this repository
-2. Download interoceptive AI environment from our [google drive](https://drive.google.com/drive/folders/1OnsRKaeks3kpiVeBAEh47NpcbOHIqfW2?usp=sharing)
+2. Download interoceptive AI environment from below environment link
 3. Unzip environment files in the Example folder of this repository
 4. Install [ml-agents](https://github.com/Unity-Technologies/ml-agents)
 5. Follow example python code ("python_code_example.py") in Example folder of this repository
+
+| OS     | Enviornment                                                                                  |
+| ------ | -------------------------------------------------------------------------------------------- |
+| Linux  | [Link](https://drive.google.com/drive/folders/1OnsRKaeks3kpiVeBAEh47NpcbOHIqfW2?usp=sharing) |
+| Mac    |                                                                                              |
+| Window |                                                                                              |
 
 ## Requirements
 | Software | Version |
