@@ -1,0 +1,127 @@
+code_settings:
+  env_name: two_resource
+  env_ver: 0.12.3.3
+  load_model: false
+  model_ckpt:
+  gpu: 0
+  write_tensorbaord_step: 1000
+  save_model_each_episodes: 20
+  experiment: train
+  model_type: dqn
+  seed: 252
+  # tag: debug -> for debugging and avoiding saving results
+  tag: Adjusted_RewardFunction_PondWtRock
+
+engine_configuration:
+  time_scale: 15
+  width: 100
+  height: 100
+  no_graphics: false
+
+environment_parameters:
+  common:
+    recordEnable: false
+    singleTrial: false
+    initRandomAgentPosition: true
+
+  resources:
+    numResourceFood: 50 # 50
+    numResourceWater: 0 # 50
+    numResourcePond: 1
+    resourceFoodValue: 3
+    resourceWaterValue: 3
+
+    IsRandomFoodPosition: true
+    IsRandomWaterPosition: true
+    IsRandomPondPosition: false
+
+    pondResourcePositionsX: -19
+    pondResourcePositionsY: -9.7
+    pondResourcePositionsZ: -14
+
+    minDistanceToPond: 50
+    randomPositionMaxTry: 100 
+    
+  fieldtemperature:
+    numberOfGridCubeX: 100
+    numberOfGridCubeZ: 100
+    sizeOfGridCubeX: 1
+    sizeOfGridCubeY: 5
+    sizeOfGridCubeZ: 1
+    positionOfGridCenterX: -25
+    positionOfGridCenterY: 0
+    positionOfGridCenterZ: -25
+
+    useObjectHotSpot: false
+    useRandomHotSpot: true
+
+    hotSpotCount: 1700
+    fieldDefaultTemp: -70
+    hotSpotTemp: 350 
+    heatMapMaxTemp: 40
+    heatMapMinTemp: -40
+    smoothingSigma: 5
+
+    dayNightSpeed: 0
+    dayTemperatureVariance: 0
+    nightTemperatureVariance: -20
+
+  action:
+    moveSpeed: 6
+    turnSpeed: 200
+    autoEat: 0
+    eatingDistance: 1
+
+  ev:
+    maxFoodLevel: 15
+    minFoodLevel: -15
+    changeFood_0: -0.02 #0.2
+    changeFoodLevelRate: 0.002
+    startFoodLevel: 0
+
+    maxWaterLevel: 15
+    minWaterLevel: -15
+    changeWater_0: -0.01 #0.2
+    changeWaterLevelRate: 0.002
+    startWaterLevel: 0
+
+    maxThermoLevel: 15
+    minThermoLevel: -15
+    changeBody_0: -0.000 #-0.001
+    thermoSensorChangeRate: 0.0 # 0.1
+    changeThermoLevelRate: 0.000
+    startThermoLevel: 0
+
+  visualSensor:
+    useVisual: true
+    visualHight: 64
+    visualWidth: 64
+
+  olfactorySensor:
+    useOlfactory: true
+    olfactorySensorLength: 100
+    olfactoryFeatureSize: 10
+
+  thermoSensor:
+    useThermo: true
+    thermoSensorChangeRate: 10
+    thermoSensorSize: 8
+
+  touchSensor:
+    useTouchObs: true
+
+## DQN parameter
+agent_parameter:
+  network: "network.q_network_dqn_touch"
+  n_episode: 10000
+  max_time_step: 300000
+  gamma: 0.95
+  train_start: 1000
+  learning_rate: 0.0001
+  epsilon: 1.0
+  epsilon_start: 0.8
+  epsilon_end: 0.1
+  exploration_steps: 209000
+  batch_size: 12
+  target_update_period: 5000
+  reward_shaping: 1
