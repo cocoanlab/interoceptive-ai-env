@@ -13,7 +13,7 @@ The setting process required to run this project is as follows.
 2. Unzip environments with same folder of your python codes
 3. Install [ml-agents](https://github.com/Unity-Technologies/ml-agents)
 
-### Detailed Installation Guide
+<!-- ### Detailed Installation Guide
 This is a more detailed step-by-step installation guide for EVAAA, written for users who don't have lots of experience with python dependencies, Github repositories, and/or Unity -- or in case you run into trouble with the installation.
 Here we provide instructions for the installation required for the project. Make sure to follow all the necessary commands, configurations, and any additional setup required.
 
@@ -37,7 +37,7 @@ c. Unity
 
 ### Step 4. Open at Unity Hub
 Editor version: 2021.3.1f1
-After all the packages are ready, then you can run EVAAA project at Unity. 
+After all the packages are ready, then you can run EVAAA project at Unity.  -->
 
 
 ## Manual Control 
