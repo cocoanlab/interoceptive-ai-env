@@ -9,7 +9,7 @@ See here for a more detailed installation guide.
 
 The setting process required to run this project is as follows.
 
-1. Download interoceptive AI environment from our [google drive](https://drive.google.com/drive/folders/1OnsRKaeks3kpiVeBAEh47NpcbOHIqfW2?usp=drive_link)
+1. Download interoceptive AI environment from our [google drive](https://drive.google.com/drive/folders/1OnsRKaeks3kpiVeBAEh47NpcbOHIqfW2?usp=sharing)
 2. Unzip environments with same folder of your python codes
 3. Install [ml-agents](https://github.com/Unity-Technologies/ml-agents)
 
