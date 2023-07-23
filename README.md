@@ -5,15 +5,13 @@ EVAAA will provide a mechanism to freely choose a goal across different surround
 ![agent](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/3ad778d8-38cd-4cb1-843b-9fa58947d6e3)
 
 ## Install and Setting
-See here for a more detailed installation guide, including information on Python/pip/conda and using the command line during installation.
+See here for a more detailed installation guide.
 
 The setting process required to run this project is as follows.
 
-1. Clone EVAAA repository.
-2. Install dependencies, which are the packages required for execution EVAAA, by running pip install -e EVAAA from the root folder.
-The required packages and each version: Python, Python packages
-3. Download the environment for your system
-4. Open at Unity Hub : Editor version “2021.3.1f1” should be installed.
+1. Download interoceptive AI environment from our [google drive](https://drive.google.com/drive/folders/1OnsRKaeks3kpiVeBAEh47NpcbOHIqfW2?usp=drive_link)
+2. Unzip environments with same folder of your python codes
+3. Install [ml-agents](https://github.com/Unity-Technologies/ml-agents)
 
 ### Detailed Installation Guide
 This is a more detailed step-by-step installation guide for EVAAA, written for users who don't have lots of experience with python dependencies, Github repositories, and/or Unity -- or in case you run into trouble with the installation.
@@ -48,14 +46,14 @@ When you run this project on Unity, it will proceed with an agent view (a first-
 
 If you launch the environment directly from the executable or through the `play.py` script it will launch in player mode. Here you can control the agent with the following:
 
-| Keyboard Key  | Action    |
-| --- | --- |
-| W   | move agent forwards |
-| S   | move agent backwards|
-| A   | turn agent left     |
-| D   | turn agent right    |
-| C   | switch camera       |
-| R   | reset environment   | -->
+| Keyboard Key | Action               |
+| ------------ | -------------------- |
+| W            | move agent forwards  |
+| S            | move agent backwards |
+| A            | turn agent left      |
+| D            | turn agent right     |
+| C            | switch camera        |
+| R            | reset environment    | --> |
 
 ## Unity Environment
 We have a dynamically changing environment, and there are 5 levels in total. 

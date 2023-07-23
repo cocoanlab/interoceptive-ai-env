@@ -54,7 +54,7 @@ Material:
     - _ReceiveShadows: 1
     - _SrcBlend: 5
     - _Surface: 1
-    - _UpNode: 0.9459914
+    - _UpNode: 1.0019943
     - _WorkflowMode: 1
     - _ZTest: 4
     - _ZWrite: 0
