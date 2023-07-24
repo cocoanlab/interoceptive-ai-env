@@ -14,11 +14,11 @@ The setting process required to run this project is as follows.
 4. Install [ml-agents](https://github.com/Unity-Technologies/ml-agents)
 5. Follow example python code ("python_code_example.py") in Example folder of this repository
 
-| OS     | Enviornment                                                                                  |
-| ------ | -------------------------------------------------------------------------------------------- |
-| Linux  | [Link](https://drive.google.com/drive/folders/1OnsRKaeks3kpiVeBAEh47NpcbOHIqfW2?usp=sharing) |
-| Mac    |                                                                                              |
-| Window |                                                                                              |
+| OS      | Enviornment                                                                                     |
+| ------- | ----------------------------------------------------------------------------------------------- |
+| Linux   | [Link](https://drive.google.com/drive/folders/1OnsRKaeks3kpiVeBAEh47NpcbOHIqfW2?usp=sharing)    |
+| Mac     | [Link](https://drive.google.com/drive/folders/1jKiPi0EFQbqylakLX4s5_1PZwB7C2M2R?usp=drive_link) |
+| Windows | [Link](https://drive.google.com/drive/folders/1c5kjrWbcoLT0gueNWgvvqwIqcCO7qOj1?usp=drive_link) |
 
 ## Requirements
 | Software                | Version    |
