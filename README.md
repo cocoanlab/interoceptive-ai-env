@@ -79,7 +79,7 @@ If you launch the environment directly from the executable or through the `play.
 We have a dynamically changing environment, and there are 5 levels in total. 
 
 ### Level 1. Basic setup: Food, water, and temperature.
-![level1](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/f4f1a2d1-921d-4be9-8c0b-d6d504cca877)
+![스크린샷 2023-07-24 오후 5 19 27](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/eaf54264-d8fc-4c0f-8e25-af61d43855a2)
 
 At level 1, the environment is simple, featuring only the fundamental resources, that is, food, water (i.e., a pond), and temperature
 - The food is organized into cubes and possesses the ability to undergo color changes over time.
@@ -89,7 +89,7 @@ At level 1, the environment is simple, featuring only the fundamental resources,
 
 
 ### Level 2. Obstacles.
-![level2](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/55a1948f-a47d-4c36-88ed-0552f7b695be)
+![스크린샷 2023-07-24 오후 5 19 08](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/50e57623-4c6d-4e35-b11f-c4bf676dbf1e)
 
 The agent needs to leverage the knowledge acquired from the previous level to successfully adapt to a more complex environmental setting. 
 At level 2, we adds natural objects, such as trees, rocks, and bushes, which act as obstacles that hinder the agent’s vision
