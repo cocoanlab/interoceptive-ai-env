@@ -2,7 +2,7 @@
 
 EVAAA will provide a mechanism to freely choose a goal across different surrounding conditions and keep a more stable reward function, which are the key to build and test autonomous and adaptive RL agents. We provide a 3D virtual environment platform that requires RL agents in the Unity environment. It is designed to facilitate testing RL agent.
 
-![agent](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/3ad778d8-38cd-4cb1-843b-9fa58947d6e3)
+![agent](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/9ccad81f-925b-4330-976e-495bdb4e8b8e)
 
 ## Install and Setting
 See here for a more detailed installation guide.
@@ -79,7 +79,7 @@ If you launch the environment directly from the executable or through the `play.
 We have a dynamically changing environment, and there are 5 levels in total. 
 
 ### Level 1. Basic setup: Food, water, and temperature.
-![스크린샷 2023-05-22 오전 11 17 51](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/bf056b30-339c-4064-bd7d-96968b743c62)
+![level1](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/f4f1a2d1-921d-4be9-8c0b-d6d504cca877)
 
 At level 1, the environment is simple, featuring only the fundamental resources, that is, food, water (i.e., a pond), and temperature
 - The food is organized into cubes and possesses the ability to undergo color changes over time.
@@ -89,20 +89,20 @@ At level 1, the environment is simple, featuring only the fundamental resources,
 
 
 ### Level 2. Obstacles.
-![image](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/befa3f25-bf09-4179-a678-7b8f30df8d82)
+![level2](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/55a1948f-a47d-4c36-88ed-0552f7b695be)
 
 The agent needs to leverage the knowledge acquired from the previous level to successfully adapt to a more complex environmental setting. 
 At level 2, we adds natural objects, such as trees, rocks, and bushes, which act as obstacles that hinder the agent’s vision
 
 ### Level 3. Day/night cycle.
-![dayandhignt](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/f41d31a3-2180-437d-9c29-478a4e5c6b37)
+![level3](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/22c63af0-41bb-43e5-963c-e248d3e8efb4)
 
 In level 3, we implemented the day/night cycle using a sun game object that rotates at a predefined degree over time.
 
 At night, the overall temperature is lower and the agent's vision is darker, so it receives less visual input. 
 
 ### Level 4. Weather changes.
-![weather](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/1bd12896-3bbe-4b4b-ad54-0ebe251f26e3)
+![level4](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/832dc75a-cb1b-44c2-9a54-218749524072)
 
 In level 4, we implemented the weather changes. We incorporated two weather variations into EVAAA: rain and snow, drawing inspiration from nature.
 
@@ -110,7 +110,7 @@ Weather options can be selected as a parameter in Unity itself, and can be appli
 You can also set temperature changes based on the weather, with rain or snow obstructing the agent's view. 
 
 ### Level 5. Four seasons.
-![season](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/d3bff940-96c9-4ce6-ad04-e5858dd7a95d)
+![level5](https://github.com/cocoanlab/interoceptive-ai-env/assets/119106107/70df5a43-826b-468a-b4df-e2e63d0551e4)
 
 In level 5, we combine all challenges from lower level environments, e.g., day/night cycle and weather changes, with seasonal variations– spring, summer, fall, and winter.
 Each season is characterized by a number of unique features with varying colors, which can disrupt the agent’s vision for navigating and detecting resources.
