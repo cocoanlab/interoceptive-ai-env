@@ -46,6 +46,8 @@ fieldtemperature:
   dayTemperatureVariance: 0
   nightTemperatureVariance: -20
 
+  resetTimer: 100 # Changing weather speed
+
 action:
   moveSpeed: 12
   turnSpeed: 800
