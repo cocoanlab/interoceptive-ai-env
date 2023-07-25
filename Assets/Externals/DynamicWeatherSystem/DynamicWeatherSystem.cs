@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.MLAgents;
+
 
 // public enum WeatherState { Change, Sun, Thunder, Mist, Rain, Snow }
 public enum WeatherState { Change, Rain, Snow, None }
@@ -19,6 +21,8 @@ public class DynamicWeatherSystem : MonoBehaviour
 
         public WeatherState weatherState;
         public WeatherData[] weatherData;
+        private EnvironmentParameters m_ResetParams;
+
 
         public void Awake()
         {
@@ -26,6 +30,9 @@ public class DynamicWeatherSystem : MonoBehaviour
                 RenderSettings.fog = true;
                 RenderSettings.fogMode = FogMode.ExponentialSquared;
                 RenderSettings.fogDensity = 0.0f;
+
+                m_ResetParams = Academy.Instance.EnvironmentParameters;
+                resetTimer = m_ResetParams.GetWithDefault("resetTimer", resetTimer);
         }
 
         public void Start()
