@@ -309,28 +309,34 @@ public class InteroceptiveAgent : Agent
                 {
                         playRecorder.GetComponent<CaptureScreenShot>().CaptureImage();
                 }
-                
+
                 this.agentPosition = this.transform.position;
                 this.agentRotation = this.transform.eulerAngles;
 
-                if(WeatherSystem.activeSelf == true)  //WeatherSystem.enabled == true
+                // Debug.Log(WeatherSystem.GetComponent<DynamicWeatherSystem>().weatherState);
+                if (WeatherSystem.activeSelf == true)  //WeatherSystem.enabled == true
                 {
-                        if (weatherState == WeatherState.Rain)
-                        {   
-                        olfactorySensorLength = 50f;
+                        if (WeatherSystem.GetComponent<DynamicWeatherSystem>().weatherState == WeatherState.Rain)
+                        {
+                                olfactorySensorLength = 50f;
                         }
 
-                        if (weatherState == WeatherState.Thunder)
-                        {   
-                        olfactorySensorLength = 30f;
+                        // if (weatherState == WeatherState.Thunder)
+                        // {   
+                        // olfactorySensorLength = 30f;
+                        // }
+
+                        if (WeatherSystem.GetComponent<DynamicWeatherSystem>().weatherState == WeatherState.Snow)
+                        {
+                                olfactorySensorLength = 20f;
                         }
 
-                        if (weatherState == WeatherState.Snow)
-                        {   
-                        olfactorySensorLength = 20f;
+                        if (WeatherSystem.GetComponent<DynamicWeatherSystem>().weatherState == WeatherState.None)
+                        {
+                                olfactorySensorLength = 100f;
                         }
-                        
-                } 
+
+                }
 
                 if (eatenResource)
                 {
@@ -369,13 +375,13 @@ public class InteroceptiveAgent : Agent
                 {
                         // ThermalChanging();
                         ThermalObserving();
+                        ThermoUpdate(changeBody_0, changeBody_1, changeBody_2, changeBody_3, changeBody_4);
+                        field.GetComponent<FieldThermoGrid>().SetDayNightTemperature();
                 }
 
                 if (this.useTouchObs)
                 {
                         TouchObserving();
-                        ThermoUpdate(changeBody_0, changeBody_1, changeBody_2, changeBody_3, changeBody_4);
-                        field.GetComponent<FieldThermoGrid>().SetDayNightTemperature();
                         // Debug.Log("Touch Obs: " + touchObservation);
                 }
 

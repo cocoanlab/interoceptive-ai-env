@@ -9,7 +9,7 @@ public class DayAndNight : MonoBehaviour
 {
         EnvironmentParameters m_ResetParams;
         // 밤 여부 판단
-        private bool isNight = false;
+        public bool isNight = false;
 
         [Header("Observations")]
         // 현실 세계에서 1초가 지났을 때 게임 세계에서 몇 초가 지나도록 할 것인지 설정하기 위한 변수
@@ -102,6 +102,7 @@ public class DayAndNight : MonoBehaviour
                                 RenderSettings.fogDensity = dayFogDensity;
                         }
                 }
+                // Debug.Log("isNight: " + isNight.ToString());
         }
 
         public bool GetIsNight()

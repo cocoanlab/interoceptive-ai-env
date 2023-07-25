@@ -310,7 +310,11 @@ public class FieldThermoGrid : MonoBehaviour
 
         public void SetDayNightTemperature()
         {
+                // Debug.Log("Field isNight: " + isNight.ToString());
+
                 bool currentIsNight = sun.GetIsNight();
+                // Debug.Log("Field currentIsNight: " + currentIsNight.ToString());
+
                 if (!isNight == currentIsNight)
                 {
                         for (int x = 0; x < numberOfGridCubeX; ++x)
@@ -327,7 +331,7 @@ public class FieldThermoGrid : MonoBehaviour
                                         }
                                 }
                         }
-
+                        // Debug.Log("isNight: " + isNight.ToString());
                         SetNormalizedAreaTemp();
                         heatMap.GetComponent<HeatMap>().EpisodeHeatMap();
                         isNight = currentIsNight;
