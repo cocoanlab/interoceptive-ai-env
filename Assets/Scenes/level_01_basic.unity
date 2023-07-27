@@ -27857,10 +27857,15 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8660486493476762504, guid: 248ca13a7c58b4da1a63e8547c21e00c,
+        type: 3}
+      propertyPath: m_text
+      value: Satiation
+      objectReference: {fileID: 0}
     - target: {fileID: 8660486493476762505, guid: 248ca13a7c58b4da1a63e8547c21e00c,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 11.4
+      value: -10.5
       objectReference: {fileID: 0}
     - target: {fileID: 8660486493476762505, guid: 248ca13a7c58b4da1a63e8547c21e00c,
         type: 3}
@@ -27886,6 +27891,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8660486493832831880, guid: 248ca13a7c58b4da1a63e8547c21e00c,
+        type: 3}
+      propertyPath: m_text
+      value: Thermal
+      objectReference: {fileID: 0}
+    - target: {fileID: 8660486493832831881, guid: 248ca13a7c58b4da1a63e8547c21e00c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -5.5
       objectReference: {fileID: 0}
     - target: {fileID: 8660486493832831882, guid: 248ca13a7c58b4da1a63e8547c21e00c,
         type: 3}
@@ -27961,6 +27976,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8660486494743269061, guid: 248ca13a7c58b4da1a63e8547c21e00c,
+        type: 3}
+      propertyPath: m_text
+      value: Hydration
+      objectReference: {fileID: 0}
+    - target: {fileID: 8660486494743269062, guid: 248ca13a7c58b4da1a63e8547c21e00c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -15.5
       objectReference: {fileID: 0}
     - target: {fileID: 8660486494743269063, guid: 248ca13a7c58b4da1a63e8547c21e00c,
         type: 3}

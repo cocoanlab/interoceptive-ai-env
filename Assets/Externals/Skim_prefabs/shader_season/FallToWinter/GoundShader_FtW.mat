@@ -94,7 +94,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _SmoothStrength: 1
-    - _UpNode: 0.58999974
+    - _UpNode: 0.14999999
     m_Colors:
     - _Color: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

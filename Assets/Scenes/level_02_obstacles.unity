@@ -34467,7 +34467,7 @@ PrefabInstance:
     - target: {fileID: 5331082244738282597, guid: 6f3704659ada5445c8dccfa232948820,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5331082244738282599, guid: 6f3704659ada5445c8dccfa232948820,
         type: 3}
@@ -34953,6 +34953,16 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8660486493476762504, guid: 248ca13a7c58b4da1a63e8547c21e00c,
+        type: 3}
+      propertyPath: m_text
+      value: Satiation
+      objectReference: {fileID: 0}
+    - target: {fileID: 8660486493476762505, guid: 248ca13a7c58b4da1a63e8547c21e00c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -10.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8660486493688177333, guid: 248ca13a7c58b4da1a63e8547c21e00c,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -34967,6 +34977,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8660486493832831880, guid: 248ca13a7c58b4da1a63e8547c21e00c,
+        type: 3}
+      propertyPath: m_text
+      value: Thermal
+      objectReference: {fileID: 0}
+    - target: {fileID: 8660486493832831881, guid: 248ca13a7c58b4da1a63e8547c21e00c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -5.5
       objectReference: {fileID: 0}
     - target: {fileID: 8660486493936534642, guid: 248ca13a7c58b4da1a63e8547c21e00c,
         type: 3}
@@ -35023,6 +35043,16 @@ PrefabInstance:
       propertyPath: agent
       value: 
       objectReference: {fileID: 114176228070079219}
+    - target: {fileID: 8660486494743269061, guid: 248ca13a7c58b4da1a63e8547c21e00c,
+        type: 3}
+      propertyPath: m_text
+      value: Hydration
+      objectReference: {fileID: 0}
+    - target: {fileID: 8660486494743269062, guid: 248ca13a7c58b4da1a63e8547c21e00c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -15.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8660486494956165673, guid: 248ca13a7c58b4da1a63e8547c21e00c,
         type: 3}
       propertyPath: cam

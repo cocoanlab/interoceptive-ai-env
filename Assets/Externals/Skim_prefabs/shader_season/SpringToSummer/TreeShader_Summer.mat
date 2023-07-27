@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TreeShader_FtW
+  m_Name: TreeShader_Summer
   m_Shader: {fileID: -6465566751694194690, guid: 9f931ab8c0e1e41a6b1eb3bd63d47c2d,
     type: 3}
   m_ValidKeywords:
@@ -55,7 +55,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha: 0.432
+    - _Alpha: 0.262
     - _AlphaClip: 1
     - _Blend: 0
     - _CastShadows: 1
@@ -75,8 +75,8 @@ Material:
     - _ZWriteControl: 0
     m_Colors:
     - _Color: {r: 0, g: 0, b: 0, a: 0}
-    - _FirstColor: {r: 0.6509434, g: 0.36935407, b: 0.17501779, a: 0}
-    - _SecondColor: {r: 1, g: 1, b: 1, a: 0}
+    - _FirstColor: {r: 0.15744035, g: 0.5471698, b: 0.27402607, a: 0}
+    - _SecondColor: {r: 0.28613237, g: 0.6792453, b: 0.27233893, a: 0}
     - _WinterColor: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &5642068244575954945
