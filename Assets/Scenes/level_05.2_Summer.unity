@@ -37793,6 +37793,11 @@ PrefabInstance:
       objectReference: {fileID: 79528128}
     - target: {fileID: 4806027653304860779, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
+      propertyPath: WeatherSystem
+      value: 
+      objectReference: {fileID: 1826095207}
+    - target: {fileID: 4806027653304860779, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
       propertyPath: changeWater_1
       value: 0
       objectReference: {fileID: 0}
