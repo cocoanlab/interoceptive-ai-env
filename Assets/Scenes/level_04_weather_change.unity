@@ -33927,7 +33927,7 @@ PrefabInstance:
     - target: {fileID: 426867827857983433, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: fieldDefaultTemp
-      value: 0
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 426867827857983433, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
@@ -33968,6 +33968,11 @@ PrefabInstance:
         type: 3}
       propertyPath: smoothingKernelSizeY
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 426867827857983433, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: nightTemperatureVariance
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 426867827857983433, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
@@ -34192,7 +34197,7 @@ PrefabInstance:
     - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: resources.Array.data[0].num
-      value: 50
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}

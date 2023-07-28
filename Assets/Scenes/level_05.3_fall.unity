@@ -42573,7 +42573,7 @@ PrefabInstance:
     - target: {fileID: 426867827857983433, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: hotSpotTemp
-      value: 20
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 426867827857983433, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
@@ -42598,7 +42598,7 @@ PrefabInstance:
     - target: {fileID: 426867827857983433, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: fieldDefaultTemp
-      value: 0
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 426867827857983433, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
@@ -42619,6 +42619,11 @@ PrefabInstance:
         type: 3}
       propertyPath: useRandomHotSpot
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 426867827857983433, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: nightTemperatureVariance
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 1345279974522910089, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
@@ -42660,6 +42665,11 @@ PrefabInstance:
       propertyPath: TakeActionsBetweenDecisions
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4805768801126511269, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: m_BrainParameters.VectorObservationSize
+      value: 29
+      objectReference: {fileID: 0}
     - target: {fileID: 4806027653304860779, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: sun
@@ -42684,6 +42694,21 @@ PrefabInstance:
         type: 3}
       propertyPath: changeHP
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4806027653304860779, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: moveSpeed
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4806027653304860779, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: turnSpeed
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 4806027653304860779, guid: 1e67812e2873e4900a1d0e7a776304c7,
+        type: 3}
+      propertyPath: useTouchObs
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4806027653304860779, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
@@ -42808,7 +42833,7 @@ PrefabInstance:
     - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: resources.Array.data[0].num
-      value: 50
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4839067235267387120, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
@@ -43354,6 +43379,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6020930168887161810, guid: 03d4bb41328a54bad92e6825603dd1f6,
+        type: 3}
+      propertyPath: daySpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6020930168887161810, guid: 03d4bb41328a54bad92e6825603dd1f6,
+        type: 3}
+      propertyPath: nightSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6020930168887161810, guid: 03d4bb41328a54bad92e6825603dd1f6,
         type: 3}
       propertyPath: dayNightSpeed
