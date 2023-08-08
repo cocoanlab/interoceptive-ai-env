@@ -148,6 +148,7 @@ public class InteroceptiveAgent : Agent
         public float maxHP = 100.0f;
         public float minHP = 0.0f;
         public float changeHP = 1.0f;
+        public float collisionHP = 0.5f;
         public bool checkHP;
         public float startHP = 100.0f;
 
@@ -637,6 +638,13 @@ public class InteroceptiveAgent : Agent
                 resourceLevels[3] -= changeHP * Time.fixedDeltaTime;
         }
 
+        // Colliding Objects
+        public void Collision()
+        {
+                resourceLevels[3] -= collisionHP * Time.fixedDeltaTime;
+        }
+
+
         public void SetResetParameters()
         {
                 singleTrial = System.Convert.ToBoolean(m_ResetParams.GetWithDefault("singleTrial", System.Convert.ToSingle(singleTrial)));
@@ -694,6 +702,7 @@ public class InteroceptiveAgent : Agent
                 maxHP = m_ResetParams.GetWithDefault("maxHP", maxHP);
                 minHP = m_ResetParams.GetWithDefault("minHP", minHP);
                 changeHP = m_ResetParams.GetWithDefault("changeHP", changeHP);
+                collisionHP = m_ResetParams.GetWithDefault("collisionHP", collisionHP);
                 startHP = m_ResetParams.GetWithDefault("startHP", startHP);
         }
 }

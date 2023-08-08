@@ -8309,6 +8309,18 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+--- !u!114 &705507996 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6020930168887161810, guid: 03d4bb41328a54bad92e6825603dd1f6,
+    type: 3}
+  m_PrefabInstance: {fileID: 6020930169324077390}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705507993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa42205c8b8f747ff8e7a6d58e76ae6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &742574042 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7992715529498131579, guid: 0cc0db2b14252644da9f1f74ed0c8f90,
@@ -8437,7 +8449,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!198 &782570910
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -20970,7 +20982,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -31505,7 +31517,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -31746,13 +31758,14 @@ GameObject:
   - component: {fileID: 1826095210}
   - component: {fileID: 1826095209}
   - component: {fileID: 1826095208}
+  - component: {fileID: 1826095212}
   m_Layer: 0
   m_Name: WeatherSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &1826095208
 Light:
   m_ObjectHideFlags: 0
@@ -31828,44 +31841,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   switchTimer: 0
-  resetTimer: 3
+  resetTimer: 10
   minLightIntensity: 0
   maxLightIntensity: 1
   audiosource: {fileID: 0}
   sunLight: {fileID: 0}
   windzone: {fileID: 0}
-  weatherState: 2
+  weatherState: 0
   weatherData:
-  - name: Sun
-    particleSystem: {fileID: 1637494395}
-    useAudio: 0
-    weatherAudio: {fileID: 0}
-    audioFadeInTimer: 0
-    lightIntensity: 0
-    lightDimTimer: 0
-    fogChangeSpeed: 0
-    fogColor: {r: 0, g: 0, b: 0, a: 0}
-    currentFogColor: {r: 0, g: 0, b: 0, a: 0}
-  - name: Thunder
-    particleSystem: {fileID: 782570910}
-    useAudio: 0
-    weatherAudio: {fileID: 0}
-    audioFadeInTimer: 0
-    lightIntensity: 0
-    lightDimTimer: 0
-    fogChangeSpeed: 0
-    fogColor: {r: 0, g: 0, b: 0, a: 0}
-    currentFogColor: {r: 0, g: 0, b: 0, a: 0}
-  - name: Mist
-    particleSystem: {fileID: 47380121}
-    useAudio: 0
-    weatherAudio: {fileID: 0}
-    audioFadeInTimer: 0
-    lightIntensity: 0
-    lightDimTimer: 0
-    fogChangeSpeed: 0
-    fogColor: {r: 0, g: 0, b: 0, a: 0}
-    currentFogColor: {r: 0, g: 0, b: 0, a: 0}
   - name: Rain
     particleSystem: {fileID: 1745825039}
     useAudio: 0
@@ -31878,6 +31861,16 @@ MonoBehaviour:
     currentFogColor: {r: 0, g: 0, b: 0, a: 0}
   - name: Snow
     particleSystem: {fileID: 1455634030}
+    useAudio: 0
+    weatherAudio: {fileID: 0}
+    audioFadeInTimer: 0
+    lightIntensity: 0
+    lightDimTimer: 0
+    fogChangeSpeed: 0
+    fogColor: {r: 0, g: 0, b: 0, a: 0}
+    currentFogColor: {r: 0, g: 0, b: 0, a: 0}
+  - name: None
+    particleSystem: {fileID: 0}
     useAudio: 0
     weatherAudio: {fileID: 0}
     audioFadeInTimer: 0
@@ -32002,6 +31995,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1826095212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826095207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!4 &1864952279 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4119340359363814916, guid: 431e05c5e2b18ba4fa6b3b0a6f687786,
@@ -33825,7 +33838,7 @@ PrefabInstance:
         type: 3}
       propertyPath: sun
       value: 
-      objectReference: {fileID: 6020930169324077391}
+      objectReference: {fileID: 705507996}
     - target: {fileID: 426867827857983433, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: sigmaX
@@ -34571,6 +34584,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6020930168887161810, guid: 03d4bb41328a54bad92e6825603dd1f6,
         type: 3}
+      propertyPath: daySpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6020930168887161810, guid: 03d4bb41328a54bad92e6825603dd1f6,
+        type: 3}
+      propertyPath: nightSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6020930168887161810, guid: 03d4bb41328a54bad92e6825603dd1f6,
+        type: 3}
       propertyPath: dayNightSpeed
       value: 0
       objectReference: {fileID: 0}
@@ -34646,18 +34669,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03d4bb41328a54bad92e6825603dd1f6, type: 3}
---- !u!114 &6020930169324077391 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6020930168887161810, guid: 03d4bb41328a54bad92e6825603dd1f6,
-    type: 3}
-  m_PrefabInstance: {fileID: 6020930169324077390}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 705507993}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa42205c8b8f747ff8e7a6d58e76ae6b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &6025078143172123048
 PrefabInstance:
   m_ObjectHideFlags: 0
