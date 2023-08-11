@@ -35597,7 +35597,7 @@ PrefabInstance:
     - target: {fileID: 4806027653304860779, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
       propertyPath: collisionHP
-      value: 5
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4806027653304860779, guid: 1e67812e2873e4900a1d0e7a776304c7,
         type: 3}
@@ -36005,10 +36005,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 1464820312563697}
-  Maxdistance: 5
   layermask:
     serializedVersion: 2
     m_Bits: 512
+  raysPerDirection: 20
+  maxDistance: 5
+  radialRange: 100
 --- !u!1001 &5331082243850555881
 PrefabInstance:
   m_ObjectHideFlags: 0
