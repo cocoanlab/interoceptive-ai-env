@@ -106,11 +106,10 @@ public class FieldThermoGrid : MonoBehaviour
         return fieldDefaultTemp;
 
     }
-    public void ApplyTemperatureAdjustment(float adjustedTemp)
+    public void ApplyTemperatureAdjustment(float adjustedTemperature)
     {
-        adjutableFieldTemp = adjustedTemp;
-        Debug.Log("Adjusted temperature: " + adjustedTemp);
-
+        Debug.Log("adjustedTemp: " + adjustedTemperature)
+        return adjustedTemperature
     }
 
     private void generateCube(Vector3 count, Vector3 position)

@@ -196,7 +196,7 @@ public class DynamicWeatherSystem : MonoBehaviour
         }
         else if (weatherState == WeatherState.None)
         {
-           fieldThermoGrid.GetFieldDefaultTemp();
+            fieldThermoGrid.GetFieldDefaultTemp();
             Debug.Log("None temperature calculated: " + fieldThermoGrid.GetFieldDefaultTemp());
         }
         // Apply the adjusted temperature to the field
