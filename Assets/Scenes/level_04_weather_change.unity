@@ -5231,11 +5231,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 58798937}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62e52046f3723477290cf7e38fa55e01, type: 3}
+  m_Script: {fileID: 11500000, guid: 01ca51c049c5347829eeb28cdd2c3435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   switchTimer: 0
-  resetTimer: 10
+  resetTimer: 5
   minLightIntensity: 0
   maxLightIntensity: 1
   audiosource: {fileID: 0}
@@ -5273,6 +5273,7 @@ MonoBehaviour:
     fogChangeSpeed: 0
     fogColor: {r: 0, g: 0, b: 0, a: 0}
     currentFogColor: {r: 0, g: 0, b: 0, a: 0}
+  fieldThermoGrid: {fileID: 4839067236102175386}
 --- !u!82 &58798941
 AudioSource:
   m_ObjectHideFlags: 0
@@ -30087,7 +30088,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4548470040626840, guid: c13335fbad29c4c459e2c93137e42312, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4548470040626840, guid: c13335fbad29c4c459e2c93137e42312, type: 3}
       propertyPath: m_LocalScale.x
@@ -34148,6 +34149,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4839067236102175384}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4839067236102175386 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 426867827857983433, guid: 1e67812e2873e4900a1d0e7a776304c7,
+    type: 3}
+  m_PrefabInstance: {fileID: 4839067236102175384}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819750871847635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 072808d9f724c468da3e865a926cd878, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4839067236102175392
 MonoBehaviour:
   m_ObjectHideFlags: 0
