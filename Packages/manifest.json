@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.github-glitchenzo.nugetforunity": "file:/Users/sungwoo320/Documents/InteroceptiveAI/NuGetForUnity-4.0.2/src/NuGetForUnity",
     "com.unity.ai.navigation": "1.1.5",
     "com.unity.collab-proxy": "2.2.0",
     "com.unity.ide.vscode": "1.2.5",
