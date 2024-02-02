@@ -25,6 +25,8 @@ public class InteroceptiveAgent : Agent
         protected float bodyTemp;
         protected GameObject[] agents;
 
+        public bool debugMode = false;
+
 
         [Header("Game Ojects for script")]
         public GameObject field;
@@ -157,8 +159,9 @@ public class InteroceptiveAgent : Agent
         //초기화 작업을 위해 한번 호출되는 메소드
         public override void Initialize()
         {
+                if (debugMode) { print("Initialization"); }
                 m_ResetParams = Academy.Instance.EnvironmentParameters;
-                SetResetParameters();
+                // SetResetParameters();
 
                 m_AgentRb = GetComponent<Rigidbody>();
                 // m_MyArea = field.GetComponent<Field>();
@@ -181,10 +184,10 @@ public class InteroceptiveAgent : Agent
                         this.thermoObservation = new float[8];
 
                         // Reset area
-                        field.GetComponent<FieldThermoGrid>().EpisodeAreaSmoothing();
+                        // field.GetComponent<FieldThermoGrid>().EpisodeAreaSmoothing();
 
                         // Reset heatmap
-                        heatMap.GetComponent<HeatMap>().EpisodeHeatMap();
+                        // heatMap.GetComponent<HeatMap>().EpisodeHeatMap();
                 }
                 if (this.useTouchObs)
                 {
@@ -197,7 +200,7 @@ public class InteroceptiveAgent : Agent
         //에피소드(학습단위)가 시작할때마다 호출
         public override void OnEpisodeBegin()
         {
-                print("New episode begin");
+                if (debugMode) { print("New episode begin"); }
 
                 // Reset agent
                 m_AgentRb.velocity = Vector3.zero;
@@ -265,7 +268,7 @@ public class InteroceptiveAgent : Agent
                         field.GetComponent<FieldThermoGrid>().EpisodeAreaSmoothing();
 
                         // Reset heatmap
-                        heatMap.GetComponent<HeatMap>().EpisodeHeatMap();
+                        heatMap.GetComponent<HeatMap>().EpisodeHeatMap(debugMode);
                 }
 
                 if (useTouchObs)

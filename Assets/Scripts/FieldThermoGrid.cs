@@ -218,26 +218,7 @@ public class FieldThermoGrid : MonoBehaviour
                         areaTemp = smoothedMatrix;
                 }
 
-                // // 지형 온도의 정규화를 구현함
-                // // 0~1의 값으로 적외선 카메라 화면처럼 HeatMap을 구현하기 위함임
-                // normalizedAreaTemp = new float[numberOfGridCubeX, numberOfGridCubeZ];
-                // for (int x = 0; x < numberOfGridCubeX; ++x)
-                // {
-                //         for (int z = 0; z < numberOfGridCubeZ; ++z)
-                //         {
-                //                 normalizedAreaTemp[x, z] = (areaTemp[x, z] - heatMapMinTemp) / (heatMapMaxTemp - heatMapMinTemp);
-                //         }
-                // }
                 SetNormalizedAreaTemp();
-
-                // For Debugging
-                // for (int x = 0; x < numberOfGridCubeX; ++x)
-                // {
-                //         for (int z = 0; z < numberOfGridCubeZ; ++z)
-                //         {
-                //                 Debug.Log("Temp" + x + "," + z + ": " + areaTemp[x, z]);
-                //         }
-                // }
 
         }
 
@@ -333,7 +314,8 @@ public class FieldThermoGrid : MonoBehaviour
                         }
                         // Debug.Log("isNight: " + isNight.ToString());
                         SetNormalizedAreaTemp();
-                        heatMap.GetComponent<HeatMap>().EpisodeHeatMap();
+                        // heatMap.GetComponent<HeatMap>().EpisodeHeatMap();
+                        agent.heatMap.GetComponent<HeatMap>().EpisodeHeatMap(agent.debugMode);
                         isNight = currentIsNight;
                 }
         }

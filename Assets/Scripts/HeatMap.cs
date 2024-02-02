@@ -38,11 +38,11 @@ public class HeatMap : MonoBehaviour
                 }
         }
 
-        public void EpisodeHeatMap()
+        public void EpisodeHeatMap(bool debugMode)
         {
 
                 ModifyPixels();
-                Debug.Log("Modified Heat map");
+                if (debugMode) { Debug.Log("Modified Heat map"); }
 
                 // count += 1;
                 // Debug.Log("Episode : " + count.ToString());
