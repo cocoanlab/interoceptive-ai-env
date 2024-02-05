@@ -60,7 +60,9 @@ Material:
     m_Floats:
     - _Alpha: 0.262
     - _AlphaClip: 1
+    - _AlphaToMask: 0
     - _Blend: 0
+    - _BlendModePreserveSpecular: 0
     - _CastShadows: 1
     - _ColorChange: 0
     - _Cull: 2
@@ -71,7 +73,7 @@ Material:
     - _ReceiveShadows: 1
     - _SrcBlend: 5
     - _Surface: 1
-    - _UpNode: 0.6799999
+    - _UpNode: 1.0199996
     - _WorkflowMode: 1
     - _ZTest: 4
     - _ZWrite: 0

@@ -2,7 +2,7 @@
     "files.exclude": {
         "**/.DS_Store": true,
         "**/.git": true,
-        "**/.gitignore":true,
+        "**/.gitignore": true,
         "**/.gitmodules": true,
         "**/*.booproj": true,
         "**/*.pidb": true,
@@ -51,5 +51,7 @@
         "ProjectSettings/": true,
         "temp/": true,
         "Temp/": true
-    }
+    },
+    "dotnet.preferCSharpExtension": true,
+    "dotnet.defaultSolution": "interoceptive-ai-env.sln"
 }
