@@ -21,15 +21,15 @@ The setting process required to run this project is as follows.
 | Windows | [Link](https://drive.google.com/drive/folders/1c5kjrWbcoLT0gueNWgvvqwIqcCO7qOj1?usp=drive_link) |
 
 ## Requirements
-| Software                | Version    |
-| ----------------------- | ---------- |
-| python                  | 3.9.13     |
-| Unity editor (optional) | 2021.3.1f1 |
+| Software                | Version     |
+| ----------------------- | ----------- |
+| python                  | 3.10.12     |
+| Unity editor (optional) | 2022.3.16f1 |
 
 | Package       | Version |
 | ------------- | ------- |
-| mlagents      | 0.28.0  |
-| mlagents-envs | 0.28.0  |
+| mlagents      | 1.0.0   |
+| mlagents-envs | 1.0.0   |
 
 
 
