@@ -161,7 +161,7 @@ public class InteroceptiveAgent : Agent
         {
                 if (debugMode) { print("Initialization"); }
                 m_ResetParams = Academy.Instance.EnvironmentParameters;
-                // SetResetParameters();
+                SetResetParameters();
 
                 m_AgentRb = GetComponent<Rigidbody>();
                 // m_MyArea = field.GetComponent<Field>();

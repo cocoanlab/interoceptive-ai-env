@@ -96,20 +96,27 @@ public class Field : MonoBehaviour
                                 }
                                 else
                                 {
-                                        ResourceProperty f = Instantiate(type, pondResourcePositions[i] + transform.position,
+                                        if (pondResourcePositions.Length == num)
+                                        {
+                                                ResourceProperty f = Instantiate(type, pondResourcePositions[i] + transform.position,
                                                                         Quaternion.Euler(new Vector3(0f, 0f, 0f)));
 
-                                        f.transform.parent = foodWater.transform;
-                                        // f.InitializeProperties();
-                                        // f.gameObject.transform.GetChild(0).GetComponent<ResourceProperty>().InitializeProperties();
+                                                f.transform.parent = foodWater.transform;
+                                                // f.InitializeProperties();
+                                                // f.gameObject.transform.GetChild(0).GetComponent<ResourceProperty>().InitializeProperties();
 
-                                        // Pond prefab does not contain collider, so olfactory sensor and eating area cannot detact it.
-                                        // Instead, PondWater, the child object of Pond, contains collider.
-                                        // So initializing resource properties of PondWater
-                                        ResourceProperty pondWater = f.gameObject.transform.GetChild(0).GetComponent<ResourceProperty>();
-                                        pondWater.InitializeProperties();
-                                        // pondWater.GetComponent<ResourceProperty>().InitializeProperties();
-                                        f.name = "Pond" + (i + 1).ToString();
+                                                // Pond prefab does not contain collider, so olfactory sensor and eating area cannot detact it.
+                                                // Instead, PondWater, the child object of Pond, contains collider.
+                                                // So initializing resource properties of PondWater
+                                                ResourceProperty pondWater = f.gameObject.transform.GetChild(0).GetComponent<ResourceProperty>();
+                                                pondWater.InitializeProperties();
+                                                // pondWater.GetComponent<ResourceProperty>().InitializeProperties();
+                                                f.name = "Pond" + (i + 1).ToString();
+                                        }
+                                        else
+                                        {
+                                                Debug.LogError($"Your Pond resource position list length {pondResourcePositions.Length} is not matched with number of water cubes {num}");
+                                        }
 
                                 }
                         }
@@ -157,13 +164,20 @@ public class Field : MonoBehaviour
                                 }
                                 else
                                 {
-                                        ResourceProperty f = Instantiate(type, foodResourcePositions[i] + transform.position,
+                                        if (foodResourcePositions.Length == num)
+                                        {
+                                                ResourceProperty f = Instantiate(type, foodResourcePositions[i] + transform.position,
                                                                         Quaternion.Euler(new Vector3(0f, 0f, 90f)));
 
-                                        f.transform.parent = foodWater.transform;
-                                        f.InitializeProperties();
+                                                f.transform.parent = foodWater.transform;
+                                                f.InitializeProperties();
 
-                                        f.name = "Food" + (i + 1).ToString();
+                                                f.name = "Food" + (i + 1).ToString();
+                                        }
+                                        else
+                                        {
+                                                Debug.LogError($"Your Food resource position list length {foodResourcePositions.Length} is not matched with number of water cubes {num}");
+                                        }
                                 }
 
                         }
@@ -210,12 +224,19 @@ public class Field : MonoBehaviour
                                 }
                                 else
                                 {
-                                        ResourceProperty f = Instantiate(type, waterResourcePositions[i] + transform.position,
+                                        if (waterResourcePositions.Length == num)
+                                        {
+                                                ResourceProperty f = Instantiate(type, waterResourcePositions[i] + transform.position,
                                                                         Quaternion.Euler(new Vector3(0f, 0f, 90f)));
 
-                                        f.transform.parent = foodWater.transform;
-                                        f.InitializeProperties();
-                                        f.name = "Water" + (i + 1).ToString();
+                                                f.transform.parent = foodWater.transform;
+                                                f.InitializeProperties();
+                                                f.name = "Water" + (i + 1).ToString();
+                                        }
+                                        else
+                                        {
+                                                Debug.LogError($"Your Water resource position list length {waterResourcePositions.Length} is not matched with number of water cubes {num}");
+                                        }
 
                                 }
                         }
