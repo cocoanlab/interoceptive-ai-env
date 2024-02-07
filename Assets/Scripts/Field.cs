@@ -1,5 +1,6 @@
 using UnityEngine;
 using Unity.MLAgents;
+using System.Collections.Generic;
 
 [System.Serializable]
 public class Resource
@@ -79,170 +80,89 @@ public class Field : MonoBehaviour
 
                 for (int i = 0; i < num; i++)
                 {
-                        // if (string.Equals(type.name, "Pond"))
+                        //Instantiate resource object, connecting parant object, and naming.
+                        ResourceProperty resourceObject;
                         if (type.gameObject.CompareTag("pond"))
                         {
-                                if (IsRandomPondPosition)
-                                {
-                                        ResourceProperty f = Instantiate(type, new Vector3(Random.Range(-range, range), 0f, Random.Range(-range, range)) + transform.position,
-                                        Quaternion.Euler(new Vector3(0f, 0f, 0f)));
-                                        f.transform.parent = foodWater.transform;
-                                        // f.InitializeProperties();
-                                        ResourceProperty pondWater = f.gameObject.transform.GetChild(0).GetComponent<ResourceProperty>();
-                                        pondWater.InitializeProperties();
+                                resourceObject = Instantiate(type, new Vector3(Random.Range(-range, range), 0f, Random.Range(-range, range)) + transform.position,
+                                                        Quaternion.Euler(new Vector3(0f, 0f, 0f)));
 
-                                        f.name = "Pond" + (i + 1).ToString();
-                                        pondResourcePositions[i] = f.transform.position;
-                                }
-                                else
-                                {
-                                        if (pondResourcePositions.Length == num)
-                                        {
-                                                ResourceProperty f = Instantiate(type, pondResourcePositions[i] + transform.position,
-                                                                        Quaternion.Euler(new Vector3(0f, 0f, 0f)));
+                                // Current Pond prefab does not contain collider, so olfactory sensor and eating area cannot detact it.
+                                // Instead, PondWater, the child object of Pond, contains collider, this is why initializing resource properties of pondWater isntead.
+                                ResourceProperty pondWater = resourceObject.gameObject.transform.GetChild(0).GetComponent<ResourceProperty>();
+                                pondWater.InitializeProperties();
+                        }
+                        else
+                        {
+                                resourceObject = Instantiate(type, new Vector3(Random.Range(-range, range), 1f, Random.Range(-range, range)) + transform.position,
+                                                        Quaternion.Euler(new Vector3(0f, Random.Range(0f, 360f), 90f)));
 
-                                                f.transform.parent = foodWater.transform;
-                                                // f.InitializeProperties();
-                                                // f.gameObject.transform.GetChild(0).GetComponent<ResourceProperty>().InitializeProperties();
-
-                                                // Pond prefab does not contain collider, so olfactory sensor and eating area cannot detact it.
-                                                // Instead, PondWater, the child object of Pond, contains collider.
-                                                // So initializing resource properties of PondWater
-                                                ResourceProperty pondWater = f.gameObject.transform.GetChild(0).GetComponent<ResourceProperty>();
-                                                pondWater.InitializeProperties();
-                                                // pondWater.GetComponent<ResourceProperty>().InitializeProperties();
-                                                f.name = "Pond" + (i + 1).ToString();
-                                        }
-                                        else
-                                        {
-                                                Debug.LogError($"Your Pond resource position list length {pondResourcePositions.Length} is not matched with number of water cubes {num}");
-                                        }
-
-                                }
+                                resourceObject.InitializeProperties();
                         }
 
-                        // else if (string.Equals(type.name, "Food"))
-                        else if (type.gameObject.CompareTag("food"))
-                        {
+                        resourceObject.transform.parent = foodWater.transform;
+                        resourceObject.name = type.gameObject.tag + (i + 1).ToString();
 
-                                if (IsRandomFoodPosition)
+                        //Setting for random or given position
+                        bool IsRandomPosition;
+                        if (type.gameObject.CompareTag("food") & IsRandomFoodPosition)
+                        { IsRandomPosition = true; }
+                        else if (type.gameObject.CompareTag("water") & IsRandomWaterPosition)
+                        { IsRandomPosition = true; }
+                        else if (type.gameObject.CompareTag("pond") & IsRandomPondPosition)
+                        { IsRandomPosition = true; }
+                        else { IsRandomPosition = false; }
+
+                        if (IsRandomPosition)
+                        {
+                                if (type.gameObject.CompareTag("pond"))
+                                { pondResourcePositions[i] = resourceObject.transform.position; }
+                                else
                                 {
+                                        // Check whether the random resource position is too close to the pond.
                                         bool tooCloseToPond = true;
                                         int tryCount = 0;
-                                        ResourceProperty f = Instantiate(type, new Vector3(Random.Range(-range, range), 1f, Random.Range(-range, range)) + transform.position,
-                                                                        Quaternion.Euler(new Vector3(0f, Random.Range(0f, 360f), 90f)));
-
                                         if (resources[2].num > 0)
                                         {
                                                 while (tooCloseToPond)
                                                 {
-                                                        float distanceToPond = Vector3.Distance(pondResourcePositions[0], f.transform.position);
+                                                        float distanceToPond = Vector3.Distance(pondResourcePositions[0], resourceObject.transform.position);
 
                                                         if (distanceToPond > minDistanceToPond)
-                                                        {
-                                                                tooCloseToPond = false;
-                                                        }
+                                                        { tooCloseToPond = false; }
                                                         else
                                                         {
-                                                                f.transform.position = new Vector3(Random.Range(-range, range), 1f, Random.Range(-range, range)) + transform.position;
+                                                                resourceObject.transform.position = new Vector3(Random.Range(-range, range), 1f, Random.Range(-range, range)) + transform.position;
                                                         }
 
+                                                        // If the random sampling takes too much try, just use the last random position to avoid infinite roop
                                                         tryCount += 1;
-
                                                         if (tryCount > randomPositionMaxTry)
                                                         {
+                                                                Debug.Log($"Your new resource object {resourceObject.name}'s position is too close to pond");
                                                                 break;
                                                         }
                                                 }
                                         }
-
-                                        f.transform.parent = foodWater.transform;
-                                        f.InitializeProperties();
-
-                                        f.name = "Food" + (i + 1).ToString();
-
                                 }
-                                else
-                                {
-                                        if (foodResourcePositions.Length == num)
-                                        {
-                                                ResourceProperty f = Instantiate(type, foodResourcePositions[i] + transform.position,
-                                                                        Quaternion.Euler(new Vector3(0f, 0f, 90f)));
-
-                                                f.transform.parent = foodWater.transform;
-                                                f.InitializeProperties();
-
-                                                f.name = "Food" + (i + 1).ToString();
-                                        }
-                                        else
-                                        {
-                                                Debug.LogError($"Your Food resource position list length {foodResourcePositions.Length} is not matched with number of water cubes {num}");
-                                        }
-                                }
-
                         }
-                        // else if (string.Equals(type.name, "Water"))
-                        else if (type.gameObject.CompareTag("water"))
+                        else
                         {
-                                if (IsRandomWaterPosition)
-                                {
-                                        // ResourceProperty f = Instantiate(type, new Vector3(Random.Range(-range, range), 1f, Random.Range(-range, range)) + transform.position,
-                                        // Quaternion.Euler(new Vector3(0f, Random.Range(0f, 360f), 90f)));
+                                Vector3[] resourcePosition = new Vector3[0];
+                                if (type.gameObject.CompareTag("food"))
+                                { resourcePosition = foodResourcePositions; }
+                                else if (type.gameObject.CompareTag("water"))
+                                { resourcePosition = waterResourcePositions; }
+                                else if (type.gameObject.CompareTag("pond"))
+                                { resourcePosition = pondResourcePositions; }
 
-                                        bool tooCloseToPond = true;
-                                        int tryCount = 0;
-                                        ResourceProperty f = Instantiate(type, new Vector3(Random.Range(-range, range), 1f, Random.Range(-range, range)) + transform.position,
-                                                                        Quaternion.Euler(new Vector3(0f, Random.Range(0f, 360f), 90f)));
-
-                                        if (resources[2].num > 0)
-                                        {
-                                                while (tooCloseToPond)
-                                                {
-                                                        float distanceToPond = Vector3.Distance(pondResourcePositions[0], f.transform.position);
-
-                                                        if (distanceToPond > minDistanceToPond)
-                                                        {
-                                                                tooCloseToPond = false;
-                                                        }
-                                                        else
-                                                        {
-                                                                f.transform.position = new Vector3(Random.Range(-range, range), 1f, Random.Range(-range, range)) + transform.position;
-                                                        }
-
-                                                        tryCount += 1;
-
-                                                        if (tryCount > randomPositionMaxTry)
-                                                        {
-                                                                break;
-                                                        }
-                                                }
-                                        }
-                                        f.transform.parent = foodWater.transform;
-                                        f.InitializeProperties();
-
-                                        f.name = "Water" + (i + 1).ToString();
-                                }
+                                if (resourcePosition.Length == num)
+                                { resourceObject.transform.position = resourcePosition[i] + transform.position; }
                                 else
                                 {
-                                        if (waterResourcePositions.Length == num)
-                                        {
-                                                ResourceProperty f = Instantiate(type, waterResourcePositions[i] + transform.position,
-                                                                        Quaternion.Euler(new Vector3(0f, 0f, 90f)));
-
-                                                f.transform.parent = foodWater.transform;
-                                                f.InitializeProperties();
-                                                f.name = "Water" + (i + 1).ToString();
-                                        }
-                                        else
-                                        {
-                                                Debug.LogError($"Your Water resource position list length {waterResourcePositions.Length} is not matched with number of water cubes {num}");
-                                        }
-
+                                        Debug.LogError($"Your {type.gameObject.tag} resource position list length {resourcePosition.Length} is not matched with number of {type.gameObject.tag} resources {num}");
                                 }
                         }
-
-
-
                 }
         }
         public void ResetResourcePosition(Collider resource)
